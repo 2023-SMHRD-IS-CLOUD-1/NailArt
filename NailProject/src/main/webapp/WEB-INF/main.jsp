@@ -15,7 +15,11 @@
 	<div>
 		<button id = "login">로그인</button>
 		<button id = "join">회원가입</button>
+<<<<<<< HEAD
 		<button id = "join">테스트2</button>
+=======
+		<button id = "join">테스트1</button>
+>>>>>>> branch 'master' of https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt.git
 	</div>
 	
 	<!-- Scripts -->
