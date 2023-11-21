@@ -29,9 +29,15 @@
       <dataSource type="POOLED">
       <!-- 프로젝트 시 property영역만 여러분들의 프로젝트 계정에 맞게 변경 -->
         <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+<<<<<<< HEAD
         <property name="url" value="jdbc:oracle:thin:@project-db-cgi.smhrd.com:1524:xe"/>
         <property name="username" value="cgi_23IS_CLOUD1_hacksim_2"/>
         <property name="password" value="smhrd2"/>
+=======
+        <property name="url" value="jdbc:oracle:thin:@Localhost:1521:xe"/>
+        <property name="username" value="service"/>
+        <property name="password" value="12345"/>
+>>>>>>> branch 'master' of https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt.git
       </dataSource>
     </environment>
   </environments>
