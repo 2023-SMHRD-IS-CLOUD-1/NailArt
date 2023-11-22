@@ -13,7 +13,7 @@ public class ShopDAO {
 	// 1) SqlSession을 가져올 수 있는 SqlSessionFactory 생성
 	private SqlSessionFactory factory = SqlSessionManager.getFactory();
 
-
+	
 
 
 
