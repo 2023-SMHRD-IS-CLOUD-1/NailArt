@@ -1,6 +1,7 @@
 package com.smhrd.controller;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -10,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.smhrd.model.DAO;
-import com.smhrd.model.MemberVO;
 
 public class EmailCheckService implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -25,20 +24,20 @@ public class EmailCheckService implements Command {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		MemberVO vo = new MemberVO();
-		vo.setEmail(email);
+		// MemberVO vo = new MemberVO();
+		// vo.setEmail(email);
 
-		DAO dao = new DAO();
+		// DAO dao = new DAO();
 
-		MemberVO res = dao.emailCheck(vo);
+		// MemberVO res = dao.emailCheck(vo);
 
-		if (res != null) {
-			// JSON형식으로 데이터를 돌려주자~~!!!
+		// if (res != null) {
+		// 	// JSON형식으로 데이터를 돌려주자~~!!!
 			// 1. 일일이 하나씩 문자열로 지정
-			out.print("{\"emailCheck\":\"true\"}");
-		}else {
-			out.print("{\"emailCheck\":\"false\"}");
-		}
+		// 	out.print("{\"emailCheck\":\"true\"}");
+		// }else {
+		// 	out.print("{\"emailCheck\":\"false\"}");
+		// }
 		return null;
 	}
 }
