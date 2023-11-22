@@ -1,2 +1,2 @@
 SELECT *
-  FROM all_tables;
+FROM MEMBER_INFO;
