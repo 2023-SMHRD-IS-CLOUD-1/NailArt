@@ -17,6 +17,7 @@
 		<button id = "join">회원가입</button>
 		<button id = "join">테스트1</button>
 		<button id = "join">테스트2</button>
+		<button id = "join">테스트3</button>
 	</div>
 	
 	<!-- Scripts -->
