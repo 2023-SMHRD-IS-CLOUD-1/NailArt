@@ -13,18 +13,12 @@
 <body>
 	<!-- Wrapper -->
 	<div>
-		<button id = "login">로그인</button>
-		<button id = "join">회원가입</button>
-		<button id = "join">테스트1</button>
-		<button id = "join">테스트2</button>
-		<button id = "join">테스트3</button>
-		<button id = "join">테스트4</button>
-		<button id = "join">테스트4</button>
-		<button id = "join">테스트4</button>
-		<button id = "join">테스트4</button>
-		<button id = "join">테스트4</button>
+		<button id="login">로그인</button>
+		<form action="Gojoin.do" method = "get">
+			<input type="submit" value="회원가입" id="join">
+		</form>
 	</div>
-	
+
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery.scrolly.min.js"></script>
@@ -36,7 +30,7 @@
 
 	<!-- 템플릿이 로드한 스크립트 아래에 자신의 코드를 작성하기. 불러오기 전에 함수를 실행하는 오류 발생할 수 잇음 -->
 	<script type="text/javascript">
-
+		
 	</script>
 
 </body>

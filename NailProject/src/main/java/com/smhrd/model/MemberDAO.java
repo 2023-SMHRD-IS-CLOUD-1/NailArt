@@ -17,14 +17,36 @@ public class MemberDAO {
 		// (1) 연결객체(sqlsession, connection)를 빌려오기
 		SqlSession sqlSession = factory.openSession(true); // true을 넣으면 자동으로 commit
 
+		System.out.println(vo.getMemId());
+		System.out.println(vo.getMemPw());
+		System.out.println(vo.getMemAddr1());
+		System.out.println(vo.getMemAddr2());
+		System.out.println(vo.getMemEmail());
+		System.out.println(vo.getMemName());
+		System.out.println(vo.getMemPhone());
+		System.out.println(vo.getMemType());
+
 		// (2) 연결객체를 사용해서 어떤 sql 구문을 실행
 		// ---> sql구문 : Mapper.xml파일 안에 있음
-		int row = sqlSession.insert("join", vo);
+		int row = sqlSession.insert("member_join", vo);
 
 		// (3) 연결객체 반납
 		sqlSession.close();
 
 		return row;
+	}
+	
+	public MemberVO selectId(MemberVO vo) {
+		SqlSession sqlSession = factory.openSession(true); // true을 넣으면 자동으로 commit
+		
+		//System.out.println("MeverDAO에서 입력 출력 : " +  vo.getMemId());
+		MemberVO mvo = sqlSession.selectOne("selectId", vo);
+
+		// System.out.println("MeverDAO에서 결과 출력 : " +  mvo.getMemId());
+		
+		sqlSession.close();
+
+		return mvo;
 	}
 
 	public MemberVO login(MemberVO vo) {

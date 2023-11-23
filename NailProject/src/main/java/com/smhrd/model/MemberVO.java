@@ -25,7 +25,7 @@ public class MemberVO {
     private String mem_addr2;
 
     // 회원 가입일 
-//    private Date joined_at;
+    private String joined_at;
 
     // 회원 구분 
     private String mem_type;
@@ -86,13 +86,13 @@ public class MemberVO {
         this.mem_addr2 = mem_addr2;
     }
 
-//    public Date getJoinedAt() {
-//        return joined_at;
-//    }
+    public String getJoinedAt() {
+        return joined_at;
+    }
 
-//    public void setJoinedAt(Date joined_at) {
-//        this.joined_at = joined_at;
-//    }
+    public void setJoinedAt(String joined_at) {
+        this.joined_at = joined_at;
+    }
 
     public String getMemType() {
         return mem_type;
@@ -112,7 +112,7 @@ public class MemberVO {
         this.mem_email = param.getMemEmail();
         this.mem_addr1 = param.getMemAddr1();
         this.mem_addr2 = param.getMemAddr2();
-//        this.joined_at = param.getJoinedAt();
+        this.joined_at = param.getJoinedAt();
         this.mem_type = param.getMemType();
     }
 }
