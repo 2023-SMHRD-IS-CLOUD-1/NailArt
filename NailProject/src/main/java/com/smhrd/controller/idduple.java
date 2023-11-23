@@ -22,7 +22,7 @@ public class idduple extends HttpServlet {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 	
 		String id = request.getParameter("id");		
-		//System.out.println("요청받은 데이터 >>" + id);
+		// System.out.println("요청받은 데이터 >>" + id);
 
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();

@@ -18,6 +18,18 @@
 			<input type="submit" value="회원가입" id="join">
 		</form>
 	</div>
+	
+	<form action="Login.do" method="get">
+      <button>회원아이디</button>
+      <input type ="text" name="mem_id">
+        <br>
+
+      <button>회원 비밀번호</button>
+      <input type ="text" name="mem_pw">
+        <br>
+        <input type ="submit" value = "로그인">
+        <input type ="reset">
+    </form>
 
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>

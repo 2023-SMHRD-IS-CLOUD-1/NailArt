@@ -47,7 +47,7 @@
         $("#id").on('click', () => {
             $.ajax({
                 url: "idduple",
-                data:'id=' + $('#mem_id').val(),
+                data: { id: $("#mem_id").val()},
 
                 success : function (res) {
                     console.log("요청성공");

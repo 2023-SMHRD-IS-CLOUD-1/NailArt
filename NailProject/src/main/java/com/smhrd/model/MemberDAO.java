@@ -39,35 +39,39 @@ public class MemberDAO {
 	public MemberVO selectId(MemberVO vo) {
 		SqlSession sqlSession = factory.openSession(true); // true을 넣으면 자동으로 commit
 		
+		System.out.println(vo.getMemId());
 		//System.out.println("MeverDAO에서 입력 출력 : " +  vo.getMemId());
 		MemberVO mvo = sqlSession.selectOne("selectId", vo);
 
 		// System.out.println("MeverDAO에서 결과 출력 : " +  mvo.getMemId());
-		
+		// System.out.println(mvo.getMemId());
 		sqlSession.close();
 
 		return mvo;
 	}
 
 	public MemberVO login(MemberVO vo) {
-		// (1) 연결객체(sqlsession, connection)를 빌려오기
-		SqlSession sqlSession = factory.openSession(true); // true을 넣으면 자동으로 commit
-			
-		// (2) 연결객체를 사용해서 어떤 sql 구문을 실행
-		// ---> sql구문 : Mapper.xml파일 안에 있음
-		
-		MemberVO mvo = sqlSession.selectOne("login", vo);
-		// select를 수행하고 나면 리턴타입 >> T
-		// 제네릭 기법
-		// 클래스 내부에서 사용하게 될 자료형을 외부에서 지정하는 방법
-		// 리턴타입이 Object였다면, 결과값을 강제 형변환 해줘야 하는데
-		// T 형식이기 때문에 다운캐스팅 할 필요가 없다.
-		
-		// (3) 연결객체 반납
-		sqlSession.close();
+	      // (1) 연결객체(sqlsession, connection)를 빌려오기
+	      SqlSession sqlSession = factory.openSession(true); // true을 넣으면 자동으로 commit
+	         
+	      // (2) 연결객체를 사용해서 어떤 sql 구문을 실행
+	      // ---> sql구문 : Mapper.xml파일 안에 있음
+	      
+	      System.out.println(vo.getMemId());
+	      System.out.println(vo.getMemPw());
+	      
+	      MemberVO mvo = sqlSession.selectOne("member_login", vo);
+	      // select를 수행하고 나면 리턴타입 >> T
+	      // 제네릭 기법
+	      // 클래스 내부에서 사용하게 될 자료형을 외부에서 지정하는 방법
+	      // 리턴타입이 Object였다면, 결과값을 강제 형변환 해줘야 하는데
+	      // T 형식이기 때문에 다운캐스팅 할 필요가 없다.
 
-		return mvo;
-	}
+	      // (3) 연결객체 반납
+	      sqlSession.close();
+
+	      return mvo;
+	   }
 	
 	public List<Object> selectAll() {
 		
