@@ -35,9 +35,9 @@ public class idduple extends HttpServlet {
 		MemberVO mvo = dao.selectId(vo);
 	
 		if(mvo != null) {
-			out.print("이미 존재하는 아이디입니다.");
+			out.print("false");
 		}else {
-			out.print("사용가능한 아이디입니다.");
+			out.print("true");
 		}
 	}
 

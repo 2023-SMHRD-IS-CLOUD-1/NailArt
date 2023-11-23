@@ -22,6 +22,14 @@ public class JoinService implements Command{
 		String mem_addr1 = request.getParameter("mem_addr1");
 		String mem_addr2 = request.getParameter("mem_addr2");
 		
+		System.out.println(mem_id);
+		System.out.println(mem_pw);
+		System.out.println(mem_name);
+		System.out.println(mem_phone);
+		System.out.println(mem_email);
+		System.out.println(mem_addr1);
+		System.out.println(mem_addr2);
+		
 		MemberVO vo = new MemberVO();
 		vo.setMemId(mem_id);
 		vo.setMemPw(mem_pw);
