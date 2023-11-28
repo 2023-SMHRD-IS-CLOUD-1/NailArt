@@ -45,7 +45,10 @@
   <mappers>
   <!-- mapper 파일 만들고  -->
     <mapper resource="com/smhrd/database/MemberMapper.xml"/>
+    <mapper resource="com/smhrd/database/ShopMapper.xml"/>
   </mappers>
+  
+  
 </configuration>
 
 

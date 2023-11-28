@@ -65,8 +65,8 @@
 					</div>
 					<span>or use your account</span>
 					<!--input-->
-					<input type="id" name="id" placeholder="ID"> <input
-						type="password" name="pw" placeholder="Password">
+					<input type="id" name="mem_id" placeholder="ID"> <input
+						type="password" name="mem_pw" placeholder="Password">
 					<button type="submit" class="form_btn">Sign In</button>
 
 				</form>

@@ -17,9 +17,8 @@ public class LoginService implements Command {
 
 		String mem_id = request.getParameter("mem_id");
 		String mem_pw = request.getParameter("mem_pw");
-
-		// System.out.println(mem_id);
-		// System.out.println(mem_pw);
+//		 System.out.println(mem_id);
+//		 System.out.println(mem_pw);
 
 		MemberVO vo = new MemberVO();
 		vo.setMemId(mem_id);
@@ -31,7 +30,6 @@ public class LoginService implements Command {
 		MemberDAO dao = new MemberDAO();
 
 		MemberVO mvo = dao.login(vo);
-
 		if (mvo != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("result", mvo);

@@ -17,6 +17,7 @@ import com.smhrd.controller.JoinService;
 import com.smhrd.controller.LoginService;
 import com.smhrd.controller.LogoutService;
 import com.smhrd.controller.SelectAllService;
+import com.smhrd.controller.ShopManagementService;
 import com.smhrd.controller.UpdateService;
 
 /**
@@ -41,6 +42,7 @@ public class FrontController extends HttpServlet {
 		map.put("SelectAll.do", new SelectAllService());
 		map.put("Update.do", new UpdateService());
 		map.put("EmailCheck.do", new EmailCheckService());
+		map.put("ShopManagement.do", new ShopManagementService());
 		
 		// service 메소드 안쪽의 코들ㄹ 고칠 필요가 없다.
 	
