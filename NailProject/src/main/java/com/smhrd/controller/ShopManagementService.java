@@ -23,9 +23,6 @@ public class ShopManagementService implements Command {
         String mem_id = ((MemberVO) session.getAttribute("result")).getMemId();
         
         System.out.println("로그인 세션 확인: " + mem_id);
-        
-        
-        
 
         // ShopDAO를 통해 가게 정보를 가져옴
         ShopVO vo = new ShopVO();
