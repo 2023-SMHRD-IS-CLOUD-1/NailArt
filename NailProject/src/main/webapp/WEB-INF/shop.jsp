@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,19 @@
 	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+<style>
+    #pagination {
+        margin: auto;
+    }
 
+    #pagination button {
+        background-color: white;
+        border-radius: 5px;
+        border-color: white;
+        width: 50px;
+        height: 30px;
+    }
+</style>
 <body>
 	<div class="container">
 		<div class="centered">
@@ -24,7 +36,7 @@
 				<div id="topBar">
 					<p>Nail</p>
 					<div id="menu">
-						<a href="Gomain.do">Home</a> <a href="Godesign.do">Design</a> <a href="ShopSelectAll.do">Shop</a>
+						<a href="index.html">Home</a> <a href="#">Design</a> <a href="#">Shop</a>
 					</div>
 					<a href="login.html"> <i class="fa fa-user" aria-hidden="true"></i>
 					</a>
@@ -78,8 +90,8 @@
 										<i class=" fa fa-clock-o"></i>
 										<div>
 											<!---->
-												<span>영업중</span>
-											
+											<span>영업중</span>
+
 										</div>
 										<div>
 											<span>${shop.getOpenTime()}:00 ~</span>
@@ -94,11 +106,120 @@
 
 					</ol>
 				</div>
+				<div id="pagination">
+					<button onclick="firstPage()"><<</button>
+					<button onclick="prevPage()"><</button>
 
+					<c:forEach var="page" begin="1"  end="${totalPages}">
+						<button onclick="gotoPage(${page})">${page}</button>
+					</c:forEach>
 
-				<button id="scrollTopButton">위로</button>
-			</div>
-			<script>
+					<button onclick="nextPage()">></button>
+					<button onclick="lastPage()">>></button>
+					<span id="currentPage">1</span>
+				</div>
+
+				<script>
+			    const shops = document.getElementById('shop');
+			    const currentPageElement = document.getElementById('currentPage');
+			    let currentPage = 1;
+			    const itemsPerPage = 5;  
+			    const totalPages = Math.ceil(shops.children.length / itemsPerPage);
+			    
+			    function updatePageButtons() {
+			        const pagination = document.getElementById('pagination');
+			        pagination.innerHTML = '';
+			        
+			        const prevButton = document.createElement('button');
+			        prevButton.textContent = '<';
+			        prevButton.onclick = function () {
+			            prevPage();
+			        };
+			        pagination.appendChild(prevButton);
+
+			        const startPage = Math.max(1, currentPage );
+			        const endPage = Math.min(totalPages, startPage + 4);
+
+			        for (let page = startPage; page <= endPage; page++) {
+			            const button = document.createElement('button');
+			            button.textContent = page;
+			            button.onclick = function () {
+			                gotoPage(page);
+			            };
+
+			            if (page === currentPage) {
+			                button.classList.add('active');
+			            }
+
+			            pagination.appendChild(button);			        
+			        }
+			    
+			    const nextButton = document.createElement('button');
+		        nextButton.textContent = '>';
+		        nextButton.onclick = function () {
+		            nextPage();
+		        };
+		        pagination.appendChild(nextButton);
+		        }
+			    
+			    function showPage(page) {
+			        const start = (page) * itemsPerPage;
+			        const end = start + itemsPerPage;
+			
+			        // 모든 아이템을 숨김
+			        for (let i = 0; i < shops.children.length; i++) {
+			            shops.children[i].style.display = 'none';
+			        }
+			
+			        // 현재 페이지에 해당하는 아이템만 표시
+			        for (let i = start; i < end; i++) {
+			            if (shops.children[i]) {
+			                shops.children[i].style.display = 'block';
+			            }
+			        }
+			
+			        currentPageElement.textContent = page;
+			        updatePageButtons();
+			    }
+			
+			    function prevPage() {
+			        if (currentPage > 1) {
+			            currentPage -= 5;
+			            if (currentPage < 1) {
+			                currentPage = 1;
+			            }
+			            showPage(currentPage);
+			        }
+			    }
+			
+			    function nextPage() {
+			        if (currentPage < Math.ceil(shops.children.length / itemsPerPage)) {
+			            currentPage += 5;
+			            if (currentPage > totalPages) {
+			                currentPage = totalPages;
+			            }
+			            showPage(currentPage);
+			        }
+			    }
+			    function gotoPage(selectedPage) {
+			        currentPage = parseInt(selectedPage);
+			        showPage(currentPage);
+			    }
+			    
+			    function firstPage() {
+			        currentPage = 1;
+			        showPage(currentPage);
+			    }
+
+			    function lastPage() {
+			        currentPage = totalPages;
+			        showPage(currentPage);
+			    }
+			    
+			    showPage(currentPage);
+			</script>
+
+				<script>
 				function navigateToPage(event) {
 					const mem_id = event.currentTarget.id;
 					
