@@ -321,39 +321,8 @@ body {
 	background-color: rgb(255, 191, 191);
 }
 
-#designerPlus {
-	position: absolute;
-	top: 15px;
-	right: 15px;
-}
 
-.designerItem {
-	position: relative;
-	margin-bottom: 50px;
-}
 
-.buttonContainer {
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-.addImageButton {
-	margin-right: 5px;
-}
-
-.imageContainer {
-	display: flex;
-	overflow-x: auto;
-}
-
-.designImage {
-	width: 200px;
-	height: 200px;
-	margin-right: 5px;
-	cursor: pointer;
-	margin-top: 20px;
-}
 
 #introductionText {
 	width: 100%;
@@ -417,4 +386,21 @@ button:hover {
 
 #top .form {
 	width: 97%;
+}
+.designerButton{
+	display: inline-block;
+	position: absolute;
+	right: 5px;
+}
+.designer{
+	margin-bottom: 40px;
+}
+
+#designerPlus {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+span{
+	font-size: 20px;
 }

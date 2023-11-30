@@ -10,5 +10,9 @@
 		WHERE MEM_ID = #{mem_id}
 	</select>
 
-
+	<select id="shopSelectAll"	
+		resultType="com.smhrd.model.ShopVO">
+		SELECT *
+		FROM shop_info
+	</select>
 </mapper>

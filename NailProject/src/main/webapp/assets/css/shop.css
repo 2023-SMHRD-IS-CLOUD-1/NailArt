@@ -1,15 +1,8 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
 
-@font-face {
-    font-family: 'EASTARJET-Medium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/EASTARJET-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-}
 
 body {
-    font-family: 'Dancing Script', cursive;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     color: #0c0c0c;
     width: 100%;
     max-width: 480px;
@@ -45,7 +38,7 @@ body {
     z-index: 100;
     overflow: hidden;
     padding: 10px 2px 1px 2px;
-    background-color: #f0f0f0;
+    background-color: rgb(255, 191, 191);
 }
 
 #bottom {
@@ -54,7 +47,7 @@ body {
     overflow-y: auto;
     width: 100%;
     max-width: 480px;
-    background-color: #f0f0f0;
+    background-color: rgb(255, 191, 191);
     border: none;
     display: flex;
     flex-wrap: wrap;
@@ -212,7 +205,7 @@ input[type="text"]:focus {
     max-width: 480px;
     height: auto;
     width: 100%;
-    background-color: #f0f0f0;
+    background-color: rgb(255, 191, 191);
     padding: 2px;
 }
 
@@ -226,7 +219,7 @@ input[type="text"]:focus {
     height: auto;
     padding: 5px;
     margin-top: 0px;
-    background-color: #f0f0f0;
+    background-color: rgb(255, 191, 191);
 }
 
 /*각 가게*/

@@ -13,7 +13,7 @@
 <!-- 카카오맵 -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f4e8fa4b54164e23551ce19f4755a2ce&libraries=services"></script>
-	
+
 <!-- 풀캘린더 -->
 <link
 	href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css'
@@ -70,6 +70,21 @@
 					<div id="designerList" class="form">
 						<h2>디자이너</h2>
 						<hr class="hrpink">
+						<c:forEach var="staff" items="${staffList}">
+							<div class="designer">
+								<div style="height: 40px">
+									<span> ${staff.getStaffName()} </span>
+									<div class="designerButton">
+										<button class="addImageButton">이미지 추가</button>
+										<button class="deleteButton" id="${staff.getStaffSeq()}">디자이너
+											삭제</button>
+									</div>
+								</div>
+								
+								★
+								<hr class="hrpink">
+							</div>
+						</c:forEach>
 						<button id="designerPlus">디자이너 추가</button>
 					</div>
 					<div id="appointmentBox" class="form">
@@ -94,6 +109,7 @@
 						<hr class="hrpink">
 						<div id="map" style="width: 100%; height: 350px;"></div>
 
+
 					</div>
 
 				</div>
@@ -111,6 +127,71 @@
 			var mapbox = document.getElementById("mapbox");
 			var thumbnail = document.getElementById("thumbnail")
 			var thumbnailInput = document.getElementById("thumbnailInput");
+			var deleteButtons = document.getElementsByClassName("deleteButton");
+
+			
+			// 디자이너 추가 코드
+
+			designerPlus.onclick = function () {
+			    var designerName = prompt("디자이너 이름을 입력하세요");
+
+			    if (designerName) {
+			        // 사용자가 이름을 입력하고 확인을 누르면 AJAX를 이용해 서버로 전송
+			        addDesignerToDatabase(designerName);
+			    }
+			};
+
+			function addDesignerToDatabase(designerName) {
+			    // AJAX를 이용한 서버로의 요청
+			    $.ajax({
+			        type: "POST",
+			        url: "AddDesigner.do", // 서블릿 매핑 이름
+			        data: {
+			            designerName: designerName
+			            // 여기에 다른 필요한 데이터도 추가 가능
+			        },
+			        success: function (response) {
+			            // 서버에서의 응답에 따른 처리
+			            console.log("디자이너 추가 성공:", response);
+			            // 추가적으로 화면 갱신 등을 수행할 수 있음
+			        },
+			        error: function (error) {
+			            // 오류 발생 시 처리
+			            console.error("디자이너 추가 실패:", error);
+			        }
+			    });
+			}
+			
+			// 디자이너 삭제 코드
+			for (var i = 0; i < deleteButtons.length; i++) {
+   				deleteButtons[i].onclick = function () {
+			    var staff_seq = this.id; // 삭제 버튼이 속한 디자이너 div의 id
+			    $.ajax({
+			        type: "POST",
+			        url: "DeleteDesigner.do", // 서블릿 매핑 이름
+			        data: {
+			        	staff_seq: staff_seq // 디자이너의 고유한 seq를 서버로 전송
+			            // 여기에 다른 필요한 데이터도 추가 가능
+			        },
+			        success: function (response) {
+			            // 서버에서의 응답에 따른 처리
+			            console.log("디자이너 삭제 성공:", response);
+			            // 추가적으로 화면 갱신 등을 수행할 수 있음
+			            location.reload(); // 또는 비동기 방식으로 화면을 업데이트하는 함수 호출
+			        },
+			        error: function (error) {
+			            // 오류 발생 시 처리
+			            console.error("디자이너 삭제 실패:", error);
+			        }
+			    });
+			};
+			}
+			
+			
+
+			
+			
+			
 
 			// 썸네일 사진 업로드
 
@@ -139,86 +220,6 @@
 
 
 
-
-
-
-
-			designerPlus.onclick = function () {
-				var div = document.createElement("div");
-				div.className = "designerItem";
-				div.innerHTML = "designer";
-				div.id = "designer";
-
-				
-
-				var buttonContainer = document.createElement("div");
-				buttonContainer.className = "buttonContainer";
-
-				var addButton = document.createElement("button");
-				addButton.className = "addImageButton";
-				addButton.innerHTML = "이미지 추가";
-
-
-
-				// 파일 입력란 생성
-				var fileInput = document.createElement("input");
-				fileInput.type = "file";
-				fileInput.accept = "image/*"; // 이미지 파일만 허용
-				fileInput.style.display = "none"; // 파일 입력란 숨기기
-				buttonContainer.appendChild(fileInput);
-
-				addButton.onclick = function () {
-					fileInput.click();
-				};
-
-				// 파일 입력 이벤트 처리
-				fileInput.addEventListener("change", function (event) {
-					var files = event.target.files;
-
-					for (var i = 0; i < files.length; i++) {
-						var designImage = document.createElement("img");
-						designImage.className = "designImage";
-						designImage.src = URL.createObjectURL(files[i]);
-						designImage.onclick = function () {
-							alert("이미지를 클릭했습니다.");
-						};
-
-						imageContainer.appendChild(designImage);
-					}
-
-					// 파일 입력란을 비워서 동일한 파일을 다시 업로드할 수 있게 합니다.
-					event.target.value = null;
-				});
-
-				var deleteButton = document.createElement("button");
-				deleteButton.className = "deleteButton";
-				deleteButton.innerHTML = "디자이너 삭제";
-				deleteButton.onclick = function () {
-					deleteDesigner(div.id);
-				};
-
-
-
-
-
-				var imageContainer = document.createElement("div");
-				imageContainer.className = "imageContainer";
-
-				buttonContainer.appendChild(addButton);
-				buttonContainer.appendChild(deleteButton);
-
-				div.appendChild(buttonContainer);
-				div.appendChild(imageContainer);
-				designerList.appendChild(div);
-
-				// "디자이너 추가" 버튼 클릭 시 hr 추가
-				var hr = document.createElement("hr");
-				// hr 요소에 스타일 적용
-				hr.style.border = "0";
-				hr.style.height = "1px";
-				hr.style.background = "rgb(255,191,191)"; // 여기에 원하는 색상을 지정합니다.
-				designerList.appendChild(hr);
-			};
 
 			function deleteDesigner(designerId) {
 				var designerDiv = document.getElementById(designerId);

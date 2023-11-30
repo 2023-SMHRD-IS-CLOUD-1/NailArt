@@ -1,3 +1,6 @@
+<%@page import="com.smhrd.model.ShopDAO"%>
+<%@page import="com.smhrd.model.ShopVO"%>
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -13,22 +16,7 @@
 <!-- 카카오맵 -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f4e8fa4b54164e23551ce19f4755a2ce&libraries=services"></script>
-
-<!-- 풀캘린더 -->
-<link
-	href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css'
-	rel='stylesheet' />
-<link
-	href='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.8.0/main.min.css'
-	rel='stylesheet' />
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.8.0/main.min.js'></script>
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+	
 <!-- pretendard 폰트 -->
 <link rel="stylesheet" as="style" crossorigin
 	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
@@ -38,6 +26,30 @@
 </head>
 
 <body>
+	<%
+        // 파라미터에서 가게 ID 추출
+        String mem_id = request.getParameter("mem_id");
+	 	//System.out.println(storeName); //--> shopName이름을 가진 녀석의 밸류값
+	 	
+        // 가게 ID를 사용하여 데이터베이스에서 가게 정보 조회
+        ShopVO vo = new ShopVO();
+        vo.setMemId(mem_id);
+        ShopDAO shopDAO = new ShopDAO();
+        ShopVO shopInfo = shopDAO.getShopInfo(vo);
+
+        if (shopInfo != null) {
+        	session.setAttribute("shopInfo", shopInfo);
+			System.out.println("가게 정보 가져오기 성공");
+			System.out.println(shopInfo.getShopName());
+		} else {
+			System.out.println("가게 정보 가져오기 실패");
+
+		}
+        
+        
+    %>
+
+
 	<div class="container">
 		<div class="centered">
 			<div id="top">
@@ -45,8 +57,8 @@
 				<div id="topBar">
 					<p>Nail</p>
 					<div id="menu">
-						<a href="index.html">Home</a> <a href="#">Design</a> <a
-							href="shop.html">Shop</a>
+						<a href="Gomain.do">Home</a> <a href="Godesign.do">Design</a> <a
+							href="ShopSelectAll.do">Shop</a>
 					</div>
 					<a href="login.html"> <i class="fa fa-user" aria-hidden="true"></i>
 					</a>
@@ -70,7 +82,14 @@
 					<div id="designerList" class="form">
 						<h2>디자이너</h2>
 						<hr class="hrpink">
-						<button id="designerPlus">디자이너 추가</button>
+						<c:forEach var="staff" items="${staffList}">
+							<div class="designer">
+								<div style="height: 40px">
+									<span> ${staff.getStaffName()} </span>
+								</div>
+								<hr class="hrpink">
+							</div>
+						</c:forEach>
 					</div>
 					<div id="appointmentBox" class="form">
 						<h2>예약</h2>
@@ -104,7 +123,6 @@
 		</div>
 		<script>
 
-			var designerPlus = document.getElementById("designerPlus");
 			var designerList = document.getElementById("designerList");
 			var appointmentBox = document.getElementById("appointmentBox");
 			var reviewList = document.getElementById("reviewList");
@@ -141,84 +159,6 @@
 
 
 
-
-
-			designerPlus.onclick = function () {
-				var div = document.createElement("div");
-				div.className = "designerItem";
-				div.innerHTML = "designer";
-				div.id = "designer";
-
-				
-
-				var buttonContainer = document.createElement("div");
-				buttonContainer.className = "buttonContainer";
-
-				var addButton = document.createElement("button");
-				addButton.className = "addImageButton";
-				addButton.innerHTML = "이미지 추가";
-
-
-
-				// 파일 입력란 생성
-				var fileInput = document.createElement("input");
-				fileInput.type = "file";
-				fileInput.accept = "image/*"; // 이미지 파일만 허용
-				fileInput.style.display = "none"; // 파일 입력란 숨기기
-				buttonContainer.appendChild(fileInput);
-
-				addButton.onclick = function () {
-					fileInput.click();
-				};
-
-				// 파일 입력 이벤트 처리
-				fileInput.addEventListener("change", function (event) {
-					var files = event.target.files;
-
-					for (var i = 0; i < files.length; i++) {
-						var designImage = document.createElement("img");
-						designImage.className = "designImage";
-						designImage.src = URL.createObjectURL(files[i]);
-						designImage.onclick = function () {
-							alert("이미지를 클릭했습니다.");
-						};
-
-						imageContainer.appendChild(designImage);
-					}
-
-					// 파일 입력란을 비워서 동일한 파일을 다시 업로드할 수 있게 합니다.
-					event.target.value = null;
-				});
-
-				var deleteButton = document.createElement("button");
-				deleteButton.className = "deleteButton";
-				deleteButton.innerHTML = "디자이너 삭제";
-				deleteButton.onclick = function () {
-					deleteDesigner(div.id);
-				};
-
-
-
-
-
-				var imageContainer = document.createElement("div");
-				imageContainer.className = "imageContainer";
-
-				buttonContainer.appendChild(addButton);
-				buttonContainer.appendChild(deleteButton);
-
-				div.appendChild(buttonContainer);
-				div.appendChild(imageContainer);
-				designerList.appendChild(div);
-
-				// "디자이너 추가" 버튼 클릭 시 hr 추가
-				var hr = document.createElement("hr");
-				// hr 요소에 스타일 적용
-				hr.style.border = "0";
-				hr.style.height = "1px";
-				hr.style.background = "rgb(255,191,191)"; // 여기에 원하는 색상을 지정합니다.
-				designerList.appendChild(hr);
-			};
 
 			function deleteDesigner(designerId) {
 				var designerDiv = document.getElementById(designerId);
@@ -262,58 +202,6 @@
 
 
 			/////////////////////////////////////////스케쥴표//////////////////////////////////////////////////
-
-			document.addEventListener('DOMContentLoaded', function () {
-				var calendarEl = document.getElementById('calendar');
-
-				var calendar = new FullCalendar.Calendar(calendarEl, {
-					timeZone: 'UTC',
-					initialView: 'resourceTimelineDay',
-					aspectRatio: 1.5,
-					headerToolbar: {
-						left: 'prev,next',
-						center: 'title',
-						right: 'resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth'
-					},
-
-					editable: true,
-					resourceAreaHeaderContent: '디자이너',
-					schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
-					resources: [
-						{ "id": "a", "title": "디자이너 A" },
-						{ "id": "b", "title": "디자이너 B", "eventColor": "green" },
-					],
-					events: [
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T10:00:00", "end": "2023-11-24T11:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T11:00:00", "end": "2023-11-24T12:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T12:00:00", "end": "2023-11-24T13:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T13:00:00", "end": "2023-11-24T14:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T14:00:00", "end": "2023-11-24T15:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T15:00:00", "end": "2023-11-24T16:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T16:00:00", "end": "2023-11-24T17:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T17:00:00", "end": "2023-11-24T18:00:00" },
-
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T10:00:00", "end": "2023-11-24T11:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T11:00:00", "end": "2023-11-24T12:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T12:00:00", "end": "2023-11-24T13:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T13:00:00", "end": "2023-11-24T14:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T14:00:00", "end": "2023-11-24T15:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T15:00:00", "end": "2023-11-24T16:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T16:00:00", "end": "2023-11-24T17:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T17:00:00", "end": "2023-11-24T18:00:00" },
-
-					],
-					// businessHours: {
-					//     startTime: '10:00',
-					//     endTime: '18:00'
-					// },
-					slotMinTime: '10:00',
-					slotMaxTime: '18:00',
-					locale: 'ko'
-				});
-
-				calendar.render();
-			});
 			/////////////////////////////////////////스케쥴표//////////////////////////////////////////////////
 
 

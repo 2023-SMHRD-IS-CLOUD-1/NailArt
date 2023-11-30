@@ -29,8 +29,19 @@ public class ShopVO {
 
     // 회원 아이디 
     private String mem_id;
+    
+    private String shop_addr1;
 
-    public Double getShopSeq() {
+   
+	public String getShop_addr1() {
+		return shop_addr1;
+	}
+
+	public void setShop_addr1(String shop_addr1) {
+		this.shop_addr1 = shop_addr1;
+	}
+
+	public Double getShopSeq() {
         return shop_seq;
     }
 
@@ -114,5 +125,6 @@ public class ShopVO {
         this.close_time = param.getCloseTime();
         this.shop_status = param.getShopStatus();
         this.mem_id = param.getMemId();
+        this.shop_addr1 = param.getShop_addr1();
     }
 }

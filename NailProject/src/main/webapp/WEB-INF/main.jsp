@@ -64,13 +64,13 @@
 						<!-- 상단바 글씨 -->
 						<ul class="navbar-nav  mx-auto ">
 							<li class="nav-item active">
-								<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+								<a class="nav-link" href="Gomain.do">Home <span class="sr-only">(current)</span></a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="Godesign.do">Design</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="shop.html">Shop</a>
+								<a class="nav-link" href="ShopSelectAll.do">Shop</a>
 							</li>
 						</ul>
 

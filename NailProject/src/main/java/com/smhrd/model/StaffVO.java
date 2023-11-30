@@ -1,5 +1,7 @@
 package com.smhrd.model;
 
+import java.sql.Date;
+
 // 가게 직원 
 public class StaffVO {
 
@@ -13,9 +15,19 @@ public class StaffVO {
     private String mem_id;
 
     // 채용 일자 
-//    private Date hired_at;
+    private Date hired_at;
+    
+    private String staff_name;
 
-    public Double getStaffSeq() {
+    public String getStaffName() {
+		return staff_name;
+	}
+
+	public void setStaffName(String staff_name) {
+		this.staff_name = staff_name;
+	}
+
+	public Double getStaffSeq() {
         return staff_seq;
     }
 
@@ -39,13 +51,13 @@ public class StaffVO {
         this.mem_id = mem_id;
     }
 
-//    public Date getHiredAt() {
-//        return hired_at;
-//    }
+    public Date getHiredAt() {
+        return hired_at;
+    }
 
-//    public void setHiredAt(Date hired_at) {
-//        this.hired_at = hired_at;
-//    }
+    public void setHiredAt(Date hired_at) {
+        this.hired_at = hired_at;
+    }
 
     // staff_info 모델 복사
     public void CopyData(StaffVO param)
@@ -53,6 +65,7 @@ public class StaffVO {
         this.staff_seq = param.getStaffSeq();
         this.shop_seq = param.getShopSeq();
         this.mem_id = param.getMemId();
-//        this.hired_at = param.getHiredAt();
+        this.hired_at = param.getHiredAt();
+        this.staff_name = param.getStaffName();
     }
 }
