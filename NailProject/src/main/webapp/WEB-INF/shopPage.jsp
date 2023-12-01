@@ -13,6 +13,194 @@
 <link rel="stylesheet" href="assets/css/shopPage.css" />
 <link href="css/font-awesome.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 리뷰페이지 별모양 링크-->
+<style type="text/css">
+@import
+	url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+@import
+	url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap")
+	;
+	
+	
+.rate {
+   display: inline-block;
+   border: 0;
+   margin-right: 15px;
+}
+
+
+
+.rate>input {
+   display: none;
+
+}
+
+.rate>label {
+   float: right;
+   color: #ddd
+}
+
+.rate>label:before {
+   display: inline-block;
+   font-size: 1.1rem;
+   padding: .3rem .2rem;
+   margin: 0;
+   cursor: pointer;
+   font-family: FontAwesome;
+   content: "\f005 ";
+}
+
+/* Zero stars rating */
+.rate>label:last-child:before {
+   content: "\f006 ";
+   /* empty star outline */
+}
+
+
+.rate .half:before {
+   content: "\f089 ";
+   position: absolute;
+   padding-right: 0;
+}
+
+.rate input:checked~label,
+.rate label:hover,
+.rate label:hover~label {
+   color: #f73c32 !important;
+}
+
+.rate input:checked+.rate label:hover,
+.rate input input:checked~label:hover,
+.rate input:checked~.rate label:hover~label,
+.rate label:hover~input:checked~label {
+   color: #f73c32 !important;
+}
+
+.left-align {
+   text-align: left;
+}
+
+
+/* 여기까지가 별점 */
+
+.container table_layout {
+   width: 100%;
+   /* 테이블 폭을 100%로 설정하여 부모 컨테이너에 맞춤 */
+   /* border-collapse: collapse;*/
+}
+
+
+
+
+
+.review_tr {
+   text-align: left;
+}
+
+#sig1 {
+   background-color: darksalmon;
+   right: 20px;
+   top: 50%;
+   transform: translateY(-50%);
+   /*background-color: #4CAF50;*/
+   color: white;
+   border: none;
+   padding: 5px 10px;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: background-color 0.3s;
+}
+
+.re_td {
+   width: 50%;
+}
+
+
+.no_outline_btn {
+   background-color: white;
+   border: none;
+   align-items: flex-end;
+}
+
+#star1 {
+   height: 30px;
+   align-items: center;
+
+
+}
+
+
+#pitc {
+
+   width: 150px;
+   height: 200px;
+}
+
+#revi {
+   width: 230px;
+   height: 200px;
+
+}
+
+/* 사진첨부 부분*/
+
+.real-upload {
+   display: none;
+}
+
+.upload {
+   align-items: center;
+   width: 78px;
+   height: 36px;
+   background-color: #F3B5BC;
+
+}
+
+
+/* 이미지 출력*/
+li {
+   list-style: none;
+}
+
+img {
+   width: 150px;
+   height: 200px;
+}
+
+.real-upload {
+   display: none;
+}
+
+.upload {
+   width: 100px;
+   height: 30px;
+   background-color: white;
+   margin-left: 0px;
+}
+
+.image-preview {
+   width: 150px;
+   height: 200px;
+   background-color: antiquewhite;
+   display: flex;
+   padding-inline-start: 0px;
+   margin-left: 0px;
+}
+
+.image-preview img {
+   width: 100%;
+   padding-inline-start: 0px;
+
+}
+	
+	
+	
+	
+</style>
+
+
 <!-- 카카오맵 -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f4e8fa4b54164e23551ce19f4755a2ce&libraries=services"></script>
@@ -53,113 +241,252 @@
 
 
 
-			<div id="top">
-				<!-- 상단바 -->
-				<div id="topBar">
-					<p>Nail</p>
-					<div id="menu">
-						<a href="Gomain.do">Home</a> <a href="God	esign.do">Design</a> <a
-							href="ShopSelectAll.do">Shop</a>
-					</div>
-					<a href="login.html"> <i class="fa fa-user" aria-hidden="true"></i>
-					</a>
-				</div>
-				<hr class="hrwhite">
-
-				<div>
-					<div id="thumbnailBox" class="form">
-						<input type="file" id="thumbnailInput" accept="image/*"
-							style="display: none;"> <img id="thumbnail"
-							src="https://png.pngtree.com/png-vector/20190215/ourmid/pngtree-vector-question-mark-icon-png-image_515448.jpg"
-							alt="">
-						<h2>${shopInfo != null ? shopInfo.getShopName() : '가게 정보 없음'}</h2>
-					</div>
-
-					<div id="menu" class="form">
-						<a onclick="showHome()">홈</a> <a onclick="showDesignerList()">스타일리스트</a>
-						<a onclick="showAppointmentBox()">예약</a> <a
-							onclick="showReviewList()">리뷰</a> <a onclick="showMap()">지도</a>
-					</div>
-					<div id="designerList" class="form">
-						<h2>디자이너</h2>
-						<hr class="hrpink">
-						<c:forEach var="staff" items="${staffList}">
-							<div class="designer">
-								<div style="height: 40px">
-									<span> ${staff.getStaffName()} </span>
-								</div>
-								<hr class="hrpink">
-							</div>
-						</c:forEach>
-					</div>
-					<div id="appointmentBox" class="form">
-						<h2>예약</h2>
-						<hr class="hrpink">
-						<div id="appointment">
-
-							<!-- 모달창 -->
-							<div class="appointment_content">
-								<div style="position: relative; margin-bottom: 7px;">
-								<label style="font-size: 20px">디자이너 선택:</label> <select id="designerSelect">
-									<option value="선택하세요">선택하세요</option>
-									<c:forEach var="staff" items="${staffList}">
-										<option value="${staff.getStaffSeq()}">${staff.getStaffName()}</option>
-									</c:forEach>
-								</select>
-								</div>
-								<div id="calendar-container"></div>
-								<br> <label>오전</label> <br>
-								<div class="time-buttons">
-									<button onclick="selectTime('09:00')" data-time="09:00">09시</button>
-									<button onclick="selectTime('10:00')" data-time="10:00">10시</button>
-									<button onclick="selectTime('11:00')" data-time="11:00">11시</button>
-									<button onclick="selectTime('12:00')" data-time="12:00">12시</button>
-									</div>
-									<br> <label>오후</label> <br>
-									<div class="time-buttons">
-									<button onclick="selectTime('13:00')" data-time="13:00">01시</button>
-									<button onclick="selectTime('14:00')" data-time="14:00">02시</button>
-									<button onclick="selectTime('15:00')" data-time="15:00">03시</button>
-									<button onclick="selectTime('16:00')" data-time="16:00">04시</button>
-									<br>
-									<br>
-									<button onclick="selectTime('17:00')" data-time="17:00">05시</button>
-								</div>
-								<br>
-								<button type="button" onclick="submitReservation()">예약
-									신청하기</button>
-							</div>
-
-
-							<!-- 모달창 끝 -->
-						</div>
-
-
-						<script defer
-							src='https://static.cloudflareinsights.com/beacon.min.js'
-							data-cf-beacon='{"token": "dc4641f860664c6e824b093274f50291"}'></script>
-					</div>
-					<div id="reviewList" class="form">
-						<h2>리뷰</h2>
-						<hr class="hrpink">
-						<div class="form review">
-							서비스 너무 최고였어요!
-							<button class="reviewCommentbtn">답글 달기</button>
-						</div>
-					</div>
-					<div id="mapbox" class="form">
-						<h2>지도</h2>
-						<hr class="hrpink">
-						<div id="map" style="width: 100%; height: 350px;"></div>
-
-					</div>
-
-				</div>
-
-
-				<button id="scrollTopButton">위로</button>
+	<div id="top">
+		<!-- 상단바 -->
+		<div id="topBar">
+			<p>Nail</p>
+			<div id="menu">
+				<a href="Gomain.do">Home</a> <a href="God	esign.do">Design</a> <a
+					href="ShopSelectAll.do">Shop</a>
 			</div>
-			<script>
+			<a href="login.html"> <i class="fa fa-user" aria-hidden="true"></i>
+			</a>
+		</div>
+		<hr class="hrwhite">
+
+		<div>
+			<div id="thumbnailBox" class="form">
+				<input type="file" id="thumbnailInput" accept="image/*"
+					style="display: none;"> <img id="thumbnail"
+					src="https://png.pngtree.com/png-vector/20190215/ourmid/pngtree-vector-question-mark-icon-png-image_515448.jpg"
+					alt="">
+				<h2>${shopInfo != null ? shopInfo.getShopName() : '가게 정보 없음'}</h2>
+			</div>
+
+			<div id="menu" class="form">
+				<a onclick="showHome()">홈</a> <a onclick="showDesignerList()">스타일리스트</a>
+				<a onclick="showAppointmentBox()">예약</a> <a
+					onclick="showReviewList()">리뷰</a> <a onclick="showMap()">지도</a>
+			</div>
+			<div id="designerList" class="form">
+				<h2>디자이너</h2>
+				<hr class="hrpink">
+				<c:forEach var="staff" items="${staffList}">
+					<div class="designer">
+						<div style="height: 40px">
+							<span> ${staff.getStaffName()} </span>
+						</div>
+
+						<div id="nailInfoContainer_${staff.getStaffSeq()}"
+							onload="showDesignerList()"></div>
+						<hr class="hrpink">
+					</div>
+				</c:forEach>
+			</div>
+			<div id="appointmentBox" class="form">
+				<h2>예약</h2>
+				<hr class="hrpink">
+				<div id="appointment">
+
+					<!-- 모달창 -->
+					<div class="appointment_content">
+						<div style="position: relative; margin-bottom: 7px;">
+							<label style="font-size: 20px">디자이너 선택:</label> <select
+								id="designerSelect">
+								<option value="선택하세요">선택하세요</option>
+								<c:forEach var="staff" items="${staffList}">
+									<option value="${staff.getStaffSeq()}">${staff.getStaffName()}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div id="calendar-container"></div>
+						<br> <label>오전</label> <br>
+						<div class="time-buttons">
+							<button onclick="selectTime('09:00')" data-time="09:00">09시</button>
+							<button onclick="selectTime('10:00')" data-time="10:00">10시</button>
+							<button onclick="selectTime('11:00')" data-time="11:00">11시</button>
+							<button onclick="selectTime('12:00')" data-time="12:00">12시</button>
+						</div>
+						<br> <label>오후</label> <br>
+						<div class="time-buttons">
+							<button onclick="selectTime('13:00')" data-time="13:00">01시</button>
+							<button onclick="selectTime('14:00')" data-time="14:00">02시</button>
+							<button onclick="selectTime('15:00')" data-time="15:00">03시</button>
+							<button onclick="selectTime('16:00')" data-time="16:00">04시</button>
+							<br> <br>
+							<button onclick="selectTime('17:00')" data-time="17:00">05시</button>
+						</div>
+						<br>
+						<button type="button" onclick="submitReservation()">예약
+							신청하기</button>
+					</div>
+
+
+					<!-- 모달창 끝 -->
+				</div>
+
+
+				<script defer
+					src='https://static.cloudflareinsights.com/beacon.min.js'
+					data-cf-beacon='{"token": "dc4641f860664c6e824b093274f50291"}'></script>
+			</div>
+			<div id="reviewList" class="form">
+				<h2>리뷰</h2>
+				<hr class="hrpink">
+				<div class="form review">
+					서비스 너무 최고였어요!
+					<button class="reviewCommentbtn">답글 달기</button>
+				</div>
+
+
+
+				<!-- 23.11.30~12.01 리뷰폼 -->
+				<div class='table_layout'>
+					<form action="Review" method="post" enctype="multipart/form-data">
+						<table border="0">
+							<tr class='review_tr'>
+								<td class='re_td' colspan="2">
+									<button class='no_outline_btn'>디자이너 선택</button> <select>
+										<option>김씨</option>
+										<option>이씨</option>
+										<option>정씨</option>
+								</select>
+									<button class='no_outline_btn'>네일이름</button> <select>
+										<option>김씨</option>
+										<option>이씨</option>sss
+										<option>정씨</option>
+								</select>
+								</td>
+							</tr>
+							<tr class='review_tr'>
+								<td>
+									<button class='no_outline_btn' id='star1'>별점</button>
+								</td>
+
+								<td class="left-align">
+									<fieldset class="rate"
+										style="position: relative; width: 142px; border: 0px;">
+
+										<input type="radio" id="rating10" name="rating" value="10">
+										<label for="rating10" title="5점"></label> <input type="radio"
+											id="rating9" name="rating" value="9"> <label
+											class="half" for="rating9" title="4.5점"></label> <input
+											type="radio" id="rating8" name="rating" value="8"> <label
+											for="rating8" title="4점"></label> <input type="radio"
+											id="rating7" name="rating" value="7"> <label
+											class="half" for="rating7" title="3.5점"></label> <input
+											type="radio" id="rating6" name="rating" value="6"> <label
+											for="rating6" title="3점"></label> <input type="radio"
+											id="rating5" name="rating" value="5"> <label
+											class="half" for="rating5" title="2.5점"></label> <input
+											type="radio" id="rating4" name="rating" value="4"> <label
+											for="rating4" title="2점"></label> <input type="radio"
+											id="rating3" name="rating" value="3"> <label
+											class="half" for="rating3" title="1.5점"></label> <input
+											type="radio" id="rating2" name="rating" value="2"> <label
+											for="rating2" title="1점"></label> <input type="radio"
+											id="rating1" name="rating" value="1"> <label
+											class="half" for="rating1" title="0.5점"></label>
+
+									</fieldset>
+								</td>
+
+							</tr>
+							<tr class='review_tr'>
+								<td>
+									<button class='upload' style="width: 78px">사진첨부</button>
+								</td>
+								<td>
+									<button class='no_outline_btn'>리뷰작성</button>
+								</td>
+
+							</tr>
+							<tr>
+								<td><input type="file" class="real-upload" accept="image/*"
+									required multiple>
+									<ul class="image-preview" style="padding: 0px;"></ul> <script>
+                                     function getImageFiles(e) {
+                                          const uploadFiles = [];
+                                          const files = e.currentTarget.files;
+                                          const imagePreview = document.querySelector('.image-preview');
+                                          const docFrag = new DocumentFragment();
+
+                                      if ([...files].length >= 7) {
+                                         alert('이미지는 최대 6개 까지 업로드가 가능합니다.');
+                                           return;
+                                       }
+
+                                       // 파일 타입 검사
+                                       [...files].forEach(file => {
+                                      if (!file.type.match("image/.*")) {
+                                           alert('이미지 파일만 업로드가 가능합니다.');
+                                           return
+                                      }
+
+                                         // 파일 갯수 검사
+                                         if ([...files].length < 7) {
+                                           uploadFiles.push(file);
+                                           const reader = new FileReader();
+                                           reader.onload = (e) => {
+                                          const preview = createElement(e, file);
+                                          imagePreview.appendChild(preview);
+                                           };
+                                           reader.readAsDataURL(file);
+                                         }
+                                        });
+                                     }
+
+                                     function createElement(e, file) {
+                                          const li = document.createElement('li');
+                                          const img = document.createElement('img');
+                                        img.setAttribute('src', e.target.result);   
+                                          img.setAttribute('data-file', file.name);
+                                          li.appendChild(img);
+
+                                          return li;
+                                     }
+
+                                        const realUpload = document.querySelector('.real-upload');
+                                           const upload = document.querySelector('.upload');
+   
+                                        upload.addEventListener('click', () => realUpload.click());
+
+                                           realUpload.addEventListener('change', getImageFiles);
+                                      </script></td>
+								<td><input type="text" name="review" id="revi"></td>
+							</tr>
+
+							<tr align="center">
+								<td colspan="2"><input id="sig1" type="submit" value="등록하기">
+								</td>
+							</tr>
+						</table>
+					</form>
+
+
+
+
+
+
+
+
+
+
+				</div>
+			</div>
+
+			<div id="mapbox" class="form">
+				<h2>지도</h2>
+				<hr class="hrpink">
+				<div id="map" style="width: 100%; height: 350px;"></div>
+			</div>
+
+
+
+
+			<button id="scrollTopButton">위로</button>
+		</div>
+		<script>
 
 			var designerList = document.getElementById("designerList");
 			var appointmentBox = document.getElementById("appointmentBox");
@@ -346,18 +673,8 @@
 				window.scrollTo({ top: 0, behavior: 'smooth' }); // 맨 위로 부드럽게 스크롤
 			});
 
-			function handleImageChange(event) {
-				const file = event.target.files[0];
-				const reader = new FileReader();
+			
 
-				reader.onload = function (e) {
-					const imgSrc = e.target.result;
-					const handImg = document.getElementById('handImg');
-					handImg.innerHTML = `<img src="${imgSrc}" alt="Uploaded Image">`;
-				};
-
-				reader.readAsDataURL(file);
-			}
 		</script>
 </body>
 
