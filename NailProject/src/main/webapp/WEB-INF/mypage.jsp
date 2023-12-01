@@ -75,10 +75,11 @@
             </div>
         </div>
 
-        <!--회원정보수정, 가게등록 버튼-->
+        <!--회원정보수정, 가게등록 태그-->
         <div class="buttons">
             <button id="editButton"> > 회원정보 수정</button>
-            <button id="storeButton"> > 가게등록</button>
+            <a id="storeButton" href="GoshopReg.do"> > 가게등록</a>
+            <!--등록했으면 가게관리페이지로 이동-->
         </div>
 
         <!--회원 정보 수정-->

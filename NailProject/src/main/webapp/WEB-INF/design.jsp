@@ -166,7 +166,7 @@
 		                url: 'getStaffInfoAll.do',
 		                data: {data: $("option:selected", this).attr("id")},
 		                // 이게 써야 실행될 때가 있고 안 써야 실행될 때가 있음. 왜 인지 모름 위에 똑같은 코드에서는 써야 실행됨 ㅂㄷㅂㄷ
-		                //dataType : "json",
+		                dataType : "json",
 		                success: (res) => {
 		                	console.log("success");
 		                	console.log(res.length);

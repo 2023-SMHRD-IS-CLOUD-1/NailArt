@@ -48,9 +48,9 @@
 	<select id="member_emailCheck"
 		parameterType="com.smhrd.model.MemberVO"
 		resultType="com.smhrd.model.MemberVO">
-		SELECT MEM_ID
+		SELECT *
 		FROM MEMBER_INFO
-		WHERE MEM_ID = #{mem_id}
+		WHERE MEM_EMAIL = #{mem_email}
 	</select>
 
 	<select id="member_update"
