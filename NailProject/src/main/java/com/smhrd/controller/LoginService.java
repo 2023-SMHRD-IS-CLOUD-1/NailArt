@@ -37,6 +37,7 @@ public class LoginService implements Command {
 			System.out.println(mvo.getMemId());
 		} else {
 			System.out.println("로그인 실패");
+			return "redirect:/Gosign.do";
 
 		}
 
