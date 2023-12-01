@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.model.StaffDAO">
+
+	<!-- ShopMapper.xml -->
+	<select id="getStaffInfoAll" parameterType="com.smhrd.model.ShopVO" resultType="com.smhrd.model.StaffVO">
+		SELECT *
+		FROM STAFF_INFO
+		WHERE SHOP_SEQ = #{shop_seq}
+		ORDER BY Staff_Name
+	</select>
+
+
+</mapper>

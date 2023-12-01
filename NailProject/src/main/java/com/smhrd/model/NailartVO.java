@@ -18,7 +18,18 @@ package com.smhrd.model;
     // 네아 설명 
     private String nailart_desc;
 
-    public Double getNailartSeq() {
+	// 직원 번호
+    private String staff_seq;
+    
+    public String getStaff_seq() {
+		return staff_seq;
+	}
+
+	public void setStaff_seq(String staff_seq) {
+		this.staff_seq = staff_seq;
+	}
+
+	public Double getNailartSeq() {
         return nailart_seq;
     }
 

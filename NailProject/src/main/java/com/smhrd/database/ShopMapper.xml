@@ -15,4 +15,10 @@
 		SELECT *
 		FROM shop_info
 	</select>
+	
+	<select id="getShopInfoAll" resultType="com.smhrd.model.ShopVO">
+		SELECT *
+		FROM SHOP_INFO
+		ORDER BY SHOP_NAME
+	</select>
 </mapper>
