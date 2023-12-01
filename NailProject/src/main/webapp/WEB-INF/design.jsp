@@ -165,7 +165,8 @@
 		                type: "get",
 		                url: 'getStaffInfoAll.do',
 		                data: {data: $("option:selected", this).attr("id")},
-		                dataType : "json",
+		                // 이게 써야 실행될 때가 있고 안 써야 실행될 때가 있음. 왜 인지 모름 위에 똑같은 코드에서는 써야 실행됨 ㅂㄷㅂㄷ
+		                //dataType : "json",
 		                success: (res) => {
 		                	console.log("success");
 		                	console.log(res.length);
@@ -339,7 +340,6 @@
 			<script>
 				document.getElementById('fileInput').addEventListener('change', function(e) {
 					if (e.target.files[0]) {
-	 					console.log("test111")
 			            const input_file = document.querySelector("#file_form");
 				         
 			            // const input_file = $('#file_form')[0];  // jQuery 사용시에는 이렇게 [0]을 붙어줘야한다.

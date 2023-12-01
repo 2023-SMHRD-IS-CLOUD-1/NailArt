@@ -47,6 +47,7 @@
     <mapper resource="com/smhrd/database/MemberMapper.xml"/>
     <mapper resource="com/smhrd/database/ShopMapper.xml"/>
     <mapper resource="com/smhrd/database/StaffMapper.xml"/>
+    <mapper resource="com/smhrd/database/NailMapper.xml"/>
   </mappers>
   
   

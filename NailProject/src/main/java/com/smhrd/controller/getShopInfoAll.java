@@ -50,7 +50,6 @@ public class getShopInfoAll implements Command {
             req_array.add(obj);
         }
 
-        
         if (shopInfo.size() != 0) {
         	System.out.println("가게 정보 가져오기 성공");
         	out.print(req_array);

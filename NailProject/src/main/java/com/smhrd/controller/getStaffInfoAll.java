@@ -59,8 +59,6 @@ public class getStaffInfoAll implements Command {
     			}
     			// System.out.println("field : " + field.getName() + " | value : " + value);
                 obj.put(field.getName(), value);
-                
-                System.out.println(field.getName() + value);
             }
             req_array.add(obj);
         }
