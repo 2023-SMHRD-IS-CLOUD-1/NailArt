@@ -10,54 +10,55 @@
 <head>
 <meta charset="UTF-8">
 <title>Design</title>
-<link rel="stylesheet" href="assets/css/shopManagement.css" />
+<link rel="stylesheet" href="assets/css/shopPage.css" />
 <link href="css/font-awesome.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 카카오맵 -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f4e8fa4b54164e23551ce19f4755a2ce&libraries=services"></script>
-	
+
 <!-- pretendard 폰트 -->
 <link rel="stylesheet" as="style" crossorigin
 	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
+<!-- 모달창 -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
 </head>
 
 <body>
 	<%
-        // 파라미터에서 가게 ID 추출
-        String mem_id = request.getParameter("mem_id");
-	 	//System.out.println(storeName); //--> shopName이름을 가진 녀석의 밸류값
-	 	
-        // 가게 ID를 사용하여 데이터베이스에서 가게 정보 조회
-        ShopVO vo = new ShopVO();
-        vo.setMemId(mem_id);
-        ShopDAO shopDAO = new ShopDAO();
-        ShopVO shopInfo = shopDAO.getShopInfo(vo);
+	// 파라미터에서 가게 ID 추출
+	String mem_id = request.getParameter("mem_id");
+	//System.out.println(storeName); //--> shopName이름을 가진 녀석의 밸류값
 
-        if (shopInfo != null) {
-        	session.setAttribute("shopInfo", shopInfo);
-			System.out.println("가게 정보 가져오기 성공");
-			System.out.println(shopInfo.getShopName());
-		} else {
-			System.out.println("가게 정보 가져오기 실패");
+	// 가게 ID를 사용하여 데이터베이스에서 가게 정보 조회
+	ShopVO vo = new ShopVO();
+	vo.setMemId(mem_id);
+	ShopDAO shopDAO = new ShopDAO();
+	ShopVO shopInfo = shopDAO.getShopInfo(vo);
 
-		}
-        
-        
-    %>
+	if (shopInfo != null) {
+		session.setAttribute("shopInfo", shopInfo);
+		System.out.println("가게 정보 가져오기 성공");
+		System.out.println(shopInfo.getShopName());
+	} else {
+		System.out.println("가게 정보 가져오기 실패");
+
+	}
+	%>
 
 
-	<div class="container">
-		<div class="centered">
+
 			<div id="top">
 				<!-- 상단바 -->
 				<div id="topBar">
 					<p>Nail</p>
 					<div id="menu">
-						<a href="Gomain.do">Home</a> <a href="Godesign.do">Design</a> <a
+						<a href="Gomain.do">Home</a> <a href="God	esign.do">Design</a> <a
 							href="ShopSelectAll.do">Shop</a>
 					</div>
 					<a href="login.html"> <i class="fa fa-user" aria-hidden="true"></i>
@@ -94,7 +95,45 @@
 					<div id="appointmentBox" class="form">
 						<h2>예약</h2>
 						<hr class="hrpink">
-						<div id="calendar"></div>
+						<div id="appointment">
+
+							<!-- 모달창 -->
+							<div class="appointment_content">
+								<div style="position: relative; margin-bottom: 7px;">
+								<label style="font-size: 20px">디자이너 선택:</label> <select id="designerSelect">
+									<option value="선택하세요">선택하세요</option>
+									<c:forEach var="staff" items="${staffList}">
+										<option value="${staff.getStaffSeq()}">${staff.getStaffName()}</option>
+									</c:forEach>
+								</select>
+								</div>
+								<div id="calendar-container"></div>
+								<br> <label>오전</label> <br>
+								<div class="time-buttons">
+									<button onclick="selectTime('09:00')" data-time="09:00">09시</button>
+									<button onclick="selectTime('10:00')" data-time="10:00">10시</button>
+									<button onclick="selectTime('11:00')" data-time="11:00">11시</button>
+									<button onclick="selectTime('12:00')" data-time="12:00">12시</button>
+									</div>
+									<br> <label>오후</label> <br>
+									<div class="time-buttons">
+									<button onclick="selectTime('13:00')" data-time="13:00">01시</button>
+									<button onclick="selectTime('14:00')" data-time="14:00">02시</button>
+									<button onclick="selectTime('15:00')" data-time="15:00">03시</button>
+									<button onclick="selectTime('16:00')" data-time="16:00">04시</button>
+									<br>
+									<br>
+									<button onclick="selectTime('17:00')" data-time="17:00">05시</button>
+								</div>
+								<br>
+								<button type="button" onclick="submitReservation()">예약
+									신청하기</button>
+							</div>
+
+
+							<!-- 모달창 끝 -->
+						</div>
+
 
 						<script defer
 							src='https://static.cloudflareinsights.com/beacon.min.js'
@@ -116,12 +155,11 @@
 					</div>
 
 				</div>
+
+
+				<button id="scrollTopButton">위로</button>
 			</div>
-
-
-			<button id="scrollTopButton">위로</button>
-		</div>
-		<script>
+			<script>
 
 			var designerList = document.getElementById("designerList");
 			var appointmentBox = document.getElementById("appointmentBox");
@@ -201,8 +239,55 @@
 			}
 
 
-			/////////////////////////////////////////스케쥴표//////////////////////////////////////////////////
-			/////////////////////////////////////////스케쥴표//////////////////////////////////////////////////
+			/////////////////////////////////////////예약창//////////////////////////////////////////////////
+			var time = ''
+			var designer =''
+			function selectTime(time) {
+				// 기존에 선택된 버튼이 있다면 클래스 제거
+			    var selectedButton = document.querySelector('.time-buttons button.selected');
+			    if (selectedButton) {
+			        selectedButton.classList.remove('selected');
+			    }
+
+
+			    // 선택된 버튼에 클래스 추가
+			    var selectedTimeButton = document.querySelector('.time-buttons button[data-time="' + time + '"]');
+			    if (selectedTimeButton) {
+			        selectedTimeButton.classList.add('selected');
+			    }
+				this.time = time;
+			    
+			}
+			function submitReservation() {
+			    var designerSelect = document.getElementById('designerSelect');
+			    var designer = designerSelect.value;
+			    var designerName = designerSelect.options[designerSelect.selectedIndex].text;
+			    var date = document.getElementById('calendar-container').value;
+				
+			    if (designer =='선택하세요' || date ==undefined || time =='' ){
+			    	alert("모두 골라주세요");
+			    }else{
+			    	console.log(time);
+			    	console.log(designer);
+			    	console.log(date);
+			    	console.log(designerName);
+			    	if (confirm("디자이너 : " + designerName + "이(가) 맞습니까?") == true){    //확인
+			    		alert("예약 완료");
+
+			    	}else{   //취소
+			    	      return;
+			    	  }
+			    	
+			    }
+			    
+			    
+			}
+			
+			flatpickrInstance = flatpickr("#calendar-container", {
+            dateFormat: "Y-m-d",
+            inline: true,
+       		 });
+			/////////////////////////////////////////예약창//////////////////////////////////////////////////
 
 
 			// 지도 시작/////////////////////////

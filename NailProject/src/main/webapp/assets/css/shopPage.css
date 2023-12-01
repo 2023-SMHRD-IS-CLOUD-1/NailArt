@@ -257,13 +257,76 @@ body {
 	/* 가운데 정렬을 위해 추가 */
 }
 
+/*
 #calendar {
 	max-width: 480px;
 	margin: 40px auto;
 	background-color: white;
 	color: black;
 	font-size: 13px;
-}
+}*/
+/* 예약하기 
+        label[for="date"],
+        input#date {
+            display: none;
+        }
+
+        .calendar-container {
+            position: relative;
+        }
+
+        .calendar-container .flatpickr-calendar .flatpickr-current-month .flatpickr-prev-month,
+        .calendar-container .flatpickr-calendar .flatpickr-current-month .flatpickr-next-month {
+            display: none;
+        }
+
+        .calendar-container .flatpickr-calendar .flatpickr-current-month .flatpickr-monthDropdown-months,
+        .calendar-container .flatpickr-calendar .flatpickr-current-month .flatpickr-monthDropdown-years {
+            display: none;
+        }
+
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-color: pink;
+            border-width: thick;
+            max-width: 300px;
+        }
+
+
+
+        .flatpickr-day.selected {
+            background-color: rgb(255, 191, 191);
+            color: black;
+            border-color: pink;
+        }
+
+        #designerModal {
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 8px;
+            border: 2px solid pink;
+            width: 170px;
+        }예약 끝*/
+
+
 
 #thumbnailBox {
 	width: 100%;
@@ -371,9 +434,17 @@ button {
 	font-size: 12px;
 }
 
-button:hover {
+
+
+#appointmentBox button {
+	background-color: white;
+	border: 1px solid rgb(255, 191, 191);
+}
+
+#appointmentBox .time-buttons button.selected {
 	background-color: rgb(255, 191, 191);
 }
+
 
 .review {
 	position: relative;
@@ -417,4 +488,28 @@ button:hover {
 
 #top .form {
 	width: 97%;
+}
+
+#appointment>div>div.flatpickr-calendar.animate.inline {
+	margin: auto;
+	/* 달력 가운데 정렬*/
+}
+#appointment > div > div.flatpickr-calendar.animate.inline > div.flatpickr-innerContainer > div > div.flatpickr-days > div > span.flatpickr-day.selected{
+	background-color: rgb(255, 191, 191);
+	border-color: rgb(255, 191, 191);
+}
+#appointment>div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	/* 예약 내부 가운데정렬 */
+}
+
+#designerSelect {
+	height: 26px;
+	width: 200px;
+	border: 1px solid rgb(255, 191, 191);
+	border-radius: 10px;
+	text-align: center;
 }
