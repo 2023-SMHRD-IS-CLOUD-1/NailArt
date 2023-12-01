@@ -16,17 +16,17 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
-    #pagination {
-        margin: auto;
-    }
+#pagination {
+	margin: auto;
+}
 
-    #pagination button {
-        background-color: white;
-        border-radius: 5px;
-        border-color: white;
-        width: 50px;
-        height: 30px;
-    }
+#pagination button {
+	background-color: white;
+	border-radius: 5px;
+	border-color: white;
+	width: 50px;
+	height: 30px;
+}
 </style>
 <body>
 	<div class="container">
@@ -44,15 +44,16 @@
 				<hr style="width: 95%;">
 
 				<!--검색창 -->
-				<form action="https://search.naver.com/search.naver">
+				<form id="searchForm">
 					<div class="search">
-						<input type="text" name="query" value="">
-						<button type="submit">
+						<input type="text" id="searchInput" name="query" value="">
+						<button type="button" onclick="searchShop()">
 							<img
 								src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
 						</button>
 					</div>
 				</form>
+
 			</div>
 
 			<!--가게 목록 -->
@@ -69,8 +70,7 @@
 							</div>
 						</div>
 						<c:forEach var="shop" items="${shopList}">
-
-
+							
 							<li onclick="navigateToPage(event)" id="${shop.getMemId() }">
 								<div class="left">
 									<img
@@ -106,11 +106,29 @@
 
 					</ol>
 				</div>
+
+				<script>
+    function searchShop() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const shops = document.getElementById('shop').getElementsByTagName('li');
+
+        for (let i = 0; i < shops.length; i++) {
+            const shopName = shops[i].getElementsByClassName('shopName')[0].innerText.toLowerCase();
+
+            if (shopName.includes(input)) {
+                shops[i].style.display = 'block';
+            } else {
+                shops[i].style.display = 'none';
+            }
+        }
+    }
+</script>
+
 				<div id="pagination">
 					<button onclick="firstPage()"><<</button>
 					<button onclick="prevPage()"><</button>
 
-					<c:forEach var="page" begin="1"  end="${totalPages}">
+					<c:forEach var="page" begin="1" end="${totalPages}">
 						<button onclick="gotoPage(${page})">${page}</button>
 					</c:forEach>
 
@@ -128,16 +146,16 @@
 			    
 			    function updatePageButtons() {
 			        const pagination = document.getElementById('pagination');
-			        pagination.innerHTML = '';
+			        pagination.innerHTML = '';			        
 			        
 			        const prevButton = document.createElement('button');
 			        prevButton.textContent = '<';
 			        prevButton.onclick = function () {
-			            prevPage();
+			        	prevSetOfPages();
 			        };
 			        pagination.appendChild(prevButton);
 
-			        const startPage = Math.max(1, currentPage );
+			        const startPage = (Math.ceil(currentPage / 5) - 1) * 5 + 1;
 			        const endPage = Math.min(totalPages, startPage + 4);
 
 			        for (let page = startPage; page <= endPage; page++) {
@@ -157,7 +175,7 @@
 			    const nextButton = document.createElement('button');
 		        nextButton.textContent = '>';
 		        nextButton.onclick = function () {
-		            nextPage();
+		        	nextSetOfPages();
 		        };
 		        pagination.appendChild(nextButton);
 		        }
@@ -165,13 +183,11 @@
 			    function showPage(page) {
 			        const start = (page) * itemsPerPage;
 			        const end = start + itemsPerPage;
-			
-			        // 모든 아이템을 숨김
+
 			        for (let i = 0; i < shops.children.length; i++) {
 			            shops.children[i].style.display = 'none';
 			        }
 			
-			        // 현재 페이지에 해당하는 아이템만 표시
 			        for (let i = start; i < end; i++) {
 			            if (shops.children[i]) {
 			                shops.children[i].style.display = 'block';
@@ -182,25 +198,20 @@
 			        updatePageButtons();
 			    }
 			
-			    function prevPage() {
-			        if (currentPage > 1) {
-			            currentPage -= 5;
-			            if (currentPage < 1) {
-			                currentPage = 1;
-			            }
-			            showPage(currentPage);
-			        }
+			    function prevSetOfPages() {
+			        const startPage = Math.max(1, (Math.ceil(currentPage / 5) - 2) * 5 + 1);
+			        const endPage = startPage + 4;
+			        currentPage = startPage;
+			        showPage(currentPage);
 			    }
-			
-			    function nextPage() {
-			        if (currentPage < Math.ceil(shops.children.length / itemsPerPage)) {
-			            currentPage += 5;
-			            if (currentPage > totalPages) {
-			                currentPage = totalPages;
-			            }
-			            showPage(currentPage);
-			        }
+
+			    function nextSetOfPages() {
+			        const startPage = (Math.ceil(currentPage / 5) * 5) + 1;
+			        const endPage = Math.min(totalPages, startPage + 4);
+			        currentPage = startPage;
+			        showPage(currentPage);
 			    }
+			    
 			    function gotoPage(selectedPage) {
 			        currentPage = parseInt(selectedPage);
 			        showPage(currentPage);
@@ -229,10 +240,8 @@
 			    }
 			
 			
-				// JavaScript로 스크롤 버튼을 누르면 맨 위로 스크롤하는 기능을 추가합니다.
 				const scrollTopButton = document.getElementById('scrollTopButton');
 
-				// 버튼을 숨기거나 보이기 위한 함수
 				function toggleScrollButton() {
 					if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
 						scrollTopButton.style.display = 'block';
@@ -240,11 +249,8 @@
 						scrollTopButton.style.display = 'none';
 					}
 				}
-
-				// 스크롤 이벤트 시 버튼을 보이거나 숨깁니다.
 				window.addEventListener('scroll', toggleScrollButton);
 
-				// 버튼 클릭 시 맨 위로 스크롤
 				scrollTopButton.addEventListener('click', () => {
 					window.scrollTo({ top: 0, behavior: 'smooth' }); // 맨 위로 부드럽게 스크롤
 				});
