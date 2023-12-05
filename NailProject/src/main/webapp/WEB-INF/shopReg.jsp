@@ -16,9 +16,9 @@
         <div id="topBar">
             <p>Nail</p>
             <div id="menu">
-                <a href="index.html">Home</a>
-                <a href="#">Design</a>
-                <a href="shop.html">Shop</a>
+                <a href="Gomain.do">Home</a>
+                <a href="Godesign.do">Design</a>
+                <a href="Goshop.do">Shop</a>
             </div>
             <a href="login.html">
                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -30,38 +30,49 @@
         <div class="reservation-confirm">
             <div class="container">
                 <span>가게 등록</span>
-                <form action="#" method="post">
+                <form action="ShopReg.do" method="post">
                     <div class="container_unit">
                         <div class="form-group">
                             <label for="name">가게 이름</label>
-                            <input type="text" id="name" name="name" placeholder="가게이름">
+                            <input type="text" id="name" name="shop_name" placeholder="가게이름">
                         </div>
                         <hr style="width: 90%;">
                         <div class="form-group">
                             <label for="phone">가게 <br>전화번호</label>
-                            <input type="tel" id="phone" name="phone" placeholder="가게 전화번호">
+                            <input type="tel" id="phone" name="shop_tel" placeholder="가게 전화번호">
                         </div>
                     </div>
                     <div class="container_unit">
                         <div class="form-group">
                             <label for="address">가게 주소</label>
-                            <input type="text" id="address_detail" name="address_detail" placeholder="가게 주소">
+                            <input type="text" id="address" name="shop_addr1" placeholder="가게 주소">
                         </div>
                         <hr style="width: 90%;">
                         <div class="form-group">
                             <label for="address_detail">상세 주소</label>
-                            <input type="text" id="address_detail" name="address_detail" placeholder="가게 상세주소">
+                            <input type="text" id="address_detail" name="shop_addr2" placeholder="가게 상세주소">
+                        </div>
+                    </div>
+                    <div class="container_unit">
+                        <div class="form-group">
+                            <label for="latitude">위도</label>
+                            <input type="text" id="latitude" name="lat" placeholder="가게 위도">
+                        </div>
+                        <hr style="width: 90%;">
+                        <div class="form-group">
+                            <label for="longitude">경도</label>
+                            <input type="text" id="longitude" name="lng" placeholder="가게 경도">
                         </div>
                     </div>
                     <div class="container_unit">
                         <div class="form-group" id="time-start">
                             <label for="start">오픈 시간</label>
-                            <input type="time" value="10:00" id="start">
+                            <input type="time" value="10:00" id="start" name="open_time">
                         </div>
                         <hr style="width: 90%;">
                         <div class="form-group" id="time-end">
                             <label for="end">종료 시간</label>
-                            <input type="time" value="17:00" id="end">
+                            <input type="time" value="17:00" id="end" name="close_time">
                         </div>
                     </div>
                     <button type="submit" class="modify-button" name="submit">등록하기</button>

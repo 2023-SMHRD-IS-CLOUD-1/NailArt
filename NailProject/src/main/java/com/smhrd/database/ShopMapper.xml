@@ -21,4 +21,12 @@
 		FROM SHOP_INFO
 		ORDER BY SHOP_NAME
 	</select>
+	
+	<insert id="shop_reg"
+		parameterType="com.smhrd.model.ShopVO">
+		INSERT INTO SHOP_INFO (SHOP_NAME,SHOP_TEL, LAT,
+		LNG, OPEN_TIME, CLOSE_TIME, SHOP_STATUS,MEM_ID,SHOP_ADDR1,SHOP_ADDR2)
+		VALUES (#{shop_name, jdbcType=VARCHAR}, #{shop_tel}, #{lat}, #{lng}, #{open_time},
+		#{close_time}, 'O', #{mem_id},#{shop_addr1},#{shop_addr2})
+	</insert>
 </mapper>

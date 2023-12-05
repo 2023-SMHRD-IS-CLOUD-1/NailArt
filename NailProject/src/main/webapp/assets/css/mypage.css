@@ -161,6 +161,10 @@ body {
     width: 100%;
     height: auto;
     background-color: transparent;
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .reservation-confirm span {
@@ -169,11 +173,12 @@ body {
 
 .reservation-list {
     width: 100%;
-    height: auto;
+    height: 100%;;
     background-color: transparent;
     display: flex;
-    align-items: center;
-    justify-content: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .store {
@@ -197,7 +202,9 @@ body {
     padding: 5px 0px;
     margin: 2px 15px 5px 0;
 }
-
+.opening-hour span {
+	margin: 2px 25px 2px 0;
+}
 .reservation-time span {
     font-size: 15px;
     margin: 2px 25px 2px 0;
@@ -217,6 +224,7 @@ body {
 .reservation-state,
 .reservation-store,
 .reservation-time,
+.opening-hour,
 .reservation-loc,
 .reservation-phone {
     margin-bottom: 5px;
@@ -249,7 +257,6 @@ span {
     /* opacity에 트랜지션 효과 적용 */
 }
 
-.container span {}
 
 .container hr {
     border: 1px solid #ffffff;
@@ -311,10 +318,10 @@ input[type="address"] {
     display: flex;
     flex-direction: column;
 }
-#passwordCk span {
+#passwordCk ul {
     font-size: 10px;
     margin: 2px;
-    color: rgba(255, 0, 0, 0.731);
+    padding: 2px;
 }
 
 .modify-button {
@@ -351,7 +358,7 @@ input[type="address"] {
 }
 
 #editButton,
-#storeButton {
+.storeButton {
     background-color: transparent;
     border: none;
     font-family: 'EASTARJET-Medium';
@@ -361,7 +368,7 @@ input[type="address"] {
 }
 
 #editButton:hover,
-#storeButton:hover {
+.storeButton:hover {
     color: #6666666b;
 }
 

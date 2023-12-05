@@ -50,6 +50,7 @@
     <mapper resource="com/smhrd/database/NailMapper.xml"/>
     <mapper resource="com/smhrd/database/ServiceMapper.xml"/>
     <mapper resource="com/smhrd/database/AppointmentMapper.xml"/>
+    <mapper resource="com/smhrd/database/ReservMapper.xml"/>
   </mappers>
   
   

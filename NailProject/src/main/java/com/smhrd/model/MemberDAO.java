@@ -111,4 +111,15 @@ public class MemberDAO {
 
 		return mvo;
 	}
+	
+	public int update_state(String mem_id) {
+
+		SqlSession sqlSession = factory.openSession(true);
+
+		int row = sqlSession.update("update_state", mem_id);
+
+		sqlSession.close();
+
+		return row;
+	}
 }

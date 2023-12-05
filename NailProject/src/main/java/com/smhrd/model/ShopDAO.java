@@ -61,4 +61,15 @@ public class ShopDAO {
 
 		return shopList;
 	}
+	
+	public int shopReg(ShopVO vo) {
+		SqlSession sqlSession = factory.openSession(true); // true을 넣으면 자동으로 commit
+
+		int row = sqlSession.insert("shop_reg", vo);
+
+		sqlSession.close();
+
+		return row;
+	}
+	
 }
