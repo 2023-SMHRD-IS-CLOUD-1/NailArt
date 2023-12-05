@@ -74,6 +74,7 @@
 							<div class="designer">
 								<div style="height: 40px">
 									<span> ${staff.getStaffName()} </span>
+									<input class="staffList1" type="hidden" data-value1="${staff.getStaffName()}" data-value2="${staff.getStaffSeq()}">
 									<div class="designerButton">
 										<button class="addImageButton">이미지 추가</button>
 										<button class="deleteButton" id="${staff.getStaffSeq()}">디자이너
@@ -114,12 +115,13 @@
 
 				</div>
 			</div>
-
+			
+			
 
 			<button id="scrollTopButton">위로</button>
 		</div>
+		<input id="AppointmentList" value='${AppointmentList}' type="hidden">
 		<script>
-
 			var designerPlus = document.getElementById("designerPlus");
 			var designerList = document.getElementById("designerList");
 			var appointmentBox = document.getElementById("appointmentBox");
@@ -128,6 +130,56 @@
 			var thumbnail = document.getElementById("thumbnail")
 			var thumbnailInput = document.getElementById("thumbnailInput");
 			var deleteButtons = document.getElementsByClassName("deleteButton");
+			var staffList1 = document.getElementsByClassName("staffList1");
+			var AppointmentList = document.getElementById("AppointmentList").value;
+			//var AppointmentList = JSON.parse(document.getElementById("AppointmentList").value);
+			/*
+			console.log(staffList1[0].getAttribute("data-value1"));
+			console.log(staffList1[0].getAttribute("data-value2"));
+			for(var i = 0; i < staffList1.length; i++){
+				console.log(staffList1[i].getAttribute("data-value1"));
+				console.log(staffList1[i].getAttribute("data-value2"));
+			}
+			for(var i = 0; i < AppointmentList.length; i++){
+				console.log(AppointmentList[i]);
+			}*/
+			
+			console.log(AppointmentList);
+			
+
+
+
+			// 정규식을 사용하여 rawData에서 대괄호 제거
+			var cleanData = AppointmentList.replace(/\[|\]/g, '');
+			console.log(cleanData);
+			// 각 배열 요소를 파싱하여 JSON으로 변환
+			var dataArray = cleanData.split(', ')
+
+			console.log(dataArray);
+			
+			var resultArray = [];
+			for (var i = 0; i < dataArray.length; i += 3) {
+			    resultArray.push(dataArray.slice(i, i + 3));
+			}
+
+			console.log(resultArray);
+			for(var i = 0; i < resultArray.length; i++){
+				for(var j = 0; j <resultArray[i].length; j++){
+					console.log(resultArray[i][j]);
+				}
+			}
+			
+			
+			
+			for(var i = 0; i < resultArray.length; i++){
+				console.log("시간 : "+ resultArray[i][2][11]);
+				console.log("시간 : "+ resultArray[i][2][12]);
+				
+			}
+
+
+
+
 			
 			// 디자이너 추가 코드
 
@@ -304,7 +356,40 @@
 
 			document.addEventListener('DOMContentLoaded', function () {
 				var calendarEl = document.getElementById('calendar');
+				
+				
+				var resources = [];
+				// 스태프 이름이랑 staff_seq 가져옴
+				for(var i = 0; i < staffList1.length; i++){
+					var designerId = staffList1[i].getAttribute("data-value2");
+			        var designerName = staffList1[i].getAttribute("data-value1");
+			        resources.push({ id: designerId, title: designerName });
+				}
+				var events = [];
+				for(var i = 0; i < resultArray.length; i++){
+					var startTime = resultArray[i][2];
+					var hour = parseInt(startTime.slice(11, 13), 10);
 
+					// 시간을 23 이하이면 1을 더하고, 24이면 0으로 만듭니다.
+					hour = hour <= 23 ? hour + 1 : 0;
+					
+					// 수정된 시간을 문자열에 반영합니다.
+					var modifiedEndTime = startTime.slice(0, 11) + (hour < 10 ? '0' : '') + hour + startTime.slice(13);
+
+					// 이제 modifiedEndTime을 사용하여 이벤트 객체를 생성합니다.
+					console.log("과연..." + modifiedEndTime);
+					var event = {
+					    "resourceId": resultArray[i][0],
+					    "title": resultArray[i][1],
+					    "start": startTime,
+					    "end": modifiedEndTime
+					};
+					events.push(event);
+				}
+				
+					
+					
+				
 				var calendar = new FullCalendar.Calendar(calendarEl, {
 					timeZone: 'UTC',
 					initialView: 'resourceTimelineDay',
@@ -318,37 +403,52 @@
 					editable: true,
 					resourceAreaHeaderContent: '디자이너',
 					schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
-					resources: [
-						{ "id": "a", "title": "디자이너 A" },
-						{ "id": "b", "title": "디자이너 B", "eventColor": "green" },
-					],
-					events: [
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T10:00:00", "end": "2023-11-24T11:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T11:00:00", "end": "2023-11-24T12:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T12:00:00", "end": "2023-11-24T13:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T13:00:00", "end": "2023-11-24T14:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T14:00:00", "end": "2023-11-24T15:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T15:00:00", "end": "2023-11-24T16:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T16:00:00", "end": "2023-11-24T17:00:00" },
-						{ "resourceId": "a", "title": "예약", "start": "2023-11-24T17:00:00", "end": "2023-11-24T18:00:00" },
-
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T10:00:00", "end": "2023-11-24T11:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T11:00:00", "end": "2023-11-24T12:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T12:00:00", "end": "2023-11-24T13:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T13:00:00", "end": "2023-11-24T14:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T14:00:00", "end": "2023-11-24T15:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T15:00:00", "end": "2023-11-24T16:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T16:00:00", "end": "2023-11-24T17:00:00" },
-						{ "resourceId": "b", "title": "예약", "start": "2023-11-24T17:00:00", "end": "2023-11-24T18:00:00" },
-
-					],
+					resources: resources,
+					events: events,
 					// businessHours: {
 					//     startTime: '10:00',
 					//     endTime: '18:00'
 					// },
 					slotMinTime: '10:00',
 					slotMaxTime: '18:00',
-					locale: 'ko'
+					locale: 'ko',
+					
+					eventClick: function (info) {
+				        var event = info.event;
+				        var confirmation = confirm("예약을 취소하시겠습니까?");
+
+			            if (confirmation) {
+			                // 여기에 예약 취소 요청을 서버로 보내는 로직을 추가
+			                // event.id 또는 event.extendedProps 등을 활용하여 서버에 전송
+							$.ajax({
+						        type: "POST",
+						        url: "DeleteAppointment.do", // 서블릿 매핑 이름
+						        data: {
+						            mem_id : event.title,
+						            appointed_at : event.start.toISOString()
+						            // 여기에 다른 필요한 데이터도 추가 가능
+						        },
+						        success: function (response) {
+						            // 서버에서의 응답에 따른 처리
+						            console.log("예약 삭제 성공:", response);
+						            // 추가적으로 화면 갱신 등을 수행할 수 있음
+						        },
+						        error: function (error) {
+						            // 오류 발생 시 처리
+						            console.error("예약 삭제 실패:", error);
+						        }
+						    });
+			                // 예약을 취소한 경우
+			                alert("예약이 취소되었습니다.");
+
+			                // FullCalendar에서 해당 이벤트를 제거 (옵션)
+			                event.remove();
+			            } else {
+			                // 사용자가 예약 취소를 취소한 경우 또는 창을 닫은 경우
+			                alert("예약이 취소되지 않았습니다.");
+			            }
+					}
+					
 				});
 
 				calendar.render();
