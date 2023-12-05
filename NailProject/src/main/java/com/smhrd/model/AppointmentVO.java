@@ -1,5 +1,8 @@
 package com.smhrd.model;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 // 예약정보 
 public class AppointmentVO {
 
@@ -13,13 +16,13 @@ public class AppointmentVO {
     private Double service_seq;
 
     // 예약 일자 
-//    private Date appointed_at;
+    private Timestamp appointed_at;
 
     // 작성 일자 
-//    private Date created_at;
+    private Date created_at;
 
     // 예약 확인 
-    private String approved;
+    private char approved;
 
     public Double getAppointSeq() {
         return appoint_seq;
@@ -45,27 +48,27 @@ public class AppointmentVO {
         this.service_seq = service_seq;
     }
 
-//    public Date getAppointedAt() {
-//        return appointed_at;
-//    }
+    public Timestamp getAppointedAt() {
+        return appointed_at;
+    }
 
-//    public void setAppointedAt(Date appointed_at) {
-//        this.appointed_at = appointed_at;
-//    }
+    public void setAppointedAt(Timestamp appointed_at) {
+        this.appointed_at = appointed_at;
+    }
 
-//    public Date getCreatedAt() {
-//        return created_at;
-//    }
+    public Date getCreatedAt() {
+        return created_at;
+    }
 
-//    public void setCreatedAt(Date created_at) {
-//        this.created_at = created_at;
-//    }
+    public void setCreatedAt(Date created_at) {
+        this.created_at = created_at;
+    }
 
-    public String getApproved() {
+    public char getApproved() {
         return approved;
     }
 
-    public void setApproved(String approved) {
+    public void setApproved(char approved) {
         this.approved = approved;
     }
 
@@ -75,8 +78,8 @@ public class AppointmentVO {
         this.appoint_seq = param.getAppointSeq();
         this.mem_id = param.getMemId();
         this.service_seq = param.getServiceSeq();
-//        this.appointed_at = param.getAppointedAt();
-//        this.created_at = param.getCreatedAt();
+        this.appointed_at = param.getAppointedAt();
+        this.created_at = param.getCreatedAt();
         this.approved = param.getApproved();
     }
 }

@@ -44,14 +44,12 @@
 						type="text" id="mem_addr2" name="mem_addr2"
 						placeholder="Detailed Address">
 					<div id=err_message>빈칸이 존재합니다.</div>
-					<button disabled " type="submit" id="mem_submit" class="form_btn">Sign
-						Up</button>
+					<button disabled " type="submit" id="mem_submit" class="form_btn">Sign Up</button>
 				</form>
 			</div>
 			<!--로그인-->
 			<div class="sign-in-container">
-				<form id="signin-form" method="POST" action="Login.do"
-					style="display:">
+				<form id="signin-form" method="POST" action="Login.do">
 					<h1>Sign In</h1>
 					<!--api버튼-->
 					<div class="social-links">
@@ -69,24 +67,9 @@
 					<!--input-->
 					<input type="id" name="mem_id" placeholder="ID"> <input
 						type="password" name="mem_pw" placeholder="Password">
-
 					<button type="submit" class="form_btn">Sign In</button>
-					<span id="selectMyId"><a href="#">아이디/비밀번호 찾기</a></span>
+
 				</form>
-
-				<form id="sendEmail-form" style="display: none">
-					<h1>sendEmail</h1>
-					<br />
-					<!--api버튼-->
-					<span>Input your Email</span>
-					<!--input-->
-					<input id="mem_email_sign" type="email" name="mem_email"
-						placeholder="email">
-
-					<button type="button" id="sendEmailbtn" class="form_btn">sendEmail</button>
-					<span id="clickSignIn"><a href="#">Sign In</a></span>
-				</form>
-
 			</div>
 
 			<div class="overlay-container">
@@ -106,66 +89,6 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-		// 아이디/비밀번호 찾기 버튼을 클릭했을 때 실행하는 이벤트
-		$("#selectMyId").on("click", function(){
-			$("#signin-form").css("display", "none");
-			$("#sendEmail-form").css("display", "");
-		});
-		
-		$("#clickSignIn").on("click", function(){
-			$("#signin-form").css("display", "");
-			$("#sendEmail-form").css("display", "none");
-		});
-		
-		$("#sendEmailbtn").on("click", function(){
-			$.ajax({
-                type: "get",
-                url: 'EmailCheck.do',
-                data: {email: $("#mem_email_sign").val()},
-                dataType : "json",
-                success: (res) => {
-                	console.log("success");
-                	console.log(res.mem_id);
-                	console.log(res.mem_pw);
-                	
-                	// flask에 전송하는 두 번째 ajax
-                	var sendObj2 = { to_email: res.mem_email, mem_id: res.mem_id, mem_pw: res.mem_pw };
-		            $.ajax({
-		                type: 'get',
-		                // 1. 어떤 url로 데이터를 전송(요청url)
-		                url: 'http://127.0.0.1:9003/sendEmailService',
-		
-		
-		                // 2. 어떤 데이터를 보내줄 건지(선택사항)
-		                // ** 데이터를 보내줄 때는 항상 key와 value 한쌍으로 묶어서 보내줘야한다!
-		                // key와 value 한쌍으로 묶어서 표현할 수 있는 js 자료형은? 객!체!
-		                data: sendObj2,
-		
-		                // 3. 성공했을 때 실행할 함수 --> 콜백함수
-		                success: function (res) {
-		                    // 데이터 통신이 성공한다면, 자동으로 해당하는 함수 실행
-		
-		                    console.log("요청성공!");
-		                    console.log(res)
-							alert("이메일 전송에 성공했습니다");
-		                },
-		
-		                // 4. 실패했을 때 
-		                error: function () {
-		                    console.log("요청실패!");
-		                    alert("이메일을 다시 확인해주세요");
-		                }
-		            })
-	            },
-                error : function(){
-                	console.log("error");
-                }	
-            });
-		});
-		
-	</script>
 
 	<script>
 		const signUpBtn = document.getElementById("signUp");
