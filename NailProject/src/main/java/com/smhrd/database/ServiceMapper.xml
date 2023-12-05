@@ -7,10 +7,4 @@
 		WHERE staff_seq = #{staff_seq}
         AND nailart_seq = #{nailart_seq}
 	</select>
-	
-	<select id="select_serviceSeqList" resultType="java.lang.Double" parameterType="com.smhrd.model.ServiceVO">
-        SELECT SVC_SEQ
-        FROM service_info
-        WHERE staff_seq = #{staff_seq}
-    </select>
 </mapper>

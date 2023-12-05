@@ -66,7 +66,7 @@ public class DAO {
 		// 1. session 빌려오기
 		SqlSession sqlSession = factory.openSession(true);
 		
-		int row = sqlSession.update("update", vo);
+		int row = sqlSession.update("member_update", vo);
 	
 		// 3. session 반납하기
 		sqlSession.close();

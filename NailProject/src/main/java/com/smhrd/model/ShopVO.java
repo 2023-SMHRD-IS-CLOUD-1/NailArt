@@ -31,7 +31,7 @@ public class ShopVO {
     private String mem_id;
     
     private String shop_addr1;
-
+    private String shop_addr2;
    
 	public String getShop_addr1() {
 		return shop_addr1;
@@ -127,4 +127,12 @@ public class ShopVO {
         this.mem_id = param.getMemId();
         this.shop_addr1 = param.getShop_addr1();
     }
+
+	public String getShop_addr2() {
+		return shop_addr2;
+	}
+
+	public void setShop_addr2(String shop_addr2) {
+		this.shop_addr2 = shop_addr2;
+	}
 }

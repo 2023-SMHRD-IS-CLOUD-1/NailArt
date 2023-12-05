@@ -13,9 +13,11 @@
 		않는다. -->
 	<insert id="member_join"
 		parameterType="com.smhrd.model.MemberVO">
-		insert into MEMBER_INFO (MEM_ID, MEM_PW, MEM_NAME, MEM_PHONE, MEM_EMAIL,
+		insert into MEMBER_INFO (MEM_ID, MEM_PW, MEM_NAME,
+		MEM_PHONE, MEM_EMAIL,
 		MEM_ADDR1, MEM_ADDR2, JOINED_AT, MEM_TYPE)
-		values(#{mem_id}, #{mem_pw}, #{mem_name}, #{mem_phone}, #{mem_email}, #{mem_addr1},
+		values(#{mem_id}, #{mem_pw}, #{mem_name}, #{mem_phone}, #{mem_email},
+		#{mem_addr1},
 		#{mem_addr2}, SYSTIMESTAMP, #{mem_type})
 
 	</insert>
@@ -27,7 +29,8 @@
 		SELECT *
 		FROM MEMBER_INFO
 		WHERE MEM_ID = #{mem_id}
-		AND MEM_PW = #{mem_pw}
+		AND MEM_PW
+		= #{mem_pw}
 	</select>
 
 	<select id="member_selectAll"
@@ -53,35 +56,46 @@
 		WHERE MEM_ID = #{mem_id}
 	</select>
 
-	<select id="member_update"
+	<update id="member_update"
 		parameterType="com.smhrd.model.MemberVO">
 		UPDATE MEMBER_INFO
 		SET MEM_PW = #{mem_pw},
-		MEM_PHONE = #{mem_phone},
+		MEM_PHONE =
+		#{mem_phone},
 		MEM_ADDR1 = #{mem_addr1},
-		MEM_ADDR2 = #{mem_addr2}
-		WHERE MEM_ID = #{mem_id}
-	</select>
+		MEM_ADDR2 = #{mem_addr2},
+		MEM_EMAIL = #{mem_email},
+		MEM_NAME = #{mem_name}
+		WHERE MEM_ID =
+		#{mem_id}
+	</update>
 
 	<insert id="staff_join" parameterType="com.smhrd.model.StaffVO">
-		insert into STAFF_INFO (STAFF_SEQ, SHOP_SEQ, MEM_ID, HIRED_AT)
-		values(#{staff_seq}, #{shop_seq}, #{mem_id}, SYSTIMESTAMP)
+		insert into STAFF_INFO
+		(STAFF_SEQ, SHOP_SEQ, MEM_ID, HIRED_AT)
+		values(#{staff_seq},
+		#{shop_seq}, #{mem_id}, SYSTIMESTAMP)
 	</insert>
 
 	<select id="staff_update"
 		parameterType="com.smhrd.model.StaffVO">
 		UPDATE STAFF_INFO
 		SET STAFF_SEQ = #{staff_seq},
-		SHOP_SEQ = #{shop_seq},
+		SHOP_SEQ =
+		#{shop_seq},
 		WHERE MEM_ID = #{mem_id}
 	</select>
 
 	<insert id="review_join"
 		parameterType="com.smhrd.model.ReviewVO">
-		insert into REVIEW_INFO (REVIEW_SEQ, SHOP_SEQ, REVIEW_CONTENT, MEM_ID,
-		CREATED_AT, REVIEW_VIEWS, REVIEW_LIKES, REVIEW_RATING)
-		values(#{review_seq}, #{shop_seq}, #{review_content}, #{mem_id},
-		SYSTIMESTAMP, #{review_views}, #{review_likes}, #{review_rating})
+		insert into REVIEW_INFO (REVIEW_SEQ, SHOP_SEQ,
+		REVIEW_CONTENT, MEM_ID,
+		CREATED_AT, REVIEW_VIEWS, REVIEW_LIKES,
+		REVIEW_RATING)
+		values(#{review_seq}, #{shop_seq}, #{review_content},
+		#{mem_id},
+		SYSTIMESTAMP, #{review_views}, #{review_likes},
+		#{review_rating})
 	</insert>
 
 	<select id="review_update"
@@ -92,22 +106,27 @@
 		REVIEW_VIEWS = #{review_views},
 		REVIEW_LIKES = #{review_likes},
 		REVIEW_RATING = #{review_rating}
-		WHERE MEM_ID = #{mem_id}
+		WHERE
+		MEM_ID = #{mem_id}
 	</select>
 
 
 
 
 	<insert id="shop_join" parameterType="com.smhrd.model.ShopVO">
-		insert into SHOP_INFO (SHOP_SEQ, SHOP_NAME, SHOP_TEL, LAT, LNG, OPEN_TIME,
-		CLOSE_TIME, SHOP_STATUS, MEM_ID)
-		values(#{shop_seq}, #{shop_name}, #{shop_tel}, #{lat}, #{lng}, #{open_time},
+		insert into SHOP_INFO
+		(SHOP_SEQ, SHOP_NAME, SHOP_TEL, LAT, LNG, OPEN_TIME,
+		CLOSE_TIME,
+		SHOP_STATUS, MEM_ID)
+		values(#{shop_seq}, #{shop_name}, #{shop_tel},
+		#{lat}, #{lng}, #{open_time},
 		#{close_time}, #{shop_status}, #{mem_id})
 	</insert>
 
 	<select id="shop_update" parameterType="com.smhrd.model.ShopVO">
 		UPDATE SHOP_INFO
-		SET SHOP_NAME = #{shop_name},
+		SET
+		SHOP_NAME = #{shop_name},
 		SHOP_TEL = #{shop_tel},
 		LAT = #{lat},
 		LNG =
@@ -120,9 +139,11 @@
 
 	<insert id="nailart_join"
 		parameterType="com.smhrd.model.NailartVO">
-		insert into NAILART_INFO (NAILART_SEQ, NAILART_NAME, NAILART_IMG, SHOP_SEQ,
+		insert into NAILART_INFO (NAILART_SEQ, NAILART_NAME,
+		NAILART_IMG, SHOP_SEQ,
 		NAILART_DESC)
-		values(#{nailart_seq}, #{nailart_name}, #{nailart_img}, #{shop_seq}, #{nailart_desc})
+		values(#{nailart_seq},
+		#{nailart_name}, #{nailart_img}, #{shop_seq}, #{nailart_desc})
 	</insert>
 
 	<select id="nailart_update"
@@ -135,21 +156,25 @@
 
 	<insert id="service_join"
 		parameterType="com.smhrd.model.ServiceVO">
-		insert into SERVICE_INFO (SVC_SEQ, STAFF_SEQ, NAILART_SEQ)
+		insert into SERVICE_INFO (SVC_SEQ, STAFF_SEQ,
+		NAILART_SEQ)
 		values(#{svc.seq}, #{staff_seq}, #{nailart_seq})
 	</insert>
 
 	<insert id="appointment_join"
 		parameterType="com.smhrd.model.AppointmentVO">
-		insert into APPOINTMENT_INFO (APPOINT_SEQ, MEM_ID, SERVICE_SEQ,
+		insert into APPOINTMENT_INFO (APPOINT_SEQ, MEM_ID,
+		SERVICE_SEQ,
 		APPOINTED_AT, CREATED_AT, APPROVED)
-		values(#{appoint_seq}, #{mem_id}, #{service_seq}, SYSTIMESTAMP, SYSTIMESTAMP, #{approved})
+		values(#{appoint_seq},
+		#{mem_id}, #{service_seq}, SYSTIMESTAMP, SYSTIMESTAMP, #{approved})
 	</insert>
 
 	<select id="appointment_update"
 		parameterType="com.smhrd.model.AppointmentVO">
 		UPDATE APPOINTMENT_INFO
-		SET APPOINTED_AT = #{appointed_at},
+		SET APPOINTED_AT =
+		#{appointed_at},
 		APPROVED = #{approved}
 		WHERE MEM_ID = #{mem_id}
 	</select>
@@ -161,7 +186,12 @@
 		WHERE MEM_ID = #{mem_id}
 	</select>
 
-
+	<update id="update_state" parameterType="java.lang.String">
+		UPDATE MEMBER_INFO
+		SET
+		MEM_TYPE = 's'
+		WHERE MEM_ID = #{mem_id}
+	</update>
 	<!-- resultType 동작 원리 >> 나만의 자료형을 resultType으로 명시해놓았다면! >> (1) 기본 생성자를 호출해서 
 		객체 생성(mybatis가 알아서)\ >> (2) 조회한 테이블의 컬럼과 일치하는 필드가 있는지 확인 >> (3) 해당하는 필드의 
 		setter 메소드를 호출해 값을 채우는 구조 * setter 메소드가 없거나, 기본 생성자가 사라져버린 경우 문제가 발생하기도 함! 

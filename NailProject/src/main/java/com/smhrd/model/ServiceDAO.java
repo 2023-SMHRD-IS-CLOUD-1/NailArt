@@ -22,16 +22,6 @@ public class ServiceDAO {
 		return SVC_seq;
 	}
 
-	public List<Double> getSVC_seq2(ServiceVO servo) {
-		
-		SqlSession sqlSession = factory.openSession(true);
-
-		List<Double> SVC_seqList = sqlSession.selectList("select_serviceSeqList", servo);
-		
-		return SVC_seqList;
-	}
-
-
 
 
 
