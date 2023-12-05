@@ -22,22 +22,6 @@ public class AppointmentDAO {
 		return row;
 	}
 
-	public List<AppointmentVO> getAppointmentBySVC_seqList(List<Double> SVC_seqList) {
-		
-		SqlSession sqlSession = factory.openSession(true);
-		
-		List<AppointmentVO> AppointmentList = sqlSession.selectList("getAppointmentBySVC_seqList", SVC_seqList);
-		
-		return AppointmentList;
-	}
-
-	public int deleteAppointment(AppointmentVO aptvo) {
-		SqlSession sqlSession = factory.openSession(true);
-		
-		int row = sqlSession.delete("deleteAppointment", aptvo);
-		return row;
-	}
-
 
 
 

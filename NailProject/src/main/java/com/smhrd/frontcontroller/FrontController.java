@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.smhrd.controller.AddDesignerService;
 import com.smhrd.controller.AppointmentService;
 import com.smhrd.controller.Command;
-import com.smhrd.controller.DeleteAppointmentService;
 import com.smhrd.controller.DeleteDesignerService;
 import com.smhrd.controller.EmailCheckService;
 import com.smhrd.controller.GetNailInfoAll2;
@@ -22,8 +21,10 @@ import com.smhrd.controller.JoinService;
 import com.smhrd.controller.LoginService;
 import com.smhrd.controller.LogoutService;
 import com.smhrd.controller.SelectAllService;
+import com.smhrd.controller.SelectReservService;
 import com.smhrd.controller.ShopManagementService;
 import com.smhrd.controller.ShopPageService;
+import com.smhrd.controller.ShopRegService;
 import com.smhrd.controller.ShopSelectAllService;
 import com.smhrd.controller.UpdateService;
 import com.smhrd.controller.getNailInfoAll;
@@ -62,7 +63,8 @@ public class FrontController extends HttpServlet {
 		map.put("ShopSelectAll.do", new ShopSelectAllService());
 		map.put("GetNailInfoAll2.do", new GetNailInfoAll2());
 		map.put("Appointment.do", new AppointmentService());
-		map.put("DeleteAppointment.do", new DeleteAppointmentService());
+		map.put("SelectReserv.do", new SelectReservService());
+		map.put("ShopReg.do", new ShopRegService());
 		// service 메소드 안쪽의 코들ㄹ 고칠 필요가 없다.
 	
 	}

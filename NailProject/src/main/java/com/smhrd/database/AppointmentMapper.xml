@@ -12,18 +12,4 @@
 		VALUES
 		(#{mem_id}, #{service_seq}, #{appointed_at}, sysdate, #{approved})
 	</insert>
-	
-	<select id="getAppointmentBySVC_seqList" resultType="com.smhrd.model.AppointmentVO" parameterType="java.util.List">
-		SELECT *
-        FROM appointment_info
-        WHERE SERVICE_SEQ IN
-        <foreach collection="list" item="item" open="(" separator="," close=")">
-        	#{item}
-    	</foreach>
-	</select>
-	
-	<delete id="deleteAppointment" parameterType="com.smhrd.model.AppointmentVO">
-		DELETE FROM appointment_info
-		WHERE mem_id = #{mem_id} AND appointed_at = #{appointed_at}
-	</delete>
 </mapper>
