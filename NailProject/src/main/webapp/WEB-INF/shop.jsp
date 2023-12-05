@@ -236,6 +236,8 @@
 					
 					console.log(mem_id);
 					
+					
+					
 					 window.location.href = 'ShopPage.do?mem_id=' + mem_id;
 			    }
 			

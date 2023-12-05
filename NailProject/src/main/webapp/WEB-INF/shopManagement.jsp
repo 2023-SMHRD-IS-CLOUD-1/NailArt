@@ -80,8 +80,8 @@
 											삭제</button>
 									</div>
 								</div>
-								
-								★
+								<div class="imageContainer" style="display: flex; overflow-x: auto;"></div>
+
 								<hr class="hrpink">
 							</div>
 						</c:forEach>
@@ -128,7 +128,6 @@
 			var thumbnail = document.getElementById("thumbnail")
 			var thumbnailInput = document.getElementById("thumbnailInput");
 			var deleteButtons = document.getElementsByClassName("deleteButton");
-
 			
 			// 디자이너 추가 코드
 
@@ -187,7 +186,46 @@
 			};
 			}
 			
+			// 이미지 추가 코드
+						
+			document.addEventListener('DOMContentLoaded', function () {
+			    const designerContainer = document.getElementById('designerList');
+			    const designerPlusButton = document.getElementById('designerPlus');
 			
+			    designerContainer.addEventListener('click', function (event) {
+			        const targetButton = event.target;
+			
+			        // 이미지 추가 버튼 클릭 시
+			        if (targetButton.classList.contains('addImageButton')) {
+			            const imageContainer = targetButton.closest('.designer').querySelector('.imageContainer');
+			
+			            // 파일 선택 창 열기
+			            const inputFile = document.createElement('input');
+			            inputFile.type = 'file';
+			            inputFile.name = 'designerImage';
+			            inputFile.accept = 'image/*';
+			            inputFile.style.display = 'none'; // 파일 선택 창을 감추기
+						
+			            // 파일 선택 시 미리보기 추가
+			            inputFile.addEventListener('change', function () {
+			                const previewImage = document.createElement('img');
+			                previewImage.src = URL.createObjectURL(inputFile.files[0]);
+			                previewImage.style.width = '100px'; // 적절한 크기로 조절
+			                imageContainer.appendChild(previewImage);
+			
+			                // 파일 선택 창 초기화 (동일한 파일을 선택해도 change 이벤트가 발생하도록)
+			                inputFile.value = null;
+			            });
+			
+			            // input 엘리먼트 추가
+			            imageContainer.appendChild(inputFile);
+			
+			            // 파일 선택 창 열기
+			            inputFile.click();
+			        }
+			    });
+			});
+
 
 			
 			
@@ -374,18 +412,7 @@
 				window.scrollTo({ top: 0, behavior: 'smooth' }); // 맨 위로 부드럽게 스크롤
 			});
 
-			function handleImageChange(event) {
-				const file = event.target.files[0];
-				const reader = new FileReader();
-
-				reader.onload = function (e) {
-					const imgSrc = e.target.result;
-					const handImg = document.getElementById('handImg');
-					handImg.innerHTML = `<img src="${imgSrc}" alt="Uploaded Image">`;
-				};
-
-				reader.readAsDataURL(file);
-			}
+			
 		</script>
 </body>
 

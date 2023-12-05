@@ -29,7 +29,7 @@
 	</delete>
 	
 	<select id="getStaffInfoAll" parameterType="com.smhrd.model.ShopVO" resultType="com.smhrd.model.StaffVO">
-		SELECT STAFF_NAME, STAFF_SEQ, SHOP_SEQ, MEM_ID
+		SELECT *
 		FROM STAFF_INFO
 		WHERE SHOP_SEQ = #{shop_seq}
 		ORDER BY Staff_Name

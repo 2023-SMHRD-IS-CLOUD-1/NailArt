@@ -1,5 +1,7 @@
 <%@page import="com.smhrd.model.ShopDAO"%>
 <%@page import="com.smhrd.model.ShopVO"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.smhrd.model.NailartVO" %>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -22,182 +24,158 @@
 @import
 	url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap")
 	;
-	
-	
+
 .rate {
-   display: inline-block;
-   border: 0;
-   margin-right: 15px;
+	display: inline-block;
+	border: 0;
+	margin-right: 15px;
 }
 
-
-
 .rate>input {
-   display: none;
-
+	display: none;
 }
 
 .rate>label {
-   float: right;
-   color: #ddd
+	float: right;
+	color: #ddd
 }
 
 .rate>label:before {
-   display: inline-block;
-   font-size: 1.1rem;
-   padding: .3rem .2rem;
-   margin: 0;
-   cursor: pointer;
-   font-family: FontAwesome;
-   content: "\f005 ";
+	display: inline-block;
+	font-size: 1.1rem;
+	padding: .3rem .2rem;
+	margin: 0;
+	cursor: pointer;
+	font-family: FontAwesome;
+	content: "\f005 ";
 }
 
 /* Zero stars rating */
 .rate>label:last-child:before {
-   content: "\f006 ";
-   /* empty star outline */
+	content: "\f006 ";
+	/* empty star outline */
 }
-
 
 .rate .half:before {
-   content: "\f089 ";
-   position: absolute;
-   padding-right: 0;
+	content: "\f089 ";
+	position: absolute;
+	padding-right: 0;
 }
 
-.rate input:checked~label,
-.rate label:hover,
-.rate label:hover~label {
-   color: #f73c32 !important;
+.rate input:checked ~label, .rate label:hover, .rate label:hover ~label
+	{
+	color: #f73c32 !important;
 }
 
-.rate input:checked+.rate label:hover,
-.rate input input:checked~label:hover,
-.rate input:checked~.rate label:hover~label,
-.rate label:hover~input:checked~label {
-   color: #f73c32 !important;
+.rate input:checked+.rate label:hover, .rate input input:checked ~label:hover,
+	.rate input:checked ~.rate label:hover ~label, .rate label:hover ~input:checked
+	 ~label {
+	color: #f73c32 !important;
 }
 
 .left-align {
-   text-align: left;
+	text-align: left;
 }
-
 
 /* 여기까지가 별점 */
-
 .container table_layout {
-   width: 100%;
-   /* 테이블 폭을 100%로 설정하여 부모 컨테이너에 맞춤 */
-   /* border-collapse: collapse;*/
+	width: 100%;
+	/* 테이블 폭을 100%로 설정하여 부모 컨테이너에 맞춤 */
+	/* border-collapse: collapse;*/
 }
 
-
-
-
-
 .review_tr {
-   text-align: left;
+	text-align: left;
 }
 
 #sig1 {
-   background-color: darksalmon;
-   right: 20px;
-   top: 50%;
-   transform: translateY(-50%);
-   /*background-color: #4CAF50;*/
-   color: white;
-   border: none;
-   padding: 5px 10px;
-   border-radius: 5px;
-   cursor: pointer;
-   transition: background-color 0.3s;
+	background-color: darksalmon;
+	right: 20px;
+	top: 50%;
+	transform: translateY(-50%);
+	/*background-color: #4CAF50;*/
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
 .re_td {
-   width: 50%;
+	width: 50%;
 }
 
-
 .no_outline_btn {
-   background-color: white;
-   border: none;
-   align-items: flex-end;
+	background-color: white;
+	border: none;
+	align-items: flex-end;
 }
 
 #star1 {
-   height: 30px;
-   align-items: center;
-
-
+	height: 30px;
+	align-items: center;
 }
 
-
 #pitc {
-
-   width: 150px;
-   height: 200px;
+	width: 150px;
+	height: 200px;
 }
 
 #revi {
-   width: 230px;
-   height: 200px;
-
+	width: 230px;
+	height: 200px;
 }
 
 /* 사진첨부 부분*/
-
 .real-upload {
-   display: none;
+	display: none;
 }
 
 .upload {
-   align-items: center;
-   width: 78px;
-   height: 36px;
-   background-color: #F3B5BC;
-
+	align-items: center;
+	width: 78px;
+	height: 36px;
+	background-color: #F3B5BC;
 }
-
 
 /* 이미지 출력*/
 li {
-   list-style: none;
+	list-style: none;
 }
 
 img {
-   width: 150px;
-   height: 200px;
+	width: 150px;
+	height: 200px;
 }
 
 .real-upload {
-   display: none;
+	display: none;
 }
 
 .upload {
-   width: 100px;
-   height: 30px;
-   background-color: white;
-   margin-left: 0px;
+	width: 100px;
+	height: 30px;
+	background-color: white;
+	margin-left: 0px;
 }
 
 .image-preview {
-   width: 150px;
-   height: 200px;
-   background-color: antiquewhite;
-   display: flex;
-   padding-inline-start: 0px;
-   margin-left: 0px;
+	width: 150px;
+	height: 200px;
+	background-color: antiquewhite;
+	display: flex;
+	padding-inline-start: 0px;
+	margin-left: 0px;
 }
 
 .image-preview img {
-   width: 100%;
-   padding-inline-start: 0px;
-
+	width: 100%;
+	padding-inline-start: 0px;
 }
-	
-	
-	
-	
+
+
+
 </style>
 
 
@@ -237,6 +215,9 @@ img {
 		System.out.println("가게 정보 가져오기 실패");
 
 	}
+	
+	
+	 
 	%>
 
 
@@ -275,13 +256,18 @@ img {
 					<div class="designer">
 						<div style="height: 40px">
 							<span> ${staff.getStaffName()} </span>
+							
 						</div>
-
-						<div id="nailInfoContainer_${staff.getStaffSeq()}"
-							onload="showDesignerList()"></div>
+						
+						<div class="showNailInfoAll"
+							id="nailInfoContainer_${staff.getStaffSeq()}" style="display: flex; overflow-x: auto;">
+							<input type="hidden" value="${staff.getStaffSeq()}">
+							
+						</div>
 						<hr class="hrpink">
 					</div>
 				</c:forEach>
+				
 			</div>
 			<div id="appointmentBox" class="form">
 				<h2>예약</h2>
@@ -353,7 +339,7 @@ img {
 								</select>
 									<button class='no_outline_btn'>네일이름</button> <select>
 										<option>김씨</option>
-										<option>이씨</option>sss
+										<option>이씨</option>
 										<option>정씨</option>
 								</select>
 								</td>
@@ -486,15 +472,16 @@ img {
 
 			<button id="scrollTopButton">위로</button>
 		</div>
+		<input id="mem_id" type="hidden" value="${result.getMemId()}"></input>
 		<script>
-
 			var designerList = document.getElementById("designerList");
 			var appointmentBox = document.getElementById("appointmentBox");
 			var reviewList = document.getElementById("reviewList");
 			var mapbox = document.getElementById("mapbox");
 			var thumbnail = document.getElementById("thumbnail")
 			var thumbnailInput = document.getElementById("thumbnailInput");
-
+			var mem_id = document.getElementById("mem_id").value;
+			
 			// 썸네일 사진 업로드
 
 			thumbnail.onclick = function () {
@@ -564,6 +551,81 @@ img {
 				reviewList.style.display = "none";
 				mapbox.style.display = "block";
 			}
+			
+			
+			////////////////네일아트 이미지 보여주는 함수////////////////////
+			
+			$(document).ready(function(){
+				
+				var seq_element = $('.showNailInfoAll>input');
+				for(let i = 0; i < seq_element.length; i++){
+					console.log(seq_element[i].value)
+					showNailInfoAll(seq_element[i].value);
+				}
+				
+				
+				//showNailInfoAll()
+			})
+			
+			function showNailInfoAll(staff_seq) {
+			    console.log("들어왔나?");
+			    $.ajax({
+			        type: "get",
+			        url: "GetNailInfoAll2.do", 
+			        data: {
+			            data: staff_seq
+			        },
+			        dataType: 'json',
+			        success: function (response) {
+			            //console.log(response[0].nailart_seq);
+			        	console.log('이미지 추가 전');
+			        	for (var i = 0; i < response.length; i++) {
+			        	    var nailart_img = response[i].nailart_img;
+			        	    var nailart_seq = response[i].nailart_seq;
+			        	   
+			        	    console.log('이미지 경로:', 'images/' + nailart_img);
+			        	 // 이미지에 대한 정보를 부여하는 부분 추가
+		                    var imageElement = $('<img>', {
+		                        src: 'images/' + nailart_img,
+		                        alt: 'Nail Image',
+		                        nailart_img: nailart_img, // 이미지에 속성 추가
+		                        nailart_seq: nailart_seq,
+		                        css: {
+		                            margin: '10px',
+		                            'max-width': '100%',
+		                            cursor: 'pointer'
+		                        }
+		                    });
+
+		                    // 이미지를 부모 컨테이너에 추가
+		                    $('#nailInfoContainer_' + staff_seq.replace(".", "\\.")).append(imageElement);
+
+			        	}
+			        	console.log('이미지 추가 후');
+			        },
+			        error: function (error) {
+			            console.error("데이터 가져오기 실패:", error);
+			            console.log("에러 상세 정보:", error.responseText); // 추가
+			        }
+			    });
+			}
+			
+			var selectedNailImg =''
+			var selectedNailSeq =''
+			$(document).on('click', '.showNailInfoAll img', function() {
+		        // 클릭된 이미지의 정보를 가져와서 변수에 저장
+		        selectedNailImg = $(this).attr('nailart_img');
+		        selectedNailSeq = $(this).attr('nailart_seq');
+		        alert("디자인을 선택하셨습니다.");
+		        console.log(selectedNailImg);
+		        console.log(selectedNailSeq);
+				
+		    });
+	
+			
+			
+			
+			////////////////네일아트 이미지 보여주는 함수////////////////////
 
 
 			/////////////////////////////////////////예약창//////////////////////////////////////////////////
@@ -587,19 +649,45 @@ img {
 			}
 			function submitReservation() {
 			    var designerSelect = document.getElementById('designerSelect');
-			    var designer = designerSelect.value;
+			    var staff_seq = designerSelect.value;
 			    var designerName = designerSelect.options[designerSelect.selectedIndex].text;
 			    var date = document.getElementById('calendar-container').value;
 				
-			    if (designer =='선택하세요' || date ==undefined || time =='' ){
+			    if (staff_seq =='선택하세요' || date ==undefined || time =='' || selectedNailImg ==''){
 			    	alert("모두 골라주세요");
 			    }else{
+			    	console.log(mem_id);
 			    	console.log(time);
-			    	console.log(designer);
+			    	console.log(staff_seq);
 			    	console.log(date);
 			    	console.log(designerName);
+			    	console.log(selectedNailImg);
+			    	console.log(selectedNailSeq);
 			    	if (confirm("디자이너 : " + designerName + "이(가) 맞습니까?") == true){    //확인
 			    		alert("예약 완료");
+			    	
+			    		$.ajax({
+					        type: "POST",
+					        url: "Appointment.do", // 서블릿 매핑 이름
+					        data: {
+					        	mem_id : mem_id,
+					        	staff_seq : staff_seq,
+					        	selectedNailImg : selectedNailImg,
+					        	selectedNailSeq : selectedNailSeq,
+					        	date : date,
+					        	time : time
+					        },
+					        dataType: 'json',
+					        success: function (response) {
+					            // 서버에서의 응답에 따른 처리
+					            console.log("예약 성공:", response);
+					            // 추가적으로 화면 갱신 등을 수행할 수 있음
+					        },
+					        error: function (error) {
+					            // 오류 발생 시 처리
+					            console.error("예약 실패:", error);
+					        }
+					    });
 
 			    	}else{   //취소
 			    	      return;
@@ -614,6 +702,8 @@ img {
             dateFormat: "Y-m-d",
             inline: true,
        		 });
+			
+			
 			/////////////////////////////////////////예약창//////////////////////////////////////////////////
 
 

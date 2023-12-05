@@ -48,6 +48,8 @@
     <mapper resource="com/smhrd/database/ShopMapper.xml"/>
     <mapper resource="com/smhrd/database/StaffMapper.xml"/>
     <mapper resource="com/smhrd/database/NailMapper.xml"/>
+    <mapper resource="com/smhrd/database/ServiceMapper.xml"/>
+    <mapper resource="com/smhrd/database/AppointmentMapper.xml"/>
   </mappers>
   
   
