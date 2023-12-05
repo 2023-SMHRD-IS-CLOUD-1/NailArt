@@ -279,7 +279,7 @@
 			                
 			                success: function (res) {
 			                    console.log("요청성공!");
-			                    // console.log(res)
+			                    console.log(res)
 			                    var img = document.getElementById('handImg1');
 			                    var url = window.URL || window.webkitURL;
 			                    img.src = url.createObjectURL(res);
