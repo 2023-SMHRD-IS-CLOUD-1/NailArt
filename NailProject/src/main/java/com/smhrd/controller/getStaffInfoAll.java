@@ -2,7 +2,6 @@ package com.smhrd.controller;
 
 import java.io.IOException;
 
-
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -28,11 +27,10 @@ public class getStaffInfoAll implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("getStaffInfoAll에 요청이 들어옴");
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		
+
 		String data = request.getParameter("data");
 		System.out.println("요청받은 데이터 >> " + data);
 		double shop_seq = Integer.parseInt(data.substring(11));
@@ -43,7 +41,7 @@ public class getStaffInfoAll implements Command {
 		
 		StaffDAO staffDAO = new StaffDAO();
 		List<StaffVO> staffInfo = staffDAO.getStaffInfoAll(vo);
-		        
+  
         JSONArray req_array = new JSONArray();
         for(int i = 0; i < staffInfo.size(); i++) {
             Object fieldObj = staffInfo.get(i);
@@ -65,7 +63,12 @@ public class getStaffInfoAll implements Command {
 
         if (staffInfo.size() != 0) {
         	System.out.println("직원 정보 가져오기 성공");
+        	System.out.println(req_array);
+        	//out.print("테스트");
+        	//out.print("{\"name\":\"김운비\"}");
         	out.print(req_array);
+        	System.out.println("성공");
+        	
 		} else {
 			System.out.println("직원 정보 가져오기 실패");
 		}

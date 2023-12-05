@@ -88,9 +88,9 @@
 			<!--디자인 목록 -->
 			<div id="bottom">
 				<div class="design-list">
-					<table id="selectImg" width="100%" border="1"
+					<table width="100%" border="1"
 						style="table-layout: fixed">
-						<tr>
+						<tr id="selectImg">
 							<td><img src="images/nail1.png"></td>
 							<td><img src="images/nail1.png"></td>
 							<td><img src="images/nail1.png"></td>
@@ -100,23 +100,34 @@
 					</table>
 				</div>
 				<div id="selectImgNum" style="text-align:center; width:100%; margin-top:5px">
+					<button id="prev_btn"> << </button>
 					<button class="selectImgNum">1</button>
 					<button class="selectImgNum">2</button>
 					<button class="selectImgNum">3</button>
 					<button class="selectImgNum">4</button>
 					<button class="selectImgNum">5</button>
+					<button id="next_btn"> >> </button>
 				</div>
 				
 				<button id="scrollTopButton">위로</button>
 			</div>
 
 			<script>
+				let max_page = 1;
+		
 				// 디자인 이미지 출력하기
 				// 1. ajax를 사용해서 성민샵의 shop_seq에 등록되어 있는 staff_seq와 staff_name 가져오기
 				// 이것은 아무런 이벤트 없이 성민샵에 들어오면 바로 발동
 				// 오류가 나도 무시하기. 출력 잘 됨
 				// console.log(memId);
 				
+				function wait(sec) {
+				    let start = Date.now(), now = start;
+				    while (now - start < sec * 1000) {
+				        now = Date.now();
+				    }
+				}
+
 				$.ajax({
 	                type: "get",
 	                url: 'getShopInfoAll.do',
@@ -166,7 +177,7 @@
 		                url: 'getStaffInfoAll.do',
 		                data: {data: $("option:selected", this).attr("id")},
 		                // 이게 써야 실행될 때가 있고 안 써야 실행될 때가 있음. 왜 인지 모름 위에 똑같은 코드에서는 써야 실행됨 ㅂㄷㅂㄷ
-		                //dataType : "json",
+		                dataType : "json",
 		                success: (res) => {
 		                	console.log("success");
 		                	console.log(res.length);
@@ -181,17 +192,91 @@
 		                }	
 		            });
 				});
+				
+				// 화면에 이미지를 출력하는 함수
+				// ajax 내부에서 호출되어 res와 몇 번째 버튼의 데이터를 출력할지 결정
+				function printNailImg(res, idx) {
+					idx = parseInt(idx);
+					if(idx < res.length){
+						var sendObj = {nail_img: res[idx].nailart_img};
+						
+						$.ajax({
+			                type: 'get',
+			                url: 'http://127.0.0.1:9003//GoogleDriveDownload2',
+
+			                data: sendObj,
+
+			                xhr: function () {
+			                    var xhr = new XMLHttpRequest();
+			                    xhr.responseType = 'blob';
+			                    return xhr;
+			                },
+
+			                success: function (res1) {
+			                    var img = document.getElementById('selectImg'+idx);
+			                    var url = window.URL || window.webkitURL;
+			                    img.src = url.createObjectURL(res1);
+			                    img.alt = res[idx].nailart_img;
+			                },
+
+			                // 4. 실패했을 때 
+			                error: function () {
+								console.log("error");
+			                }
+			            })
+	
+					}else{
+
+					}
+				}
 
 				// 화면에 이미지를 출력하는 함수
 				// ajax 내부에서 호출되어 res와 몇 번째 버튼의 데이터를 출력할지 결정
-				function printNailImg(res, btn) {
-					var num = btn-1;
+				function printNailImg2(res, btn) {
+					var num = parseInt(btn)-1;
 					// 이미지 비우기
 					$("#selectImg").empty();
 					$("#selectImg").append("<tr>")
                 	for(let i = 0; i<5; i++){
 						if(num*5+i < res.length){
-							$("#selectImg").append("<td><img id=selectImg"+res[num*5+i].nailart_seq+" src=images/"+res[num*5+i].nailart_img+"></td>");
+							// <td><img src="images/nail1.png"></td>
+							
+							$("#selectImg").append("<td><img id=selectImg"  +res[num*5+i].nailart_seq+  "></td>");
+							// 결과물 출력하는 사진처럼 이미지 받아와서 바로 출력시키기
+							// 그럼 여기서 ajax를 써야하나? 반복문으로? 속도 감당 가능해?????
+							
+							if(i > 0){
+								sleep(1000)
+							}
+							var sendObj = {nail_img: res[num*5+i].nailart_img};
+							
+							$.ajax({
+				                type: 'get',
+				                url: 'http://127.0.0.1:9003//GoogleDriveDownload2',
+	
+				                data: sendObj,
+	
+				                xhr: function () {
+				                    var xhr = new XMLHttpRequest();
+				                   xhr.responseType = 'blob';
+				                    return xhr;
+				                },
+	
+				                
+				                success: function (res1) {
+				                    var img = document.getElementById('selectImg'+res[num*5+i]);
+				                    var url = window.URL || window.webkitURL;
+				                    img.src = url.createObjectURL(res1);
+				                },
+	
+				                // 4. 실패했을 때 
+				                error: function () {
+									console.log("error");
+				                }
+				            })
+							
+									
+									
 						}else{
 							$("#selectImg").append("<td></td>");
 						}
@@ -200,8 +285,10 @@
 				}
 				
 				// ajax를 사용하여 데이터를 가져오는 함수
-				function getNailInfoAll(num){
-					console.log($("option:selected", "#staff_select").attr("id"));
+				function getNailInfoAll(btn){
+					//console.log($("option:selected", "#staff_select").attr("id"));
+					//console.log(num);
+					num = 5*parseInt(btn-1);
 					console.log(num);
 				    $.ajax({
 		                type: "get",
@@ -209,12 +296,35 @@
 		                data: {data: $("option:selected", "#staff_select").attr("id")},
 		                dataType : "json",
 		                success: (res) => {
-		                	console.log("success");
+		                	// 그럼 개수를 지정해야하나?
+		                	// res.length로 개수지정 가능
+		                	max_page = parseInt((parseInt(res.length)+4)/5);
+		                	console.log(res.length);
+		                	console.log(max_page);
 		                	
-		                	// 테이블 초기화 (내용삭제)
-		                	printNailImg(res, num);
+		                	                	
+		                	$("#selectImg").empty()
+							$("#selectImg").append("<td><img id=selectImg" +(num+0) + "></td>");
+		                	$("#selectImg").append("<td><img id=selectImg" +(num+1) + "></td>");
+		                	$("#selectImg").append("<td><img id=selectImg" +(num+2) + "></td>");
+		                	$("#selectImg").append("<td><img id=selectImg" +(num+3) + "></td>");
+		                	$("#selectImg").append("<td><img id=selectImg" +(num+4) + "></td>");
 		                	
+		                	// 이미지 출력
+		                	printNailImg(res, num+0);
+		                	printNailImg(res, num+1);
+		                  	printNailImg(res, num+2);
+		                	printNailImg(res, num+3);
+		                	printNailImg(res, num+4);
+		                	
+		                	// 이미지 이벤트 부여
 		                	imgClickEvent();
+		                	
+							// 버튼 내부 값 변경
+							
+							
+							// 
+		               
 		                },
 		                error : function(){
 		                	console.log("error");
@@ -235,19 +345,55 @@
 					}else{
 						getNailInfoAll($(this).text());
 						
-						// 버튼 내부의 text 변경하기
-						// 버튼을 클릭했을 때 button의 1, 2, 3, 4, 5번째에 각각 text를 다시 부여하는 코드
-						// 최대 범위의 경우 쿠키를 사용하던가 해서 결정해주기
-						// alter
-						if($(this).text() >= 3){
+						if($(this).text() <= 2){
 							var page = parseInt($(this).text());
-							console.log("button");
-							$("#selectImgNum").children('button:eq(0)').text(page-2)
-							$("#selectImgNum").children('button:eq(1)').text(page-1)
-							$("#selectImgNum").children('button:eq(2)').text(page)
-							$("#selectImgNum").children('button:eq(3)').text(page+1)
-							$("#selectImgNum").children('button:eq(4)').text(page+2);
+							$("#selectImgNum").children('button:eq(1)').text('1');
+							$("#selectImgNum").children('button:eq(2)').text('2');
+							$("#selectImgNum").children('button:eq(3)').text('3');
+							$("#selectImgNum").children('button:eq(4)').text('4');
+							$("#selectImgNum").children('button:eq(5)').text('5');
 						}
+						
+						if($(this).text() >= 3 && $(this).text() <= max_page){
+							var page = parseInt($(this).text());
+							$("#selectImgNum").children('button:eq(1)').text(page-2);
+							$("#selectImgNum").children('button:eq(2)').text(page-1);
+							$("#selectImgNum").children('button:eq(3)').text(page);
+							$("#selectImgNum").children('button:eq(4)').text(page+1);
+							$("#selectImgNum").children('button:eq(5)').text(page+2);
+						}
+					}
+				})
+				
+				$("#prev_btn").on("click", function(){
+					if($("option:selected", "#staff_select").attr("id") == null){
+						console.log("가게가 선택되지 않음");
+					}else{
+						getNailInfoAll(1);
+						
+						var page = parseInt('1');
+						
+						$("#selectImgNum").children('button:eq(1)').text('1');
+						$("#selectImgNum").children('button:eq(2)').text('2');
+						$("#selectImgNum").children('button:eq(3)').text('3');
+						$("#selectImgNum").children('button:eq(4)').text('4');
+						$("#selectImgNum").children('button:eq(5)').text('5');
+					}
+				})
+				
+				$("#next_btn").on("click", function(){
+					if($("option:selected", "#staff_select").attr("id") == null){
+						console.log("가게가 선택되지 않음");
+					}else{
+						getNailInfoAll(parseInt(max_page));
+						
+						var page = parseInt(max_page);
+						
+						$("#selectImgNum").children('button:eq(1)').text(page-2);
+						$("#selectImgNum").children('button:eq(2)').text(page-1);
+						$("#selectImgNum").children('button:eq(3)').text(page);
+						$("#selectImgNum").children('button:eq(4)').text(page+1);
+						$("#selectImgNum").children('button:eq(5)').text(page+2);
 					}
 				})
 				
@@ -261,7 +407,10 @@
 				
 				function imgClickEvent() {
 					$("#selectImg img").on("click", function(){
-						var src = $(this).attr("src");
+						var src = $(this).attr("alt");
+						console.log("src");
+						console.log(src);
+						
 						console.log(src);
 						var sendObj = {nail_img: src};
 						$.ajax({
@@ -278,8 +427,6 @@
 
 			                
 			                success: function (res) {
-			                    console.log("요청성공!");
-			                    console.log(res)
 			                    var img = document.getElementById('handImg1');
 			                    var url = window.URL || window.webkitURL;
 			                    img.src = url.createObjectURL(res);
