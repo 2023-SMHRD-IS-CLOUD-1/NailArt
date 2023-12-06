@@ -123,7 +123,7 @@ h2 {
 }
 
 .custom_nav-container {
-  padding-bottom: 10px;
+  padding: 7px;
 }
 
 .custom_nav-container .navbar-nav {
@@ -131,7 +131,7 @@ h2 {
 }
 
 .custom_nav-container .navbar-nav .nav-item .nav-link {
-  padding: 5px 10px;
+  padding: 5px 7px;
   color: #ffffff;
   text-align: center;
   text-transform: uppercase;
@@ -170,7 +170,7 @@ h2 {
 /*start버튼*/
 .user_option .order_online {
   display: inline-block;
-  padding: 5px 25px;
+  padding: 5px 20px;
   margin: 0 5px;
   background-color: #ffbe33;
   color: #ffffff;

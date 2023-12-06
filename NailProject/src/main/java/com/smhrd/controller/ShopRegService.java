@@ -22,7 +22,7 @@ public class ShopRegService implements Command{
         String mem_id = ((MemberVO) session.getAttribute("result")).getMemId();
         String mem_type = ((MemberVO) session.getAttribute("result")).getMemType();
         mem_type = "s";
-		session.setAttribute("mem_type", mem_type);
+        ((MemberVO) session.getAttribute("result")).setMemType(mem_type);
 		
 		//String mem_id = request.getParameter("mem_id");
 		String shop_name = request.getParameter("shop_name");
