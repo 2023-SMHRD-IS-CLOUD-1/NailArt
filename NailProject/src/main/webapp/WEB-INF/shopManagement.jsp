@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Design</title>
 <link rel="stylesheet" href="assets/css/shopManagement.css" />
-<link href="css/font-awesome.min.css" rel="stylesheet" />
+<link href="assets/css/font-awesome.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 카카오맵 -->
 <script type="text/javascript"
@@ -45,8 +45,9 @@
 				<div id="topBar">
 					<p>Nail</p>
 					<div id="menu">
-						<a href="index.html">Home</a> <a href="#">Design</a> <a
-							href="shop.html">Shop</a>
+						<a href="Gomain.do">Home</a> 
+						<a href="Godesign.do">Design</a> 
+						<a href="ShopSelectAll.do">Shop</a>
 					</div>
 					<a href="login.html"> <i class="fa fa-user" aria-hidden="true"></i>
 					</a>
@@ -55,11 +56,15 @@
 
 				<div>
 					<div id="thumbnailBox" class="form">
-						<input type="file" id="thumbnailInput" accept="image/*"
-							style="display: none;"> <img id="thumbnail"
+						<form id="file_form">
+							<input type="file" id="thumbnailInput" name=input_file accept="image/*" style="display: none;"> 
+						</form>
+						<img id="thumbnail"
 							src="https://png.pngtree.com/png-vector/20190215/ourmid/pngtree-vector-question-mark-icon-png-image_515448.jpg"
 							alt="">
+						
 						<h2>${shopInfo != null ? shopInfo.getShopName() : '가게 정보 없음'}</h2>
+						<h2 id="memId" style="display:None"> ${shopInfo != null ?shopInfo.getMemId(): '가게 정보 없음'} </h2>
 					</div>
 
 					<div id="menu" class="form">
@@ -122,6 +127,65 @@
 		</div>
 		<input id="AppointmentList" value='${AppointmentList}' type="hidden">
 		<script>
+			// 사진 변환 및 이미지 업로드 및 db 저장
+			document.getElementById('thumbnailInput').addEventListener('change', function(e) {
+				if (e.target.files[0]) {
+					console.log("test");
+		            // const input_file = document.querySelector("#file_form");
+		            const input_file = document.querySelector("#file_form");
+		            
+		            // const input_file = $('#file_form')[0];  // jQuery 사용시에는 이렇게 [0]을 붙어줘야한다.
+		            let data = new FormData(input_file);
+		            data.append("fname", "ShopImg");
+		            data.append("iname", shopInfo.shop_seq+shopInfo.shop_name+".png");
+	
+		            $.ajax({
+		                type: "POST",
+		                url: 'http://127.0.0.1:9003/GoogleDriveUpload',
+		                data: data,
+		                contentType: false,
+		                processData: false,
+		                success: (res) => {
+		                    console.log(res);
+		                    console.log(shopInfo.mem_id)
+		                    // 파일 업로드 성공
+		                    // 데이터베이스에 저장하기
+		                    $.ajax({
+				                type: "get",
+				                url: 'updateShopImg.do',
+				                data: {data:res, mem_id:shopInfo.mem_id},
+				                success: (res) => {
+				                    console.log(res);
+				                }
+		                    });
+		                }
+		            });
+			 	}
+			});
+			
+
+			var shopInfo = null;
+			console.log($("#memId").text());
+			
+			$.ajax({
+			    type: "get",
+			    url: "getShopInfo.do", // 서블릿 매핑 이름
+			    data: {mem_id: $("#memId").text()},
+			    dataType : "json",
+			    
+			    success: function (res) {
+			        // 서버에서의 응답에 따른 처리
+			        console.log(res);
+			        shopInfo = res;
+			    },
+			    error: function (error) {
+			        // 오류 발생 시 처리
+			        console.log("error");
+			    }
+			});
+		
+		
+
 			var designerPlus = document.getElementById("designerPlus");
 			var designerList = document.getElementById("designerList");
 			var appointmentBox = document.getElementById("appointmentBox");

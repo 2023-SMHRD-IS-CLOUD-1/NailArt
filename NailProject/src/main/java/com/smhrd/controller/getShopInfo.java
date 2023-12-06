@@ -20,7 +20,7 @@ import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
 
 
-public class getShopInfoAll implements Command {
+public class getShopInfo implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -28,32 +28,35 @@ public class getShopInfoAll implements Command {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
+		System.out.println("시작");
+		
+		String mem_id = request.getParameter("mem_id");
+		ShopVO vo = new ShopVO();
+		vo.setMemId(mem_id);
+		
+		System.out.println(mem_id);
+		
         ShopDAO shopDAO = new ShopDAO();
-        List<ShopVO> shopInfo = shopDAO.getShopInfoAll();
+        ShopVO svo = shopDAO.getShopInfo(vo);
         
-        JSONArray req_array = new JSONArray();
-        for(int i = 0; i < shopInfo.size(); i++) {
-            Object fieldObj = shopInfo.get(i);
-            JSONObject obj = new JSONObject();
-            for (Field field : fieldObj.getClass().getDeclaredFields()) {
-    			field.setAccessible(true);
-    			Object value = null;
-    			try {
-    				value = field.get(fieldObj);
-    			} catch (IllegalArgumentException | IllegalAccessException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}
-    			// System.out.println("field : " + field.getName() + " | value : " + value);
-                obj.put(field.getName(), value);
-            }
-            req_array.add(obj);
+        Object fieldObj = svo;
+        JSONObject obj = new JSONObject();
+        for (Field field : fieldObj.getClass().getDeclaredFields()) {
+			field.setAccessible(true);
+			Object value = null;
+			try {
+				value = field.get(fieldObj);
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// System.out.println("field : " + field.getName() + " | value : " + value);
+            obj.put(field.getName(), value);
         }
 
-        
-        if (shopInfo.size() != 0) {
+        if (svo != null) {
         	System.out.println("가게 정보 가져오기 성공");
-        	out.print(req_array);
+        	out.print(obj);
 		} else {
 			System.out.println("가게 정보 가져오기 실패");
 		}

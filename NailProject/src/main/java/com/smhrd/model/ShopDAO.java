@@ -31,6 +31,23 @@ public class ShopDAO {
 
         return shopInfo;
     }
+	
+	 public int updateShopImg(ShopVO vo) {
+	        SqlSession sqlSession = factory.openSession(true);
+	        List<ShopVO> shopInfo = null;
+	        System.out.println("updateShopImg 실행");
+	        int row = 0;
+	        try {
+	        	// System.out.println("getShopInfoAll 실행");
+	        	row = sqlSession.update("updateShopImg", vo);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            sqlSession.close();
+	        }
+
+	        return row;
+	    }
     
     public List<ShopVO> getShopInfoAll() {
         SqlSession sqlSession = factory.openSession(true);

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.smhrd.model.DAO;
+import com.smhrd.model.MemberDAO;
 import com.smhrd.model.MemberVO;
 
 public class UpdateService implements Command{
@@ -36,11 +37,17 @@ public class UpdateService implements Command{
 		vo.setMemAddr2(mem_address2);
 		vo.setMemName(mem_name);
 		vo.setMemId(mem_id);
-		DAO dao = new DAO();
-		int row = dao.update(vo);
-
+		vo.setMemType(mvo.getMemType());
+		
+		System.out.println("update dao 실행전");
+		MemberDAO dao = new MemberDAO();
+		int row = dao.member_update(vo);
+		System.out.println("update dao 실행후");
+		
 		if(row > 0) {
-		 session.setAttribute("result", vo);
+			System.out.println("세션에 저장");
+			session.setAttribute("result", vo);
+			System.out.println("세션에 저장 성공");
 		}
 		return "redirect:/Gomypage.do";
 	}

@@ -9,6 +9,8 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="assets/css/login.css" />
 <script src="assets/js/jquery-3.7.1.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -49,6 +51,17 @@
 			</div>
 			<!--로그인-->
 			<div class="sign-in-container">
+			
+			
+				<form id="send_email" method="POST" action="Login.do" style="display:None">
+					<h1>Send Email</h1>
+					<span>or use your account</span>
+					<!--input-->
+					<input id="input_email" type="text" name="mem_email" placeholder="input your email"> 
+					<button id="sendEmailbtn" type="button" class="form_btn">Send Email</button>
+					<a href="#" id="chage1">로그인하기</a>
+				</form>
+
 				<form id="signin-form" method="POST" action="Login.do">
 					<h1>Sign In</h1>
 					<!--api버튼-->
@@ -68,8 +81,10 @@
 					<input type="id" name="mem_id" placeholder="ID"> <input
 						type="password" name="mem_pw" placeholder="Password">
 					<button type="submit" class="form_btn">Sign In</button>
-
+					<a href="#" id="chage2">아이디/비밀번호 찾기</a>
 				</form>
+				
+				
 			</div>
 
 			<div class="overlay-container">
@@ -91,6 +106,58 @@
 	</div>
 
 	<script>
+		const form_signin = document.getElementById("signin-form");
+		const send_email =  document.getElementById("send_email");
+	
+		$("#chage2").on('click', () => {
+			$('#signin-form').css('display', 'none');
+			$('#send_email').css('display', '');
+		})
+	
+		$("#chage1").on('click', () => {
+			$('#signin-form').css('display', '');
+			$('#send_email').css('display', 'none');
+		})
+		
+		$("#sendEmailbtn").on('click', () => {
+			// ajax를 사용하여 데이터베이스에서 이메일을 사용한 mem_info 조회
+			console.log($("#input_email").val());
+			
+			$.ajax({
+                type: "get",
+                url: 'EmailCheck.do',
+                data: {data: $("#input_email").val()},
+                dataType : "json",
+                success: (res) => {
+                	console.log(res)
+                	$.ajax({
+                        type: "get",
+                        url: 'http://127.0.0.1:9003//sendEmailService',
+                        data: {to_email: $("#input_email").val(), mem_id: res.mem_id, mem_pw: res.mem_pw},
+                        success: (res) => {
+                        	console.log(res)
+                        	if(res == "success"){
+                        		alert("이메일 전송을 성공했습니다.");
+                        	}else{
+                        		alert("이메일 전송을 실패했습니다.");
+                        	}
+                        },
+                        error : function(){
+                        	console.log("error");
+                        }	
+                    });
+                },
+                error : function(){
+                	console.log("error");
+                	alert("이메일을 확인해주세요");
+                }	
+            });
+			
+		})
+		
+		
+
+	
 		const signUpBtn = document.getElementById("signUp");
 		const signInBtn = document.getElementById("signIn");
 		const container = document.querySelector(".container");

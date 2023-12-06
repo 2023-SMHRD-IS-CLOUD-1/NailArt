@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <title>Design</title>
 <link rel="stylesheet" href="assets/css/shopPage.css" />
-<link href="css/font-awesome.min.css" rel="stylesheet" />
+<link href="assets/css/font-awesome.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- 리뷰페이지 별모양 링크-->
@@ -220,15 +220,14 @@ img {
 	 
 	%>
 
-
-
 	<div id="top">
 		<!-- 상단바 -->
 		<div id="topBar">
 			<p>Nail</p>
 			<div id="menu">
-				<a href="Gomain.do">Home</a> <a href="God	esign.do">Design</a> <a
-					href="ShopSelectAll.do">Shop</a>
+				<a href="Gomain.do">Home</a> 
+				<a href="Godesign.do">Design</a> 
+				<a href="ShopSelectAll.do">Shop</a>
 			</div>
 			<a href="login.html"> <i class="fa fa-user" aria-hidden="true"></i>
 			</a>

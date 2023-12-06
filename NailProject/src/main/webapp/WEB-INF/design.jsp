@@ -37,11 +37,16 @@
 				<div id="topBar">
 					<p>Nail</p>
 					<div id="menu">
-						<a href="index.html">Home</a> <a href="#">Design</a> <a
-							href="shop.html">Shop</a>
+						<a href="Gomain.do">Home</a> 
+						<a href="Godesign.do">Design</a> 
+						<a href="ShopSelectAll.do">Shop</a>
 					</div>
-					<a href="login.html"> <i class="fa fa-user" aria-hidden="true"></i>
-					</a>
+					<c:if test="${result==null}">
+			   			<a href="Gosign.do"> <i class="fa fa-user" aria-hidden="true"></i></a>
+					</c:if>
+					<c:if test="${result!=null}">
+						<a href="Gomypage.do"> <i class="fa fa-user" aria-hidden="true"></i></a>
+					</c:if>
 				</div>
 				<hr style="width: 95%;">
 				<!--손 사진 업로드 -->

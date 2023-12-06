@@ -24,12 +24,17 @@
 		<div id="topBar">
 			<p>Nail</p>
 			<div id="menu">
-				<a href="Gomain.do">Home</a> <a href="Godesign.do">Design</a> <a
-					href="Goshop.do">Shop</a>
+				<a href="Gomain.do">Home</a> 
+				<a href="Godesign.do">Design</a> 
+				<a href="Goshop.do">Shop</a>
 			</div>
-			<a href="Gomypage.do"> <i class="fa fa-user" aria-hidden="true"></i>
-			</a>
-		</div>
+				<c:if test="${result==null}">
+			   		<a href="Gosign.do"> <i class="fa fa-user" aria-hidden="true"></i></a>
+				</c:if>
+				<c:if test="${result!=null}">
+					<a href="Gomypage.do"> <i class="fa fa-user" aria-hidden="true"></i></a>
+				</c:if>
+			</div>
 		<hr style="width: 95%;">
 
 		<!-- 회원 프로필 -->
@@ -53,10 +58,11 @@
 		<!--회원정보수정, 가게등록 태그-->
 		<div class="buttons">
 			<button id="editButton">> 회원정보 수정</button>
+			
+
 			<c:if test="${result.getMemType()=='c'}">
 				<a class="storeButton" href="GoshopReg.do"> > 가게등록</a>
 			</c:if>
-
 			<!--등록했으면 가게관리페이지로 이동-->
 			<c:if test="${result.getMemType()=='s'}">
 				<a class="storeButton" href="ShopManagement.do"> > 가게관리</a>

@@ -36,6 +36,17 @@ public class MemberDAO {
 		return row;
 	}
 	
+	public MemberVO getMemberInfo(MemberVO vo) {
+		SqlSession sqlSession = factory.openSession(true); // true을 넣으면 자동으로 commit
+		
+		System.out.println(vo.getMemId());
+		MemberVO mvo = sqlSession.selectOne("getMemberInfo", vo);
+
+		sqlSession.close();
+
+		return mvo;
+	}
+	
 	public MemberVO selectId(MemberVO vo) {
 		SqlSession sqlSession = factory.openSession(true); // true을 넣으면 자동으로 commit
 		
@@ -87,12 +98,14 @@ public class MemberDAO {
 		return list;
 	}
 	
-	public int update(MemberVO vo) {
+	public int member_update(MemberVO vo) {
 		
 		// 1. session 빌려오기
 		SqlSession sqlSession = factory.openSession(true);
 		
-		int row = sqlSession.update("update", vo);
+		System.out.println("membermapper 전");
+		int row = sqlSession.update("member_update", vo);
+		System.out.println("membermapper 후");
 	
 		// 3. session 반납하기
 		sqlSession.close();

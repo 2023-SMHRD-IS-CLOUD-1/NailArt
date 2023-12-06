@@ -80,9 +80,7 @@
 							</c:if>
 
 							<c:if test="${result!=null}">
-								<a href="Gomypage.do" class="user_link"> <i
-									class="fa fa-user" aria-hidden="true"></i>
-								</a>
+								<a href="Gomypage.do" class="user_link"> <i class="fa fa-user" aria-hidden="true"></i></a>
 								<a href="Logout.do" class="order_online"> Log out </a>
 							</c:if>
 						</div>

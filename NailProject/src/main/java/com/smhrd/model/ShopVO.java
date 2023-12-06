@@ -32,7 +32,17 @@ public class ShopVO {
     
     private String shop_addr1;
     private String shop_addr2;
+    
+    private String shop_img;
    
+	public String getShop_img() {
+		return shop_img;
+	}
+
+	public void setShop_img(String shop_img) {
+		this.shop_img = shop_img;
+	}
+
 	public String getShop_addr1() {
 		return shop_addr1;
 	}

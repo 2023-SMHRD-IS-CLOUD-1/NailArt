@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>shopReg</title>
     <link rel="stylesheet" href="assets/css/shopReg.css" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 <body>
