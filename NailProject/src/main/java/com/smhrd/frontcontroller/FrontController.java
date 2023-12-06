@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.smhrd.controller.AddDesignerService;
 import com.smhrd.controller.AppointmentService;
 import com.smhrd.controller.Command;
+import com.smhrd.controller.DeleteAppointmentService;
 import com.smhrd.controller.DeleteDesignerService;
 import com.smhrd.controller.EmailCheckService;
 import com.smhrd.controller.GetNailInfoAll2;
@@ -65,6 +66,7 @@ public class FrontController extends HttpServlet {
 		map.put("Appointment.do", new AppointmentService());
 		map.put("SelectReserv.do", new SelectReservService());
 		map.put("ShopReg.do", new ShopRegService());
+		map.put("DeleteAppointment.do", new DeleteAppointmentService());
 		// service 메소드 안쪽의 코들ㄹ 고칠 필요가 없다.
 	
 	}
