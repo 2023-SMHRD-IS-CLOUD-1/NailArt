@@ -1,6 +1,8 @@
-NailArt(네일아트) 팀명: 손톱뜯지마
+# NailArt(네일아트) 팀명: 손톱뜯지마
+![다운로드](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/142488051/89872779-53cf-4192-9b56-7aeef564b682)
 
-# 1. 서비스 소개
+
+## 1. 서비스 소개
 
    ### 서비스 설명:
 
