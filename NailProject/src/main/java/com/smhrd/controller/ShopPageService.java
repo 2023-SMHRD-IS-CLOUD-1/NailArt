@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.smhrd.model.ReviewDAO;
+import com.smhrd.model.ReviewVO;
 import com.smhrd.model.ShopDAO;
 import com.smhrd.model.ShopVO;
 import com.smhrd.model.StaffDAO;
@@ -51,6 +53,30 @@ public class ShopPageService implements Command {
         for (StaffVO staff : staffList) {
         	System.out.println(staff.getStaffSeq());
         }
+        
+        
+        // 리뷰 리스트 가져오기
+        ReviewVO revVo = new ReviewVO();
+        Double shop_seq1 = shopInfo.getShopSeq();
+        revVo.setShopSeq(shop_seq1);
+        
+        ReviewDAO revDao = new ReviewDAO();
+        List<ReviewVO> reviewList = revDao.selectAllReview(revVo);
+        if (reviewList != null) {
+        	session.setAttribute("reviewList", reviewList);
+        	System.out.println("리뷰리스트 가져오기 성공" + reviewList);
+        	for(ReviewVO review : reviewList) {
+        		System.out.println(review.getReviewContent());
+        	}
+        }else {
+        	System.out.println("리뷰리스트 가져오기 실패");
+        	
+        }
+        
+        
+        
+        
+        
         // shopmanagement.jsp로 포워드
         return "redirect:/GoshopPage.do";
 	}

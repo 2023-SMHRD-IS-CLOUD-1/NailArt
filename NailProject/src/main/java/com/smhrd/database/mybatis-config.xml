@@ -51,6 +51,7 @@
     <mapper resource="com/smhrd/database/ServiceMapper.xml"/>
     <mapper resource="com/smhrd/database/AppointmentMapper.xml"/>
     <mapper resource="com/smhrd/database/ReservMapper.xml"/>
+    <mapper resource="com/smhrd/database/ReviewMapper.xml"/>
   </mappers>
   
   

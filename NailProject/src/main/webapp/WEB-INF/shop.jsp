@@ -1,7 +1,7 @@
 <%@page import="com.smhrd.model.ShopVO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 
 <!DOCTYPE html>
@@ -12,154 +12,263 @@
 <title>Shop</title>
 <link rel="stylesheet" href="assets/css/shop.css" />
 <link rel="stylesheet" as="style" crossorigin
-   href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
 #pagination {
-   margin: auto;
+	margin: auto;
 }
 
 #pagination button {
-   background-color: white;
-   border-radius: 5px;
-   border-color: white;
-   width: 50px;
-   height: 30px;
+	background-color: white;
+	border-radius: 5px;
+	border-color: white;
+	width: 50px;
+	height: 30px;
 }
 
-#sort{
-   background-color: white;
-   border-radius: 5px;
-   border-color: white;
-
+#sort {
+	background-color: white;
+	border-radius: 5px;
+	border-color: white;
 }
-
 </style>
 <body>
-   <div class="container">
-      <div class="centered">
-         <div id="top">
-            <!-- 상단바 -->
-            <div id="topBar">
-               <p>Nail</p>
-               <div id="menu">
-                  <a href="Gomain.do">Home</a> 
-						<a href="Godesign.do">Design</a> 
-						<a href="ShopSelectAll.do">Shop</a>
-               </div>
+	<div class="container">
+		<div class="centered">
+			<div id="top">
+				<!-- 상단바 -->
+				<div id="topBar">
+					<p>Nail</p>
+					<div id="menu">
+						<a href="Gomain.do">Home</a> <a href="Godesign.do">Design</a> <a
+							href="#">Shop</a>
+					</div>
+					<c:if test="${result==null}">
+						<a href="Gosign.do"> <i class="fa fa-user" aria-hidden="true"></i></a>
+					</c:if>
+					<c:if test="${result!=null}">
+						<a href="Gomypage.do"> <i class="fa fa-user"
+							aria-hidden="true"></i></a>
+					</c:if>
+					</a>
+				</div>
+				<hr style="width: 95%;">
+
+				<!--검색창 -->
+				<form id="searchForm">
+					<div class="search">
+						<input type="text" id="searchInput" name="query" value="">
+						<button type="button" onclick="searchShop()">
+							<img
+								src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+						</button>
+					</div>
+				</form>
+
+			</div>
+
+			<div id="bottom">
+				<!-- 정렬선택 -->
+				<div class="subTop">
+					<div id="sortRange">
+						<label for="sort">정렬: </label> <select id="sort" name="sort"
+							onchange="sortShopList()">
+							<option>선택하세요</option>
+							<option value="score">평점순</option>
+						</select>
+					</div>
+				</div>
+
+				<!-- shop 리스트 -->
+				<div class="shops">
+					<ol id="shop">
+						<c:set var="google" value="https://drive.google.com/uc?export=view&id=" />
+						<c:forEach var="shop" items="${shopList}">
+							<li onclick="navigateToPage(event)" id="${shop.getMemId()}">
+								<div class="left">
+									<c:set var="imgSrc" value="${google}${shop.getShop_img()}"/>
+									<img src="${imgSrc}">
+								</div>
+								<div class="right">
+									<div class="shopName">
+										<span> ${shop.getShopName()} </span>
+									</div>
+									<div class="location">
+										<i class="fa fa-location-arrow"></i> <span>${shop.getShop_addr1() }</span>
+									</div>
+									<div class="shopNumber">
+										<i class="fa fa-phone"></i> <span>${shop.getShopTel() }</span>
+									</div>
+									<div class="openingtime">
+										<i class=" fa fa-clock-o"></i>
+										<div>
+											<span>영업중</span>
+										</div>
+										<div>
+											<span>${shop.getOpenTime()}:00 ~</span>
+										</div>
+										<div>
+											<span>${shop.getCloseTime()}:00</span>
+										</div>
+									</div>
+									<div class="averScore">
+										<i class="fa fa-phone"></i> <span>${shop.getReview_rating() }</span>
+									</div>
+								</div>
+							</li>
+						</c:forEach>
+
+					</ol>
+				</div>
+
+				<script type="text/javascript">
+                  function searchShop() {
+                      const input = document.getElementById('searchInput').value.toLowerCase();
+                      const shops = document.getElementById('shop').getElementsByTagName('li');
+                      const pagination = document.getElementById('pagination');
+      
+                      pagination.style.display = 'block';
+                      for (let i = 0; i < shops.length; i++) {
+                          const shopName = shops[i].getElementsByClassName('shopName')[0].innerText.toLowerCase();
+      
+                          if (shopName.includes(input)) {
+                              shops[i].style.display = 'block';
+                          } else {
+                              shops[i].style.display = 'none';
+                          }
+                      }
+      
+                      pagination.style.display = 'none';
+                  }
+
+                  // 평점순 내림차순 정렬
+                  function sortShopList() {
+                   var selectedOption = document.getElementById('sort').value;
+                   if (selectedOption == 'score') {
+                       $.ajax({
+                           type: 'POST',
+                           url: 'ShopSelectSort.do', 
+                           contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                           dataType : 'json', 
+                           success: function (result) {
+                              console.log("결과값>>",result);
+                               $('#shop').empty(); // 현재 상점 목록을 지웁니다
+                              //$('#shop').append(result); // 서버로부터 받은 업데이트된 상점 목록을 추가합니다
                
-               <c:if test="${result==null}">
-			   		<a href="Gosign.do"> <i class="fa fa-user" aria-hidden="true"></i></a>
-			   </c:if>
-			   <c:if test="${result!=null}">
-			   		<a href="Gomypage.do"> <i class="fa fa-user" aria-hidden="true"></i></a>
-			   </c:if>
-            </div>
-            <hr style="width: 95%;">
+                              result.forEach(function(item) {
+                              // li 태그 생성
+                                  const newLi = document.createElement('li');
+                                  newLi.id = item.mem_id; // 가게 ID 설정
+                                  
+                                  newLi.addEventListener('click', ()=>{
+                                	  navigateToPage(event);
+                                  })
+                                  
+                                  // newLi.onclick = function(event) {};
+                               
+                                  // left div
+                                  const leftDiv = document.createElement('div');
+                                  leftDiv.classList.add('left');
+                                  const img = document.createElement('img');
+                                  img.src = "https://drive.google.com/uc?export=view&id="+item.shop_img; // 이미지 소스 설정
+                                  leftDiv.appendChild(img);
+                                  
+                                  // right div
+                                  const rightDiv = document.createElement('div');
+                                  rightDiv.classList.add('right');
 
-            <!--검색창 -->
-            <form id="searchForm">
-               <div class="search">
-                  <input type="text" id="searchInput" name="query" value="">
-                  <button type="button" onclick="searchShop()">
-                     <img
-                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
-                  </button>
-               </div>
-            </form>
+                                  // shopName div
+                                  const shopNameDiv = document.createElement('div');
+                                  shopNameDiv.classList.add('shop_name');
+                                  const shopNameSpan = document.createElement('span');
+                                  shopNameSpan.textContent = item.shop_name; // 가게 이름 설정
+                                  shopNameDiv.appendChild(shopNameSpan);
 
-         </div>
+                                  // location div
+                                  const locationDiv = document.createElement('div');
+                                  locationDiv.classList.add('shop_addr1');
+                                  const locationIcon = document.createElement('i');
+                                  locationIcon.classList.add('fa', 'fa-location-arrow');
+                                  const locationSpan = document.createElement('span');
+                                  locationSpan.textContent = item.shop_addr1; // 가게 주소 설정
+                                  locationDiv.appendChild(locationIcon);
+                                  locationDiv.appendChild(locationSpan);
 
-         <div id="bottom">
-            <div class="subTop">
-               <div id="sortRange">
-                  <label for="sort">정렬: </label> <select id="sort" name="sort"
-                     onchange="sortShopList()">
-                     <option>선택하세요</option>
-                     <option value="score">평점순</option>
-                  </select>
-               </div>
-            </div>
+                                  // shopNumber div
+                                  const shopNumberDiv = document.createElement('div');
+                                  shopNumberDiv.classList.add('shop_tel');
+                                  const phoneIcon = document.createElement('i');
+                                  phoneIcon.classList.add('fa', 'fa-phone');
+                                  const phoneSpan = document.createElement('span');
+                                  phoneSpan.textContent = item.shop_tel; // 가게 전화번호 설정
+                                  shopNumberDiv.appendChild(phoneIcon);
+                                  shopNumberDiv.appendChild(phoneSpan);
 
-            <div class="shops">
-               <ol id="shop">
+                                  // openingtime div
+                                  const openingTimeDiv = document.createElement('div');
+                                  openingTimeDiv.classList.add('open_time');
+                                  const clockIcon = document.createElement('i');
+                                  clockIcon.classList.add('fa', 'fa-clock-o');
+                                  const openSpan = document.createElement('span');
+                                  openSpan.textContent = item.open_time + ':00 ~'; // 영업 시작 시간 설정
+                                  const closeSpan = document.createElement('span');
+                                  closeSpan.textContent = item.close_time + ':00'; // 영업 종료 시간 설정
+                                  openingTimeDiv.appendChild(clockIcon);
+                                  openingTimeDiv.appendChild(openSpan);
+                                  openingTimeDiv.appendChild(closeSpan);
+                                  
+                                  // openingtime div
+                                  const shopScoreDiv = document.createElement('div');
+                                  shopScoreDiv.classList.add('review_rating');
+                                  const scoreIcon = document.createElement('i');
+                                  scoreIcon.classList.add('fa', 'fa-phone');
+                                  const scoreSpan = document.createElement('span');
+                                  scoreSpan.textContent = item.review_rating; // 가게 전화번호 설정
+                                  shopScoreDiv.appendChild(scoreIcon);
+                                  shopScoreDiv.appendChild(scoreSpan);
 
-                  <c:forEach var="shop" items="${shopList}">
+                                  // rightDiv에 추가
+                                  rightDiv.appendChild(shopNameDiv);
+                                  rightDiv.appendChild(locationDiv);
+                                  rightDiv.appendChild(shopNumberDiv);
+                                  rightDiv.appendChild(openingTimeDiv);
+                                  rightDiv.appendChild(shopScoreDiv);
 
-                     <li onclick="navigateToPage(event)" id="${shop.getMemId() }">
-                        <div class="left">
-                           <img
-                              src="data:image/png;base64,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">
-                        </div>
-                        <div class="right">
-                           <div class="shopName">
-                              <span> ${shop.getShopName()} </span>
-                           </div>
-                           <div class="location">
-                              <i class="fa fa-location-arrow"></i> <span>${shop.getShop_addr1() }</span>
-                           </div>
-                           <div class="shopNumber">
-                              <i class="fa fa-phone"></i> <span>${shop.getShopTel() }</span>
-                           </div>
-                           <div class="openingtime">
-                              <i class=" fa fa-clock-o"></i>
-                              <div>
-                                 <!---->
-                                 <span>영업중</span>
+                                  // li 태그에 left, right div 추가
+                                  newLi.appendChild(leftDiv);
+                                  newLi.appendChild(rightDiv);
 
-                              </div>
-                              <div>
-                                 <span>${shop.getOpenTime()}:00 ~</span>
-                              </div>
-                              <div>
-                                 <span>${shop.getCloseTime()}:00</span>
-                              </div>
-                           </div>
-                        </div>
-                     </li>
-                  </c:forEach>
+                                  // #shop에 li 태그 추가
+                                  $('#shop').append(newLi);
+                           })
+                              
+                               updatePageButtons(); // 페이지 버튼 업데이트
+                           },
+                           error: function () {
+                               alert('데이터를 불러오는 중 오류가 발생했습니다'); // AJAX 호출이 실패한 경우 오류 처리
+                           }
+                       });
+                   }
+               }
+            </script>
 
-               </ol>
-            </div>
+				<div id="pagination">
+					<button onclick="firstPage()"><<</button>
+					<button onclick="prevPage()"><</button>
 
-            <script>
-            function searchShop() {
-                const input = document.getElementById('searchInput').value.toLowerCase();
-                const shops = document.getElementById('shop').getElementsByTagName('li');
-                const pagination = document.getElementById('pagination');
+					<c:forEach var="page" begin="1" end="${totalPages}">
+						<button onclick="gotoPage(${page})">${page}</button>
+					</c:forEach>
 
-                pagination.style.display = 'block';
-                for (let i = 0; i < shops.length; i++) {
-                    const shopName = shops[i].getElementsByClassName('shopName')[0].innerText.toLowerCase();
+					<button onclick="nextPage()">></button>
+					<button onclick="lastPage()">>></button>
+					<span id="currentPage">1</span>
+				</div>
 
-                    if (shopName.includes(input)) {
-                        shops[i].style.display = 'block';
-                    } else {
-                        shops[i].style.display = 'none';
-                    }
-                }
 
-                pagination.style.display = 'none';
-            }
-
-    
-</script>
-
-            <div id="pagination">
-               <button onclick="firstPage()"><<</button>
-               <button onclick="prevPage()"><</button>
-
-               <c:forEach var="page" begin="1" end="${totalPages}">
-                  <button onclick="gotoPage(${page})">${page}</button>
-               </c:forEach>
-
-               <button onclick="nextPage()">></button>
-               <button onclick="lastPage()">>></button>
-               <span id="currentPage">1</span>
-            </div>
-
-            <script>
+				<script>
              const shops = document.getElementById('shop');
              const currentPageElement = document.getElementById('currentPage');
              let currentPage = 1;
@@ -252,7 +361,7 @@
              showPage(currentPage);
          </script>
 
-            <script>
+				<script>
             function navigateToPage(event) {
                const mem_id = event.currentTarget.id;
                
@@ -262,6 +371,7 @@
              }
          
          
+            /*
             const scrollTopButton = document.getElementById('scrollTopButton');
 
             function toggleScrollButton() {
@@ -276,6 +386,7 @@
             scrollTopButton.addEventListener('click', () => {
                window.scrollTo({ top: 0, behavior: 'smooth' }); // 맨 위로 부드럽게 스크롤
             });
+            */
 
             
          </script>

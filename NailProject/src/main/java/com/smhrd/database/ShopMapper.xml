@@ -15,11 +15,49 @@
 		WHERE MEM_ID = #{mem_id}
 	</select>
 
-	<select id="shopSelectAll"	
-		resultType="com.smhrd.model.ShopVO">
-		SELECT *
-		FROM shop_info
+	<select id="shopSelectAll" resultType="com.smhrd.model.ShopVO">
+		SELECT
+		b.shop_name,
+		b.shop_addr1,
+		b.shop_addr2,
+		b.shop_tel,
+		b.open_time,
+		b.close_time,
+		b.shop_img,
+		b.mem_id,
+		COALESCE(ROUND(AVG(a.review_rating), 1), 0) AS review_rating
+		
+		FROM
+		shop_info b
+		LEFT JOIN
+		review_info a ON a.shop_seq = b.shop_seq
+		GROUP BY
+		b.shop_seq, b.shop_name, b.shop_addr1, b.shop_addr2, b.shop_tel,
+		b.open_time, b.close_time, b.shop_img, b.mem_id
 	</select>
+	
+	<select id="shopSelectSort" resultType="com.smhrd.model.ShopVO">
+		SELECT
+		b.shop_name,b.shop_seq,
+		b.shop_addr1,
+		b.shop_addr2,
+		b.shop_tel,
+		b.open_time,
+		b.close_time,
+		b.shop_img,
+		b.mem_id,
+		COALESCE(ROUND(AVG(a.review_rating), 1), 0) AS review_rating
+		FROM
+		shop_info b
+		LEFT JOIN
+		review_info a ON a.shop_seq = b.shop_seq
+		GROUP BY
+		b.shop_seq, b.shop_name, b.shop_addr1, b.shop_addr2, b.shop_tel,
+		b.open_time, b.close_time,b.shop_img,b.mem_id
+		ORDER BY
+		review_rating DESC
+	</select>
+	
 	
 	<select id="getShopInfoAll" resultType="com.smhrd.model.ShopVO">
 		SELECT *

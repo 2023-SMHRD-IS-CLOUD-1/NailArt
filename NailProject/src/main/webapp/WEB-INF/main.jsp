@@ -50,7 +50,7 @@
 		<header class="header_section">
 			<div class="container">
 				<nav class="navbar navbar-expand-lg custom_nav-container ">
-					<a class="navbar-brand" href="index.html"> <span> Nail </span>
+					<a class="navbar-brand" href="#"> <span> Nail </span>
 					</a>
 
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -106,7 +106,7 @@
 											error unde. Tempora ex doloremque, labore, sunt repellat
 											dolore, iste magni quos nihil ducimus libero ipsam.</p>
 										<div class="btn-box">
-											<a href="design.html" class="btn1"> Design </a>
+											<a href="Godesign.do" class="btn1"> Design </a>
 										</div>
 									</div>
 								</div>
@@ -124,7 +124,7 @@
 											error unde. Tempora ex doloremque, labore, sunt repellat
 											dolore, iste magni quos nihil ducimus libero ipsam.</p>
 										<div class="btn-box">
-											<a href="shop.html" class="btn1"> Shop </a>
+											<a href="Goshop.do" class="btn1"> Shop </a>
 										</div>
 									</div>
 								</div>
@@ -142,7 +142,7 @@
 											error unde. Tempora ex doloremque, labore, sunt repellat
 											dolore, iste magni quos nihil ducimus libero ipsam.</p>
 										<div class="btn-box">
-											<a href="login.html" class="btn1"> Join Now </a>
+											<a href="Gosign.do" class="btn1"> Join Now </a>
 										</div>
 									</div>
 								</div>

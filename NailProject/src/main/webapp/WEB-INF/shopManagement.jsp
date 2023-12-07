@@ -85,6 +85,9 @@
 										<button class="deleteButton" id="${staff.getStaffSeq()}">디자이너
 											삭제</button>
 									</div>
+									<div id=nailImgList>
+										
+									</div>
 								</div>
 								<div class="imageContainer" style="display: flex; overflow-x: auto;"></div>
 
@@ -93,6 +96,7 @@
 						</c:forEach>
 						<button id="designerPlus">디자이너 추가</button>
 					</div>
+
 					<div id="appointmentBox" class="form">
 						<h2>예약</h2>
 						<hr class="hrpink">
@@ -105,10 +109,16 @@
 					<div id="reviewList" class="form">
 						<h2>리뷰</h2>
 						<hr class="hrpink">
-						<div class="form review">
-							서비스 너무 최고였어요!
-							<button class="reviewCommentbtn">답글 달기</button>
-						</div>
+						<c:forEach var="review" items="${reviewList}">
+							<div>
+								<p>작성자 : ${review.getMemId()} </p>
+								<p>평점 : ${review.getReviewRating()} </p>
+								<p>작성일 : ${review.getCreatedAt()} </p>
+								<p>리뷰내용 : ${review.getReviewContent()} </p>
+								
+								<hr class="hrpink">
+							</div>
+						</c:forEach>
 					</div>
 					<div id="mapbox" class="form">
 						<h2>지도</h2>
@@ -127,6 +137,10 @@
 		</div>
 		<input id="AppointmentList" value='${AppointmentList}' type="hidden">
 		<script>
+			var shopInfo = null;
+			var staffList = null;
+			var nailList = null;
+		
 			// 사진 변환 및 이미지 업로드 및 db 저장
 			document.getElementById('thumbnailInput').addEventListener('change', function(e) {
 				if (e.target.files[0]) {
@@ -164,8 +178,7 @@
 			});
 			
 
-			var shopInfo = null;
-			console.log($("#memId").text());
+			
 			
 			$.ajax({
 			    type: "get",
@@ -177,6 +190,146 @@
 			        // 서버에서의 응답에 따른 처리
 			        console.log(res);
 			        shopInfo = res;
+			        
+			        console.log(shopInfo.shop_img)
+			     	// db에 저장되어 있는 file_id를 사용하여 어쩌고 저쩌고
+					// shopInfo.shop_img
+					// thumbnail <-- 이 녀석의 src를 변겅
+					if(shopInfo.shop_img != null){
+						$.ajax({
+			                type: "get",
+			                
+			                // shopInfo.shop_img
+			                url: 'http://127.0.0.1:9003/GoogleDriveDownload2',
+			                data: {nail_img: shopInfo.shop_img},
+			                
+			                xhr: function () {
+			                    var xhr = new XMLHttpRequest();
+			                    xhr.responseType = 'blob';
+			                    return xhr;
+			                },
+
+			                success: function (res) {
+			                    var img = document.getElementById('thumbnail');
+			                    var url = window.URL || window.webkitURL;
+			                    img.src = url.createObjectURL(res);
+			                },
+			            });
+					}
+			        
+			     	// id = nailImgList에 해당하는 staff 정보를 가져와서 그 사람의 사진 출력하기
+					// 1. 스태프 정보 모두 가져오기
+					$.ajax({
+					    type: "get",
+					    url: "getStaffInfoAll.do", // 서블릿 매핑 이름
+					    data: {data: "11111111111"+shopInfo.shop_seq},
+					    dataType : "json",
+					    
+					    success: function (res) {
+					        // 서버에서의 응답에 따른 처리
+					        console.log(res.length);
+					        staffList = res;
+					        
+					        var cnt = 0;
+					        $("#designerList").empty();
+					        $("#designerList").append("<h2>디자이너</h2>");
+					        $("#designerList").append("<hr class=\"hrpink\">");
+					        
+					        
+							var designerList = document.getElementById('designerList');
+					        for(let i = 0; i < staffList.length; i++){
+					        	console.log(staffList[i].staff_name);
+					        	// nail 정보 모두 가져오기
+					        	const designerDiv = document.createElement('div');
+					        	designerDiv.setAttribute("class", "designer");
+					        	
+					        	const stylediv = document.createElement('div');
+					        	stylediv.setAttribute("style", "height: 40px;");
+					        	
+					        	const staffspan = document.createElement('span');
+					        	staffspan.innerHTML = staffList[i].staff_name;
+
+    							const staffinput = document.createElement('input');
+    							staffinput.setAttribute("class", "staffList1");
+    							staffinput.setAttribute("type", "hidden");
+    							staffinput.setAttribute("data-value1", staffList[i].staff_name);
+    							staffinput.setAttribute("data-value1", staffList[i].staff_seq);
+    							
+    							const designerButton = document.createElement('div');
+    							designerButton.setAttribute("class", "designerButton");
+    							
+    							const addImageButton = document.createElement('button');
+    							addImageButton.className = "addImageButton";
+    							addImageButton.innerHTML = "이미지 추가";
+    							addImageButton.setAttribute("id", staffList[i].staff_seq);
+			    				
+    							const deleteButton = document.createElement('button');
+    							deleteButton.className = "deleteButton";
+			    				deleteButton.innerHTML = "디자이너 삭제";
+			    				
+    							const imageContainerdiv = document.createElement('div');
+    							imageContainerdiv.setAttribute("class", "imageContainer");
+    							imageContainerdiv.setAttribute("style", "display: flex; overflow-x: auto;");
+    							
+    							var buttonContainer = document.createElement("div");
+    				            buttonContainer.className = "designerButton";
+			    				
+    				            const hrpink = document.createElement("hr");
+    				            
+    				            designerButton.appendChild(addImageButton);
+    				            designerButton.appendChild(deleteButton);
+    				            
+    				            stylediv.appendChild(staffspan);
+    				            stylediv.appendChild(staffinput);
+    				            stylediv.appendChild(designerButton);
+    							
+    				            designerList.appendChild(stylediv);
+    				            designerList.appendChild(imageContainerdiv);
+    				            designerList.appendChild(hrpink);
+
+					        }
+					        
+					        var imgContainerList = document.getElementsByClassName("imageContainer");
+					        console.log(imgContainerList);
+					        
+					        var google = "https://drive.google.com/uc?export=view&id="
+							// <img src="https://drive.google.com/uc?export=view&id=11Xa5wSagXVWNwvsKLsUV0h00IJB3_ynT">
+					        
+					        
+					        for(let i = 0; i < staffList.length; i++){
+					        	$.ajax({
+								    type: "get",
+								    url: "getNailInfoAll.do", // 서블릿 매핑 이름
+								    data: {data: "111111111111"+staffList[i].staff_seq},
+								    dataType : "json",
+								    
+								    success: function (res) {
+								        // 서버에서의 응답에 따른 처리
+								        nailList = res;
+								        
+								        console.log(res);
+								        
+								        for(let j = 0; j < nailList.length; j++){
+								        	console.log(res[j].nailart_img);
+								        	var temp = document.createElement("div");
+								        	var img_id = "nailImg_"+i+"_"+j;
+									        temp.innerHTML = "<img id=\""+img_id+"\" src=\""+google+res[j].nailart_img+"\" width=\"50px\">"
+									        imgContainerList[i].append(temp);
+								        }
+								    },
+								    error: function (error) {
+								        // 오류 발생 시 처리
+								        console.log("error");
+								    }
+								});
+					        }
+					    },
+					    error: function (error) {
+					        // 오류 발생 시 처리
+					        console.log("error");
+					    }
+					});
+			        
 			    },
 			    error: function (error) {
 			        // 오류 발생 시 처리

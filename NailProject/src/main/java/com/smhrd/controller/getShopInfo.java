@@ -31,6 +31,7 @@ public class getShopInfo implements Command {
 		System.out.println("시작");
 		
 		String mem_id = request.getParameter("mem_id");
+		mem_id = mem_id.replace(" ", "");
 		ShopVO vo = new ShopVO();
 		vo.setMemId(mem_id);
 		

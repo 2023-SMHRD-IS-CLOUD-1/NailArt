@@ -26,6 +26,7 @@ import com.smhrd.controller.ShopManagementService;
 import com.smhrd.controller.ShopPageService;
 import com.smhrd.controller.ShopRegService;
 import com.smhrd.controller.ShopSelectAllService;
+import com.smhrd.controller.ShopSelectSortService;
 import com.smhrd.controller.UpdateService;
 import com.smhrd.controller.getNailInfoAll;
 import com.smhrd.controller.getShopInfo;
@@ -69,6 +70,7 @@ public class FrontController extends HttpServlet {
 		map.put("SelectReserv.do", new SelectReservService());
 		map.put("ShopReg.do", new ShopRegService());
 		map.put("updateShopImg.do", new updateShopImg());
+		map.put("ShopSelectSort.do", new ShopSelectSortService());
 		// service 메소드 안쪽의 코들ㄹ 고칠 필요가 없다.
 
 	}

@@ -133,6 +133,7 @@
                 	$.ajax({
                         type: "get",
                         url: 'http://127.0.0.1:9003//sendEmailService',
+                                            
                         data: {to_email: $("#input_email").val(), mem_id: res.mem_id, mem_pw: res.mem_pw},
                         success: (res) => {
                         	console.log(res)

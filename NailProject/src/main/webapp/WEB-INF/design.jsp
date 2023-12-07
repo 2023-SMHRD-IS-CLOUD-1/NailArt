@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Design</title>
-<link rel="stylesheet" href="assets/css/design.css" />
+<link rel="stylesheet" href="assets/css/design.css?after" />
 <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -97,10 +97,10 @@
 						style="table-layout: fixed">
 						<tr id="selectImg">
 							<td><img src="images/nail1.png"></td>
-							<td><img src="images/nail1.png"></td>
-							<td><img src="images/nail1.png"></td>
-							<td><img src="images/nail1.png"></td>
-							<td><img src="images/nail1.png"></td>
+							<td><img src="images/nail2.png"></td>
+							<td><img src="images/nail3.png"></td>
+							<td><img src="images/nail4.png"></td>
+							<td><img src="images/nail5.png"></td>
 						</tr>
 					</table>
 				</div>
@@ -198,42 +198,6 @@
 		            });
 				});
 				
-				// 화면에 이미지를 출력하는 함수
-				// ajax 내부에서 호출되어 res와 몇 번째 버튼의 데이터를 출력할지 결정
-				function printNailImg(res, idx) {
-					idx = parseInt(idx);
-					if(idx < res.length){
-						var sendObj = {nail_img: res[idx].nailart_img};
-						
-						$.ajax({
-			                type: 'get',
-			                url: 'http://127.0.0.1:9003//GoogleDriveDownload2',
-
-			                data: sendObj,
-
-			                xhr: function () {
-			                    var xhr = new XMLHttpRequest();
-			                    xhr.responseType = 'blob';
-			                    return xhr;
-			                },
-
-			                success: function (res1) {
-			                    var img = document.getElementById('selectImg'+idx);
-			                    var url = window.URL || window.webkitURL;
-			                    img.src = url.createObjectURL(res1);
-			                    img.alt = res[idx].nailart_img;
-			                },
-
-			                // 4. 실패했을 때 
-			                error: function () {
-								console.log("error");
-			                }
-			            })
-	
-					}else{
-
-					}
-				}
 
 				// 화면에 이미지를 출력하는 함수
 				// ajax 내부에서 호출되어 res와 몇 번째 버튼의 데이터를 출력할지 결정
@@ -307,29 +271,21 @@
 		                	console.log(res.length);
 		                	console.log(max_page);
 		                	
-		                	                	
+		                	var google = "https://drive.google.com/uc?export=view&id="
+		                	// res[idx].nailart_img
 		                	$("#selectImg").empty()
-							$("#selectImg").append("<td><img id=selectImg" +(num+0) + "></td>");
-		                	$("#selectImg").append("<td><img id=selectImg" +(num+1) + "></td>");
-		                	$("#selectImg").append("<td><img id=selectImg" +(num+2) + "></td>");
-		                	$("#selectImg").append("<td><img id=selectImg" +(num+3) + "></td>");
-		                	$("#selectImg").append("<td><img id=selectImg" +(num+4) + "></td>");
 		                	
-		                	// 이미지 출력
-		                	printNailImg(res, num+0);
-		                	printNailImg(res, num+1);
-		                  	printNailImg(res, num+2);
-		                	printNailImg(res, num+3);
-		                	printNailImg(res, num+4);
-		                	
+		                	for(let j = 0; j < 5; j++){
+		                		var k = j + num;
+		              			if (k < res.length){
+		              				$("#selectImg").append("<td><img id=selectImg" + k + " src="+google+res[k].nailart_img+" alt="+res[k].nailart_img+"></td>");
+		              			}else{
+		              				$("#selectImg").append("<td></td>")
+		              			}
+		                	}
+
 		                	// 이미지 이벤트 부여
 		                	imgClickEvent();
-		                	
-							// 버튼 내부 값 변경
-							
-							
-							// 
-		               
 		                },
 		                error : function(){
 		                	console.log("error");

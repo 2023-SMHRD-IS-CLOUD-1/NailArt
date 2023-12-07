@@ -15,6 +15,8 @@ import org.json.simple.JSONObject;
 import com.smhrd.model.AppointmentDAO;
 import com.smhrd.model.AppointmentVO;
 import com.smhrd.model.MemberVO;
+import com.smhrd.model.ReviewDAO;
+import com.smhrd.model.ReviewVO;
 import com.smhrd.model.ServiceDAO;
 import com.smhrd.model.ServiceVO;
 import com.smhrd.model.ShopDAO;
@@ -125,6 +127,28 @@ public class ShopManagementService implements Command {
         
         
         //session.setAttribute("AppointmentList", jsonList2);
+        
+        
+        // 리뷰 리스트 가져오기
+        ReviewVO revVo = new ReviewVO();
+        Double shop_seq1 = shopInfo.getShopSeq();
+        revVo.setShopSeq(shop_seq1);
+        
+        ReviewDAO revDao = new ReviewDAO();
+        List<ReviewVO> reviewList = revDao.selectAllReview(revVo);
+        if (reviewList != null) {
+        	session.setAttribute("reviewList", reviewList);
+        	System.out.println("리뷰리스트 가져오기 성공" + reviewList);
+        	for(ReviewVO review : reviewList) {
+        		System.out.println(review.getReviewContent());
+        	}
+        }else {
+        	System.out.println("리뷰리스트 가져오기 실패");
+        	
+        }
+        
+        
+        
         
         
         

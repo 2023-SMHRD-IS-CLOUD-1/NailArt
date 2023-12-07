@@ -30,19 +30,15 @@ public class ShopVO {
     // 회원 아이디 
     private String mem_id;
     
+    // 회원 주소
     private String shop_addr1;
     private String shop_addr2;
     
+    // 평균평점
+    private Double review_rating;
+    
     private String shop_img;
    
-	public String getShop_img() {
-		return shop_img;
-	}
-
-	public void setShop_img(String shop_img) {
-		this.shop_img = shop_img;
-	}
-
 	public String getShop_addr1() {
 		return shop_addr1;
 	}
@@ -136,6 +132,7 @@ public class ShopVO {
         this.shop_status = param.getShopStatus();
         this.mem_id = param.getMemId();
         this.shop_addr1 = param.getShop_addr1();
+        this.shop_img = param.getShop_img();
     }
 
 	public String getShop_addr2() {
@@ -144,5 +141,21 @@ public class ShopVO {
 
 	public void setShop_addr2(String shop_addr2) {
 		this.shop_addr2 = shop_addr2;
+	}
+
+	public Double getReview_rating() {
+		return review_rating;
+	}
+
+	public void setReview_rating(Double revie_rating) {
+		this.review_rating = revie_rating;
+	}
+
+	public String getShop_img() {
+		return shop_img;
+	}
+
+	public void setShop_img(String shop_img) {
+		this.shop_img = shop_img;
 	}
 }

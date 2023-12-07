@@ -1,5 +1,7 @@
 package com.smhrd.model;
 
+import java.util.Date;
+
 // 리뷰정보 
 public class ReviewVO {
 
@@ -16,7 +18,7 @@ public class ReviewVO {
     private String mem_id;
 
     // 리뷰 작성일자 
-//    private Date created_at;
+    private Date created_at;
 
     // 리뷰 조회수 
     private Double review_views;
@@ -59,13 +61,13 @@ public class ReviewVO {
         this.mem_id = mem_id;
     }
 
-//    public Date getCreatedAt() {
-//        return created_at;
-//    }
+    public Date getCreatedAt() {
+        return created_at;
+    }
 
-//    public void setCreatedAt(Date created_at) {
-//        this.created_at = created_at;
-//    }
+    public void setCreatedAt(Date created_at) {
+        this.created_at = created_at;
+    }
 
     public Double getReviewViews() {
         return review_views;
@@ -98,7 +100,7 @@ public class ReviewVO {
         this.shop_seq = param.getShopSeq();
         this.review_content = param.getReviewContent();
         this.mem_id = param.getMemId();
-//        this.created_at = param.getCreatedAt();
+        this.created_at = param.getCreatedAt();
         this.review_views = param.getReviewViews();
         this.review_likes = param.getReviewLikes();
         this.review_rating = param.getReviewRating();

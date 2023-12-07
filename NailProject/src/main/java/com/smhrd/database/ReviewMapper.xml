@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.model.ReviewDAO">
+	
+	<insert id="addReview" parameterType="com.smhrd.model.ReviewVO">
+		INSERT INTO review_info
+		    (shop_seq, 
+		    review_content, 
+		    mem_id, 
+		    created_at, 
+		    review_views, 
+		    review_likes, 
+		    review_rating)
+		VALUES
+		    (#{shop_seq}, 
+		    #{review_content}, 
+		    #{mem_id}, 
+		    sysdate, 
+		    1, 
+		    1, 
+		    #{review_rating})
+	</insert>
+	
+	<select id="selectAllReview" parameterType="com.smhrd.model.ReviewVO" resultType="com.smhrd.model.ReviewVO">
+		SELECT * 
+		FROM REVIEW_INFO
+		WHERE SHOP_SEQ = #{shop_seq}
+	</select>
+	
+</mapper>

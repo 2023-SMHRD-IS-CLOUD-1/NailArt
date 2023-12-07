@@ -101,12 +101,9 @@
 		<div>
 			<div id="thumbnailBox" class="form">
 				<input type="file" id="thumbnailInput" accept="image/*"
-					style="display: none;"> 
-					
-					<img id="thumbnail"
-					alt="${shopInfo.getShop_img()}"
-				
-					>
+					style="display: none;"> <img id="thumbnail"
+					src="https://png.pngtree.com/png-vector/20190215/ourmid/pngtree-vector-question-mark-icon-png-image_515448.jpg"
+					alt="">
 				<h2>${shopInfo != null ? shopInfo.getShopName() : '가게 정보 없음'}</h2>
 			</div>
 
@@ -250,12 +247,6 @@
 				<input id="shopMemId" value="${shopInfo.getMemId() } " type="hidden">
 				<script>
 				
-				var thumbnail = document.getElementById('thumbnail');
-				var src = "https://drive.google.com/uc?export=view&id="+thumbnail.alt;
-
-				console.log(src);
-				
-				thumbnail.setAttribute("src", src);
 				
 				function addReview() {
 					var reviewDesigner = document.getElementById('reviewDesigner').value;
@@ -464,16 +455,16 @@
 			        	    var nailart_img = response[i].nailart_img;
 			        	    var nailart_seq = response[i].nailart_seq;
 			        	   
-			        	    var google = "https://drive.google.com/uc?export=view&id=";
-			        	    // 이미지에 대한 정보를 부여하는 부분 추가
+			        	    console.log('이미지 경로:', 'images/' + nailart_img);
+			        	 // 이미지에 대한 정보를 부여하는 부분 추가
 		                    var imageElement = $('<img>', {
-		                        src:  google + nailart_img,
+		                        src: 'images/' + nailart_img,
 		                        alt: 'Nail Image',
 		                        nailart_img: nailart_img, // 이미지에 속성 추가
 		                        nailart_seq: nailart_seq,
 		                        css: {
 		                            margin: '10px',
-		                            'width': '50px',
+		                            'max-width': '100%',
 		                            cursor: 'pointer'
 		                        }
 		                    });
