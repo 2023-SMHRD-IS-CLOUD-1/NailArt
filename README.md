@@ -54,8 +54,12 @@
 
 ![화면 캡처 2023-12-07 101459](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/142488051/e882afbc-42d6-436b-b51d-03cde118cb76)
 
+
+
 # 10. 개발환경
 ![image](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/123911778/f011ea93-6fe5-492e-b10a-9c01c58633d7)
+
+
 
 # 11. API
 ### https://app.roboflow.com/smart-fwoom/nail-8e9wp/deploy/2 - roboflow (딥러닝)                       
@@ -63,10 +67,22 @@
 ### https://fullcalendar.io/ - 풀캘린더 (달력)                   
 ### https://developers.kakao.com/product/map - 카카오맵 (지도)                   
 
+
+
 # 12. 파일 설명
 ### NailProject : 자바 프로젝트                   
 ### Flask : python 플라스크 서버 데이터                 
 ### data : 산출물 및 발표자료, 시연영상 등 저장                 
+
+
+# 13. 소감문
+## 김성민(팀장)
+(작성하세요)
+
+## 최진균(부팀장)
+#### 하고싶은 것은 많았지만 용기에 비해서 부족한 능력과 시간 등을 느낄 수 있었습니다.
+#### 다음번에는 설계나 기획부분부터 신경써서 진행하고 팀원간의 소통을 활발하게 하여
+#### 원활하게 진행해 나갔으면 좋겠습니다.
 
 
 
