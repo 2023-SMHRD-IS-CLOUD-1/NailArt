@@ -63,6 +63,10 @@ https://flatpickr.js.org/ - 플랫피커 (예약)
 https://fullcalendar.io/ - 풀캘린더 (달력)                   
 https://developers.kakao.com/product/map - 카카오맵 (지도)                   
 
+# 12. 파일 설명
+NailProject : 자바 프로젝트
+Flask : python 플라스크 서버 데이터
+data : 산출물 및 발표자료, 시연영상 등 저장
 
 
 
