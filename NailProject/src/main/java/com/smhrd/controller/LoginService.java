@@ -35,11 +35,11 @@ public class LoginService implements Command {
 			session.setAttribute("result", mvo);
 			System.out.println("로그인 성공");
 			System.out.println(mvo.getMemId());
+			return "redirect:/Gomain.do";
 		} else {
 			System.out.println("로그인 실패");
+			return "redirect:/Gosign.do";
 
 		}
-
-		return "redirect:/Gomain.do";
 	}
 }
