@@ -1,4 +1,7 @@
 @charset "UTF-8";
+@import url(font-awesome.min.css);
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,600,600italic");
+
 
 
 body {
@@ -253,7 +256,7 @@ li:hover {
 li img {
     border-radius: 10%;
     width: 100px;
-    height: 100px;
+    height: 110px;
     margin: 5px;
 }
 
@@ -262,9 +265,9 @@ li img {
     display: flex;
     flex-direction: column;
     max-width: 480px;
-    width: 60%;
-    height: 90px;
-    padding: 15px;
+    width: 70%;
+    height: auto;
+    padding: 5px;
     margin: 0;
     background-color: transparent;
     align-items: flex-start;
