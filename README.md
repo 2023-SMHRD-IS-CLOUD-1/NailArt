@@ -55,7 +55,10 @@
 ![화면 캡처 2023-12-07 101459](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/142488051/e882afbc-42d6-436b-b51d-03cde118cb76)
 
 # 10. 개발환경
-
+추가할 내용
+1. python, anaconda, java, jdbc, roboflow, API 등의 버전 및 주소
+2. 컴퓨터 하드웨어 사양
+3. 환경설정
 
 
 
