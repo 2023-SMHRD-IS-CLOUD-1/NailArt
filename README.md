@@ -58,10 +58,10 @@
 ![image](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/123911778/f011ea93-6fe5-492e-b10a-9c01c58633d7)
 
 # 11. API
-https://app.roboflow.com/smart-fwoom/nail-8e9wp/deploy/2 - roboflow (딥러닝)
-https://flatpickr.js.org/ - 플랫피커 (예약)
-https://fullcalendar.io/ - 풀캘린더 (달력)
-https://developers.kakao.com/product/map - 카카오맵 (지도)
+https://app.roboflow.com/smart-fwoom/nail-8e9wp/deploy/2 - roboflow (딥러닝)                       
+https://flatpickr.js.org/ - 플랫피커 (예약)                   
+https://fullcalendar.io/ - 풀캘린더 (달력)                   
+https://developers.kakao.com/product/map - 카카오맵 (지도)                   
 
 
 
