@@ -58,9 +58,8 @@
    
    #### 메인
    ![메인페이지](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/448c48b2-0c08-4422-afd8-9e390a179352)
-
    #### 디자인 페이지
-   
+   ![image](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/274733a7-53de-449d-87be-b57b98f863e5)
    #### 샵 페이지
    ![샵페이지](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/b67f7711-2f86-450e-a110-a7dc6d68aad7)
    #### 예약 서비스
