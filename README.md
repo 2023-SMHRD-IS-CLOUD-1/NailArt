@@ -56,7 +56,7 @@
     <summary>화면구성 보기</summary>
 <!-- summary 아래 한칸 공백 두고 내용 삽입 -->
    #### 메인
-   ![메인페이지](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/50ff4869-98ba-422d-8feb-9006d5d94031)
+   ![메인페이지](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/448c48b2-0c08-4422-afd8-9e390a179352)
 
    #### 디자인 페이지
    
