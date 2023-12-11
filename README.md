@@ -28,7 +28,6 @@
 
 # 3. 사용 언어 및 도구
 
-![화면 캡처 2023-12-07 094616](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/142488051/021c17b4-dce7-4ed1-aa03-c6e046229e17)
 
 
 
@@ -50,23 +49,26 @@
 
 
 
+# 7. 화면 구성
 
-# 7. 주요기능
 
 
 
 # 8. 참고문헌
 
+![image](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/222e3c5a-cef6-4bb1-a137-38bfa3f76d65)
 
 
 
 
 # 9. 개발환경
 
+![image](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/d8324953-0221-4733-8abc-cc3ae3a33da2)
 
 
 
 # 10. 팀원소개
+
 
 
 # 11. API
