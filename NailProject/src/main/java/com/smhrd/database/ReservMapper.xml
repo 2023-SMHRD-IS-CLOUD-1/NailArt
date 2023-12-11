@@ -3,9 +3,6 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 1) maper namespace란? : mapper파일이 여러개였을 때, 해당 파일을 식별할 수 있는 식별자 : 이름을 
-	정해줄 때, 해당하는 mapper파일과 연결이 되어야하는 DAO클래스 이름을 일치시키는 것을 원칙으로 함 -->
-
 
 <mapper namespace="com.smhrd.model.ReservDAO">
 

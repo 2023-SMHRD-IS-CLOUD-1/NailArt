@@ -12,14 +12,13 @@ public class ShopDAO {
 	private SqlSessionFactory factory = SqlSessionManager.getFactory();
 
 	public ShopVO getShopInfo(ShopVO vo) {
+		// mem_id와 일치하는 shop 데이터 반환
+		
 		SqlSession sqlSession = factory.openSession(true);
 		ShopVO shopInfo = null;
 
 		try {
 			shopInfo = sqlSession.selectOne("shop_select", vo);
-			System.out.println("ShopInfo: " + shopInfo); // 로그 추가
-			System.out.println("Executed SQL Query: "
-					+ sqlSession.getConfiguration().getMappedStatement("shop_select").getBoundSql(vo).getSql());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -27,19 +26,19 @@ public class ShopDAO {
 		}
 
 		if (shopInfo == null) {
-			System.out.println("가게 정보가 null입니다.");
+			// System.out.println("가게 정보가 null입니다.");
 		}
 
 		return shopInfo;
 	}
 
 	public int updateShopImg(ShopVO vo) {
+		// mem_id와 일치하는 shop을 찾아서 ShopImg에 저장된 file_id를 변경
+		
 		SqlSession sqlSession = factory.openSession(true);
 		List<ShopVO> shopInfo = null;
-		System.out.println("updateShopImg 실행");
 		int row = 0;
 		try {
-			// System.out.println("getShopInfoAll 실행");
 			row = sqlSession.update("updateShopImg", vo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,11 +50,11 @@ public class ShopDAO {
 	}
 
 	public List<ShopVO> getShopInfoAll() {
+		// 모든 shop 데이터 반환
+		
 		SqlSession sqlSession = factory.openSession(true);
 		List<ShopVO> shopInfo = null;
-		System.out.println("getShopInfoAll 실행");
 		try {
-			// System.out.println("getShopInfoAll 실행");
 			shopInfo = sqlSession.selectList("getShopInfoAll");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,7 +63,7 @@ public class ShopDAO {
 		}
 
 		if (shopInfo == null) {
-			System.out.println("가게 정보가 null입니다.");
+			// System.out.println("가게 정보가 null입니다.");
 		}
 
 		return shopInfo;

@@ -2,6 +2,7 @@ package com.smhrd.controller;
 
 import java.io.IOException;
 
+
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,13 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.smhrd.model.DAO;
 import com.smhrd.model.MemberDAO;
 import com.smhrd.model.MemberVO;
 
 public class UpdateService implements Command{
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		// myPage.jsp에서 회원정보수정 버튼을 클릭했을 때 발생하는 이벤트
 		
 		HttpSession session = request.getSession();
 		MemberVO mvo = (MemberVO) session.getAttribute("result");
@@ -39,15 +41,13 @@ public class UpdateService implements Command{
 		vo.setMemId(mem_id);
 		vo.setMemType(mvo.getMemType());
 		
-		System.out.println("update dao 실행전");
+		// 수정된 회원정보를 DB에 저장
 		MemberDAO dao = new MemberDAO();
 		int row = dao.member_update(vo);
-		System.out.println("update dao 실행후");
 		
+		// 수정된 회원정보를 세션에 저장
 		if(row > 0) {
-			System.out.println("세션에 저장");
 			session.setAttribute("result", vo);
-			System.out.println("세션에 저장 성공");
 		}
 		return "redirect:/Gomypage.do";
 	}

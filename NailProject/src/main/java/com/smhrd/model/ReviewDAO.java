@@ -10,10 +10,11 @@ import com.smhrd.database.SqlSessionManager;
 
 public class ReviewDAO {
 
-	// 1) SqlSession을 가져올 수 있는 SqlSessionFactory 생성
 	private SqlSessionFactory factory = SqlSessionManager.getFactory();
 
 	public int addReview(ReviewVO revVo) {
+		// 리뷰 추가 insert
+		
 		SqlSession sqlSession = factory.openSession(true);
 		
 		int row = sqlSession.insert("addReview", revVo);
@@ -22,39 +23,14 @@ public class ReviewDAO {
 	}
 
 	public List<ReviewVO> selectAllReview(ReviewVO revVo) {
+		// 모든 리뷰틑 select
+		
 		SqlSession sqlSession = factory.openSession(true);
 		
 		List<ReviewVO> reviewList = sqlSession.selectList("selectAllReview", revVo);
 		
 		return reviewList;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 	

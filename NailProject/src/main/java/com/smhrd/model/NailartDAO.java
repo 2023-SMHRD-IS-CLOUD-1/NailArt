@@ -10,16 +10,14 @@ import com.smhrd.database.SqlSessionManager;
 
 public class NailartDAO {
 
-	// 1) SqlSession을 가져올 수 있는 SqlSessionFactory 생성
 	private SqlSessionFactory factory = SqlSessionManager.getFactory();
 
     public List<NailartVO> getNailInfoAll(StaffVO vo) {
         SqlSession sqlSession = factory.openSession(true);
         List<NailartVO> NailInfo = null;
         
-        System.out.println("NailartDAO.getNailInfoAll 실행");
-        System.out.println("입력값 : "+vo.getStaffSeq());
         try {
+        	// staff_seq와 일치하는 네일아트 정보를 모두 select
         	NailInfo = sqlSession.selectList("getNailInfoAll", vo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -28,7 +26,7 @@ public class NailartDAO {
         }
         
         if (NailInfo == null) {
-            System.out.println("네일아트 정보가 null입니다.");
+            // System.out.println("네일아트 정보가 null입니다.");
         }
 
         return NailInfo;

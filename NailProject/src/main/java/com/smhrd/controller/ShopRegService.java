@@ -17,6 +17,7 @@ import com.smhrd.model.ShopVO;
 // 일반 클래스로 만들어줌 --> POJO(Plain Old Java Object)
 public class ShopRegService implements Command{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// myPage.jsp에서 가게등록버튼을 클릭했을 때 발생하는 이벤트
 		
 		HttpSession session = request.getSession();
         String mem_id = ((MemberVO) session.getAttribute("result")).getMemId();
@@ -34,17 +35,6 @@ public class ShopRegService implements Command{
 		String open_time = request.getParameter("open_time");
 		String close_time = request.getParameter("close_time");
 		
-		System.out.println(mem_id);
-		System.out.println(shop_name);
-		System.out.println(shop_tel);
-		System.out.println(shop_addr1);
-		System.out.println(shop_addr2);
-		System.out.println(lat);
-		System.out.println(lng);
-		System.out.println(open_time);
-		System.out.println(close_time);
-		System.out.println(mem_type);
-		
 		ShopVO vo = new ShopVO();
 		vo.setShopName(shop_name);
 		vo.setShopTel(shop_tel);
@@ -60,20 +50,20 @@ public class ShopRegService implements Command{
 		
 		int row = dao.shopReg(vo);
 
-		if(row > 0) {
-			System.out.println("shop 등록 성공");
-		}else {
-			System.out.println("shop 등록 실패");
-		}
+//		if(row > 0) {
+//			System.out.println("shop 등록 성공");
+//		}else {
+//			System.out.println("shop 등록 실패");
+//		}
 		
 		MemberDAO mDao = new MemberDAO();
 		int updateRow = mDao.update_state(mem_id);
 		if(updateRow > 0) {
 			
 			System.out.println(mem_type);
-			System.out.println("등급변경 성공");
+			// System.out.println("등급변경 성공");
 		}else {
-			System.out.println("등급변경 실패");
+			// System.out.println("등급변경 실패");
 		}
 		
 		return "redirect:/Gomypage.do";

@@ -21,27 +21,22 @@ public class GetNailInfoAll2 implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
-		System.out.println("getNailInfo2 >> 들어와짐");
+		// shopManagement.jsp를 실행하면 발생하는 이벤트
+		// data : 스태프를 구분하는 staff_seq
+		// getNailInfoAll 클래스와 다르게 staff_seq를 바로 입력으로 받는다.
 		String data = request.getParameter("data");
-		System.out.println("요청받은 데이터 >> " + data);
 
 		double staff_seq = Double.parseDouble(data);
 		System.out.println(staff_seq);
 		StaffVO vo = new StaffVO();
 		vo.setStaffSeq(staff_seq);
 
-		// 1. staff_seq을 입력으로 하여 NailartVO의 nailart_seq, nailart_name, nailart_img,
-		// nailart_seq, nailart_desc, staff_seq을 가져온다.
+		// DB 연동
 		NailartDAO nailartDAO = new NailartDAO();
 		List<NailartVO> NailInfo = nailartDAO.getNailInfoAll(vo);
 
-		System.out.println(NailInfo.size());
-		for (NailartVO nail : NailInfo) {
-			System.out.println("NailartImg: " + nail.getNailartImg());
-		}
-
+		// 반환할 데이터를 Json으로 변환
 		JSONArray jsonArray = new JSONArray();
 		for (NailartVO nail : NailInfo) {
 			JSONObject jsonNail = new JSONObject();
@@ -51,15 +46,12 @@ public class GetNailInfoAll2 implements Command {
 
 			jsonArray.add(jsonNail);
 		}
-		
+
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().print(jsonArray.toJSONString());
 		
-		// 생성된 JSON 데이터를 문자열로 변환하여 반환
-		System.out.println(jsonArray.toJSONString());
-		
-		
+		// ajax
 		return null;
 	}
 

@@ -266,12 +266,6 @@
 					var reviewShopSeq = document.getElementById('reviewShopSeq').value;
 					var uploadedImageSrc = document.getElementById('uploadedImage').src;
 					var shopMemId = document.getElementById('shopMemId').value;
-					console.log(reviewDesigner);
-					console.log(reviewRating);
-					console.log(nailName);
-					console.log(reviewText);
-					console.log(reviewMemId);
-					console.log(reviewShopSeq);
 					
 					$.ajax({
 				        type: 'POST',

@@ -144,7 +144,6 @@
 			// 사진 변환 및 이미지 업로드 및 db 저장
 			document.getElementById('thumbnailInput').addEventListener('change', function(e) {
 				if (e.target.files[0]) {
-					console.log("test");
 		            // const input_file = document.querySelector("#file_form");
 		            const input_file = document.querySelector("#file_form");
 		            
@@ -160,10 +159,6 @@
 		                contentType: false,
 		                processData: false,
 		                success: (res) => {
-		                    console.log(res);
-		                    console.log(shopInfo.mem_id)
-		                    // 파일 업로드 성공
-		                    // 데이터베이스에 저장하기
 		                    $.ajax({
 				                type: "get",
 				                url: 'updateShopImg.do',
@@ -188,10 +183,8 @@
 			    
 			    success: function (res) {
 			        // 서버에서의 응답에 따른 처리
-			        console.log(res);
 			        shopInfo = res;
 			        
-			        console.log(shopInfo.shop_img)
 			     	// db에 저장되어 있는 file_id를 사용하여 어쩌고 저쩌고
 					// shopInfo.shop_img
 					// thumbnail <-- 이 녀석의 src를 변겅
@@ -293,8 +286,6 @@
 					        console.log(imgContainerList);
 					        
 					        var google = "https://drive.google.com/uc?export=view&id="
-							// <img src="https://drive.google.com/uc?export=view&id=11Xa5wSagXVWNwvsKLsUV0h00IJB3_ynT">
-					        
 					        
 					        for(let i = 0; i < staffList.length; i++){
 					        	$.ajax({

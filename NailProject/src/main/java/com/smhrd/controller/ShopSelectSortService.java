@@ -19,20 +19,11 @@ public class ShopSelectSortService implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ShopSelectSortService 진입완료!!!!");
+		// shop.jsp에서 정렬을 선택했을 때 발생하는 이벤트 
+		
 		ShopDAO dao = new ShopDAO();
 		List<ShopVO> shopList =  dao.shopSelectSort();
 		
-		System.out.println("33333333" + shopList);
-		System.out.println("44444444");
-		
-		for (ShopVO shop : shopList) {
-		    if (shop != null && shop.getShopName() != null) {
-		        System.out.println(shop.getShopName() + " " + shop.getReview_rating());
-		    } else {
-		        System.out.println("ShopVO or shopName is null.");
-		    }
-		}
 		response.setContentType("text/html;charset=UTF-8");
 		
 		PrintWriter out = response.getWriter();

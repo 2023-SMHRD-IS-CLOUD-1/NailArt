@@ -29,16 +29,13 @@ public class ShopManagementService implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		// myPage.jsp에서 가게 관리 버튼을 클릭하면 발생
+		// 가게와 관련된 데이터를 모두 세션에 저장
 		
 		// 세션에서 로그인한 사용자의 ID를 가져옴
         HttpSession session = request.getSession();
         String mem_id = ((MemberVO) session.getAttribute("result")).getMemId();
-        
-        System.out.println("로그인 세션 확인: " + mem_id);
-       
-        
-        
 
         // ShopDAO를 통해 가게 정보를 가져옴
         ShopVO vo = new ShopVO();
@@ -48,11 +45,7 @@ public class ShopManagementService implements Command {
 
         if (shopInfo != null) {
         	session.setAttribute("shopInfo", shopInfo);
-			System.out.println("가게 정보 가져오기 성공");
-			System.out.println(shopInfo.getShopName());
-			System.out.println(shopInfo.getShopSeq());
 		} else {
-			System.out.println("가게 정보 가져오기 실패");
 
 		}
         
@@ -62,33 +55,18 @@ public class ShopManagementService implements Command {
         stfvo.setShopSeq(shopSeq);
         StaffDAO staffDAO = new StaffDAO();
         List<StaffVO> staffList = staffDAO.getStaffList(stfvo);
-        System.out.println(staffList);
         session.setAttribute("staffList", staffList);
         
         ArrayList<Object> list1 = new ArrayList<Object>();
     	ArrayList<Object> list2 = new ArrayList<Object>();
     	List<JSONObject> jsonList2 = new ArrayList<>();
         for (StaffVO staff : staffList) {
-        	System.out.println(staff.getStaffSeq());
-        	System.out.println(staff.getStaffName());
-        	
-//        	디자이너 이름들 불러온다. 디자이너들은 staff_seq가 있다.
-//
-//        	디자이너별로 디자인에 대한 nail_seq가 있다.
-//
-//        	service_info에서 디자이너의 staff_seq조건으로 모든 SVC_SEQ를 가져온다.
-//        	--> SVC_SEQ는 여러개
-//
-//        	appointment_info에서 SVC_SEQ조건으로 정보를 가져온다.
-//        	정보 : 예약날짜, 시간
-        	
         	ServiceVO servo = new ServiceVO();
             servo.setStaffSeq(staff.getStaffSeq());
             
             ServiceDAO serDao = new ServiceDAO();
             
             List<Double> SVC_seqList = serDao.getSVC_seq2(servo);
-            System.out.println("가져온 서비스 번호 리스트 : " + SVC_seqList);
             
             for (Double SVC_seq : SVC_seqList) {
             	System.out.println(SVC_seq);
@@ -98,10 +76,6 @@ public class ShopManagementService implements Command {
             List<AppointmentVO> AppointmentList = aptDao.getAppointmentBySVC_seqList(SVC_seqList);
             
             for (AppointmentVO Appointment : AppointmentList) {
-            	System.out.println("스태프 시퀀스 : " + staff.getStaffSeq());
-            	System.out.println("예약자 아이디 : " + Appointment.getMemId());
-            	System.out.println("예약 날짜&시간" + Appointment.getAppointedAt());
-            	
             	list1 = new ArrayList<>();
             	list1.add(staff.getStaffSeq());
             	list1.add(Appointment.getMemId());
@@ -116,19 +90,9 @@ public class ShopManagementService implements Command {
                 jsonList2.add(jsonItem);
             }
         }
-//        for(Object list : list2) {
-//        	System.out.println(list);
-//        }
-        
-        //String jsonString = JSONArray.toJSONString(jsonList2);
-        //session.setAttribute("AppointmentList", jsonString);
         
         session.setAttribute("AppointmentList", list2);
-        
-        
-        //session.setAttribute("AppointmentList", jsonList2);
-        
-        
+
         // 리뷰 리스트 가져오기
         ReviewVO revVo = new ReviewVO();
         Double shop_seq1 = shopInfo.getShopSeq();
@@ -138,21 +102,14 @@ public class ShopManagementService implements Command {
         List<ReviewVO> reviewList = revDao.selectAllReview(revVo);
         if (reviewList != null) {
         	session.setAttribute("reviewList", reviewList);
-        	System.out.println("리뷰리스트 가져오기 성공" + reviewList);
         	for(ReviewVO review : reviewList) {
         		System.out.println(review.getReviewContent());
         	}
         }else {
-        	System.out.println("리뷰리스트 가져오기 실패");
         	
         }
         
-        
-        
-        
-        
-        
-        // shopmanagement.jsp로 포워드
+        // shopmanagement.jsp로 이동
         return "redirect:/GoshopManagement.do";
 	}
 

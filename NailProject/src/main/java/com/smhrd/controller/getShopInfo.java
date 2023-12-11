@@ -23,23 +23,27 @@ import java.lang.reflect.Field;
 public class getShopInfo implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		// shopManagement.jsp를 실행하면 발생하는 이벤트
 
+		// CORS정책
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		System.out.println("시작");
-		
+		// 가게 주인의 mem_id를 받아옴
+		// 첫 칸에 빈칸이 발생하여 빈칸을 제거하는 코드 추가
 		String mem_id = request.getParameter("mem_id");
 		mem_id = mem_id.replace(" ", "");
 		ShopVO vo = new ShopVO();
 		vo.setMemId(mem_id);
 		
-		System.out.println(mem_id);
-		
+		// DB 연동
+		// 가게 주인의 mem_id를 포함하는 shopVO 데이터를 모두 가져온다.
         ShopDAO shopDAO = new ShopDAO();
         ShopVO svo = shopDAO.getShopInfo(vo);
         
+        // 결과를 Json으로 반환
         Object fieldObj = svo;
         JSONObject obj = new JSONObject();
         for (Field field : fieldObj.getClass().getDeclaredFields()) {
@@ -56,11 +60,13 @@ public class getShopInfo implements Command {
         }
 
         if (svo != null) {
-        	System.out.println("가게 정보 가져오기 성공");
+        	// System.out.println("가게 정보 가져오기 성공");
         	out.print(obj);
 		} else {
-			System.out.println("가게 정보 가져오기 실패");
+			// System.out.println("가게 정보 가져오기 실패");
 		}
+        
+        // ajax
 		return null;
 	}
 }

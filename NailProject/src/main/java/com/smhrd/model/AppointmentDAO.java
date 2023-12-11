@@ -10,10 +10,10 @@ import com.smhrd.database.SqlSessionManager;
 
 public class AppointmentDAO {
 
-	// 1) SqlSession을 가져올 수 있는 SqlSessionFactory 생성
 	private SqlSessionFactory factory = SqlSessionManager.getFactory();
 
 	public int insertAppointment(AppointmentVO aptvo) {
+		// 예약 데이터를 테이블에 insert
 		
 		SqlSession sqlSession = factory.openSession(true);
 		
@@ -23,6 +23,7 @@ public class AppointmentDAO {
 	}
 
 	public List<AppointmentVO> getAppointmentBySVC_seqList(List<Double> SVC_seqList) {
+		// 서비스 리스트를 select
 		
 		SqlSession sqlSession = factory.openSession(true);
 		
@@ -32,6 +33,7 @@ public class AppointmentDAO {
 	}
 
 	public int deleteAppointment(AppointmentVO aptvo) {
+		// 에약 정보를 delect
 		SqlSession sqlSession = factory.openSession(true);
 		
 		int row = sqlSession.delete("deleteAppointment", aptvo);

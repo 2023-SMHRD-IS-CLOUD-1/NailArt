@@ -20,13 +20,11 @@ public class ShopPageService implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		// shop.jsp에 들어가기 전에 발생하는 이벤트
 		HttpSession session = request.getSession();
 		String mem_id = request.getParameter("mem_id");
-		System.out.println(mem_id);
 		
-		
-		
-		// ShopDAO를 통해 가게 정보를 가져옴
         ShopVO vo = new ShopVO();
         vo.setMemId(mem_id);
         ShopDAO shopDAO = new ShopDAO();
@@ -34,12 +32,9 @@ public class ShopPageService implements Command {
 
         if (shopInfo != null) {
         	session.setAttribute("shopInfo", shopInfo);
-			System.out.println("가게 정보 가져오기 성공");
-			System.out.println(shopInfo.getShopName());
-			System.out.println(shopInfo.getShopSeq());
+			// System.out.println("가게 정보 가져오기 성공");
 		} else {
-			System.out.println("가게 정보 가져오기 실패");
-
+			// System.out.println("가게 정보 가져오기 실패");
 		}
         
         // StaffDAO를 통해 스태프 정보를 가져옴
@@ -48,12 +43,7 @@ public class ShopPageService implements Command {
         stfvo.setShopSeq(shopSeq);
         StaffDAO staffDAO = new StaffDAO();
         List<StaffVO> staffList = staffDAO.getStaffList(stfvo);
-        System.out.println(staffList);
         session.setAttribute("staffList", staffList);
-        for (StaffVO staff : staffList) {
-        	System.out.println(staff.getStaffSeq());
-        }
-        
         
         // 리뷰 리스트 가져오기
         ReviewVO revVo = new ReviewVO();
@@ -64,18 +54,8 @@ public class ShopPageService implements Command {
         List<ReviewVO> reviewList = revDao.selectAllReview(revVo);
         if (reviewList != null) {
         	session.setAttribute("reviewList", reviewList);
-        	System.out.println("리뷰리스트 가져오기 성공" + reviewList);
-        	for(ReviewVO review : reviewList) {
-        		System.out.println(review.getReviewContent());
-        	}
         }else {
-        	System.out.println("리뷰리스트 가져오기 실패");
-        	
         }
-        
-        
-        
-        
         
         // shopmanagement.jsp로 포워드
         return "redirect:/GoshopPage.do";

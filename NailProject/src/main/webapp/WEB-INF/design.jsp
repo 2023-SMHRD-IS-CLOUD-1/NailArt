@@ -123,7 +123,6 @@
 				// 디자인 이미지 출력하기
 				// 1. ajax를 사용해서 성민샵의 shop_seq에 등록되어 있는 staff_seq와 staff_name 가져오기
 				// 이것은 아무런 이벤트 없이 성민샵에 들어오면 바로 발동
-				// 오류가 나도 무시하기. 출력 잘 됨
 				// console.log(memId);
 				
 				function wait(sec) {
@@ -147,9 +146,6 @@
 	
 	                	}
 	                	
-	                	//$("#shop_select option:eq(0)").remove();
-	                	
-	                	
 	                },
 	                error : function(){
 	                	console.log("error");
@@ -159,32 +155,16 @@
 				
 				// 2. shop을 선택했을 때의 이벤트
 				$("#shop_select").on("change", function(){
-				    //selected value
-				    // console.log($(this).val());
-				    
 				    // 성민샵의 id가 출력.
 				    // 이것을 사용해서 ajax로 데이터 전송
-				    console.log($("option:selected", this).attr("id"));
-
-				    // selected option element
-				    // 객체가 출력
-				    // console.log($("option:selected", this));
-				    
-				    // 아래 두 개는 정확하게 이름이 출력된다.
-				    // console.log($("option:selected", this).text());
-				    // console.log($(this).find("option:selected").text());
-				    
-				    // ajax에서 $("option:selected", this).attr("id")을 전송하여 staff_info를 가져온다.
-				    // shop_select21이 전송되는 것으로 서버에서 store_select를 제거한 21로 staff_info에서 값을 가져온다.
+				    // console.log($("option:selected", this).attr("id"));
 				    
 				    $.ajax({
 		                type: "get",
 		                url: 'getStaffInfoAll.do',
 		                data: {data: $("option:selected", this).attr("id")},
-		                // 이게 써야 실행될 때가 있고 안 써야 실행될 때가 있음. 왜 인지 모름 위에 똑같은 코드에서는 써야 실행됨 ㅂㄷㅂㄷ
 		                dataType : "json",
 		                success: (res) => {
-		                	console.log("success");
 		                	console.log(res.length);
 		                	$("#staff_select option").remove();
 		                	for(let i = 0; i<res.length; i++){
@@ -203,19 +183,15 @@
 				// ajax 내부에서 호출되어 res와 몇 번째 버튼의 데이터를 출력할지 결정
 				function printNailImg2(res, btn) {
 					var num = parseInt(btn)-1;
-					// 이미지 비우기
 					$("#selectImg").empty();
 					$("#selectImg").append("<tr>")
                 	for(let i = 0; i<5; i++){
 						if(num*5+i < res.length){
-							// <td><img src="images/nail1.png"></td>
 							
 							$("#selectImg").append("<td><img id=selectImg"  +res[num*5+i].nailart_seq+  "></td>");
-							// 결과물 출력하는 사진처럼 이미지 받아와서 바로 출력시키기
-							// 그럼 여기서 ajax를 써야하나? 반복문으로? 속도 감당 가능해?????
 							
 							if(i > 0){
-								sleep(1000)
+								// sleep(1000)
 							}
 							var sendObj = {nail_img: res[num*5+i].nailart_img};
 							
@@ -255,24 +231,16 @@
 				
 				// ajax를 사용하여 데이터를 가져오는 함수
 				function getNailInfoAll(btn){
-					//console.log($("option:selected", "#staff_select").attr("id"));
-					//console.log(num);
 					num = 5*parseInt(btn-1);
-					console.log(num);
 				    $.ajax({
 		                type: "get",
 		                url: 'getNailInfoAll.do',
 		                data: {data: $("option:selected", "#staff_select").attr("id")},
 		                dataType : "json",
 		                success: (res) => {
-		                	// 그럼 개수를 지정해야하나?
-		                	// res.length로 개수지정 가능
 		                	max_page = parseInt((parseInt(res.length)+4)/5);
-		                	console.log(res.length);
-		                	console.log(max_page);
 		                	
 		                	var google = "https://drive.google.com/uc?export=view&id="
-		                	// res[idx].nailart_img
 		                	$("#selectImg").empty()
 		                	
 		                	for(let j = 0; j < 5; j++){
@@ -328,7 +296,7 @@
 				
 				$("#prev_btn").on("click", function(){
 					if($("option:selected", "#staff_select").attr("id") == null){
-						console.log("가게가 선택되지 않음");
+						// console.log("가게가 선택되지 않음");
 					}else{
 						getNailInfoAll(1);
 						
@@ -344,7 +312,7 @@
 				
 				$("#next_btn").on("click", function(){
 					if($("option:selected", "#staff_select").attr("id") == null){
-						console.log("가게가 선택되지 않음");
+						// console.log("가게가 선택되지 않음");
 					}else{
 						getNailInfoAll(parseInt(max_page));
 						
@@ -369,9 +337,6 @@
 				function imgClickEvent() {
 					$("#selectImg img").on("click", function(){
 						var src = $(this).attr("alt");
-						console.log("src");
-						console.log(src);
-						
 						console.log(src);
 						var sendObj = {nail_img: src};
 						$.ajax({
@@ -385,7 +350,6 @@
 			                    xhr.responseType = 'blob';
 			                    return xhr;
 			                },
-
 			                
 			                success: function (res) {
 			                    var img = document.getElementById('handImg1');

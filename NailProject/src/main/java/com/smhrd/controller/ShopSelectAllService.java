@@ -17,22 +17,15 @@ public class ShopSelectAllService implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("진입완료");
+		
+		// shop.jsp를 실행했을 때 발생하는 이벤트
+		// 모든 Shop 데이터를 가져올 때 사용
+		
 		ShopDAO dao = new ShopDAO();
 		List<ShopVO> shopList = dao.shopSelectAll();
-		System.out.println(shopList);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("shopList", shopList);
-		for (ShopVO shop : shopList) {
-		    if (shop != null && shop.getShopName() != null) {
-		        System.out.println(shop.getShopName());
-		    } else {
-		        System.out.println("ShopVO or shopName is null.");
-		    }
-		}
-
-		
 
 		return "redirect:/Goshop.do";
 	}

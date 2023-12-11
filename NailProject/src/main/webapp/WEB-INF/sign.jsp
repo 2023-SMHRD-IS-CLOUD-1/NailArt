@@ -121,7 +121,6 @@
 		
 		$("#sendEmailbtn").on('click', () => {
 			// ajax를 사용하여 데이터베이스에서 이메일을 사용한 mem_info 조회
-			console.log($("#input_email").val());
 			
 			$.ajax({
                 type: "get",

@@ -29,27 +29,30 @@ public class getNailInfoAll implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("getNailInfoAll에 요청이 들어옴");
+		// design.jsp에서 shop과 staff를 선택했을 때 실행하는 이벤트
+		
+		// CORS 정책
+		// 인코딩
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
+		// data : staff_select + staff_seq
+		// data에서 staff_seq만 추출
 		String data = request.getParameter("data");
-		System.out.println("요청받은 데이터 >> " + data);
 		double staff_seq = Integer.parseInt(data.substring(12));
-		System.out.println(staff_seq);
-		
+
+		// value object
 		StaffVO vo = new StaffVO();
 		vo.setStaffSeq(staff_seq);
 		
-		// 1. staff_seq을 입력으로 하여 NailartVO의 nailart_seq, nailart_name, nailart_img, nailart_seq, nailart_desc, staff_seq을 가져온다. 
+		// DB
+		// 모든 네일아트 정보를 List로 반환
 		NailartDAO nailartDAO = new NailartDAO();
 		List<NailartVO> NailInfo = nailartDAO.getNailInfoAll(vo);
-		
-		// 네일아트 데이터 DB에 저장하고 실행하기
 
-		System.out.println(NailInfo.size());
-        
+		// Json Object 생성
+		// array로 반환
         JSONArray req_array = new JSONArray();
         for(int i = 0; i < NailInfo.size(); i++) {
             Object fieldObj = NailInfo.get(i);
@@ -60,22 +63,22 @@ public class getNailInfoAll implements Command {
     			try {
     				value = field.get(fieldObj);
     			} catch (IllegalArgumentException | IllegalAccessException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
+     				e.printStackTrace();
     			}
-    			System.out.println("field : " + field.getName() + " | value : " + value);
+    			// System.out.println("field : " + field.getName() + " | value : " + value);
                 obj.put(field.getName(), value);
             }
             req_array.add(obj);
         }
 
         if (NailInfo.size() != 0) {
-        	System.out.println("네일 정보 가져오기 성공");
-        	// out.print("{\"name\":\"김운비\" , \"age\":\"20\"}");
+        	// System.out.println("네일 정보 가져오기 성공");
         	out.print(req_array);
 		} else {
-			System.out.println("직원 정보 가져오기 실패");
+			// System.out.println("네일 정보 가져오기 실패");
 		}
+        
+        // ajax
 		return null;
 	}
 }

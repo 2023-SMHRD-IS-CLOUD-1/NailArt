@@ -10,10 +10,10 @@ import com.smhrd.database.SqlSessionManager;
 
 public class ServiceDAO {
 
-	// 1) SqlSession을 가져올 수 있는 SqlSessionFactory 생성
 	private SqlSessionFactory factory = SqlSessionManager.getFactory();
 
 	public Double getSVC_seq(ServiceVO servo) {
+		// 서비스 시퀀스를 반환
 		
 		SqlSession sqlSession = factory.openSession(true);
 		

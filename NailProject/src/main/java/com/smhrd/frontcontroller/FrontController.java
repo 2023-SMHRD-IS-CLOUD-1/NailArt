@@ -43,10 +43,7 @@ import com.smhrd.controller.updateShopImg;
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	// key - value 형식으로 데이터를 저장
-	// key >> 고유의 값(중복 허용 X)
-	// value >> 중복 허용함
-	// 순서가 없고 key값으로 데이터를 구분
+	// 순서가 없고 key 값으로 value를 구분
 	private HashMap<String, Command> map = null;
 	
 	public void init(ServletConfig config) throws ServletException{
@@ -75,54 +72,36 @@ public class FrontController extends HttpServlet {
 		map.put("ShopSelectSort.do", new ShopSelectSortService());
 	    map.put("DeleteAppointment.do", new DeleteAppointmentService());
 	    map.put("AddReview.do", new AddReviewService());
-		// service 메소드 안쪽의 코들ㄹ 고칠 필요가 없다.
-
 	}
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// FC 역할
-		// --> 모든 요청을 다 처리하는 Servlet
-		
 		request.setCharacterEncoding("UTF-8");
 		
-		// 1. 요정 url 구분하기
-		// 1-1) url 가져오기
 		String uri = request.getRequestURI();
-		// /web/Login.do
-		
-		// 1-2) cp 가져오기
 		String cp = request.getContextPath();
-		// /web
-		
-		// 1-3) 최종 요청 url을 잘라내기
 		String finaluri = uri.substring(cp.length()+1);
-		
-		// 최종적으로 이동해야하는 url을 담는 공간
 		String path = null;
 		Command com = null;
 		
-
-		// 2. 최종 요청 uri에 따라서 각각 일반 클래스 파일을 호출!
-		
-		
 		if(finaluri.contains("Go")) {
-			// Go + 파일명 + .do
-			// --> 파일명만 추출해서 path값 만들기
-			
-			// path = "main.jsp";
+			// .jsp 파일에 바로 접근
 			path = finaluri.substring(2).replaceAll(".do", "");
 	
 		}else {
+			// map에 매핑되어 있는 service로 이동
 			com = map.get(finaluri);
 			path = com.execute(request, response);
 		}
 
+		// 페이지 이동
 		if(path == null) {
 			// ajax를 위한 비동기통신에서 페이지 이동을 하지 않기 위한 코드
 		}
 		else if(path.contains("redirect:/")) {
+			// redirect로 페이지 이동
 			response.sendRedirect(path.substring(10));
 		}else {
+			// forward로 페이지 이동
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/"+path + ".jsp");
 			rd.forward(request, response);
 		}

@@ -16,22 +16,23 @@ import com.smhrd.model.MemberVO;
 public class idduple extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		// sign.jsp에서 id를 입력하면 발생하는 이벤트
+		
+		// CORS
 		response.addHeader("Access-Control-Allow-Origin", "*");
-	
-		String id = request.getParameter("id");		
-		// System.out.println("요청받은 데이터 >>" + id);
-
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
+		// data
+		String id = request.getParameter("id");		
 		MemberVO vo = new MemberVO();
 		vo.setMemId(id);
 		
+		// DB 연동
+		// 중복되는 아이디가 있는지 확인
 		MemberDAO dao = new MemberDAO();
-		
 		MemberVO mvo = dao.selectId(vo);
 	
 		if(mvo != null) {
@@ -40,5 +41,4 @@ public class idduple extends HttpServlet {
 			out.print("true");
 		}
 	}
-
 }

@@ -24,7 +24,8 @@ public class updateShopImg implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("updateShopImg");
+		// shopManagement.jsp에서 shopImg를 수정했을 때 발생하는 이벤트
+		// CORS
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -38,20 +39,17 @@ public class updateShopImg implements Command {
 		vo.setMemId(mem_id);
 		vo.setShop_img(file_id);
 		
-		System.out.println(mem_id);
-		System.out.println(file_id);
-		
         ShopDAO shopDAO = new ShopDAO();
         int res = shopDAO.updateShopImg(vo);
         
-        System.out.println("dao");
-        
         if (res > 0) {
-        	System.out.println("이미지 저장 성공");
+        	// System.out.println("이미지 저장 성공");
         	out.print("success");
 		} else {
-			System.out.println("이미지 저장 실패");
+			// System.out.println("이미지 저장 실패");
 		}
+        
+        // ajax
 		return null;
 	}
 }

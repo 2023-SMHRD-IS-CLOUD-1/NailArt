@@ -27,21 +27,28 @@ public class getStaffInfoAll implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// design.jsp에서 shop을 선택했을 때 발생하는 이벤트
+		
+		// CORS
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
+		// shop_select + shop_seq을 입력받음
+		// data에서 shop_seq을 추출
 		String data = request.getParameter("data");
-		System.out.println("요청받은 데이터 >> " + data);
 		double shop_seq = Integer.parseInt(data.substring(11));
-		System.out.println(shop_seq);
-			
+
+		// value object
 		ShopVO vo = new ShopVO();
 		vo.setShopSeq(shop_seq);
 		
+		// DB 연동
+		// shop_seq를 포함하는 모든 staff의 정보를 가져와 List에 저장 
 		StaffDAO staffDAO = new StaffDAO();
 		List<StaffVO> staffInfo = staffDAO.getStaffInfoAll(vo);
   
+		// 데이터를 Json으로 변환
         JSONArray req_array = new JSONArray();
         for(int i = 0; i < staffInfo.size(); i++) {
             Object fieldObj = staffInfo.get(i);
@@ -62,16 +69,14 @@ public class getStaffInfoAll implements Command {
         }
 
         if (staffInfo.size() != 0) {
-        	System.out.println("직원 정보 가져오기 성공");
-        	System.out.println(req_array);
-        	//out.print("테스트");
-        	//out.print("{\"name\":\"김운비\"}");
-        	out.print(req_array);
-        	System.out.println("성공");
+//        	System.out.println("직원 정보 가져오기 성공");
+//        	System.out.println(req_array);
         	
 		} else {
-			System.out.println("직원 정보 가져오기 실패");
+//			System.out.println("직원 정보 가져오기 실패");
 		}
+        
+        // ajax
 		return null;
 	}
 }
