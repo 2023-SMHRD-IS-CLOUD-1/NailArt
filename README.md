@@ -101,11 +101,20 @@ https://news.unn.net/news/articleView.html?idxno=543278
 
 
 # 10. 팀원소개
-|----:|-----|-----|------|------|-----|-----|
-|이름|김성민|최진균|이하연|박형찬|김동균|이승호|
-|계정|김성민|최진균|이하연|박형찬|김동균|이승호|
-|담당|김성민|최진균|이하연|박형찬|김동균|이승호|
-|역할|김성민|최진균|이하연|박형찬|김동균|이승호|
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href=""><img src="width="100px;" alt=""/><br /><sub><b>FE 팀장 : </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE 팀원 : </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE 팀원 : </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE 팀원 : </b></sub></a><br /></td>
+     <tr/>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>BE 부팀장 : </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>BE 팀원 : </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>BE 팀원 : </b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>
 
 
 
