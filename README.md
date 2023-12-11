@@ -74,14 +74,29 @@
 
 # 8. 참고문헌
 
-![image](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/222e3c5a-cef6-4bb1-a137-38bfa3f76d65)
+- 손톱 검출을 이용한 가상 네일아트문새별* 허훈 오정수 부경대학교
+(https://koreascience.kr/article/CFKO202132348467219.pdf)
+- 행정안전부
+(https://www.localdata.go.kr/main.do)
+- 네일 데이터 정보 논문
+https://blog.naver.com/PostView.naver?blogId=dbsyhe&logNo=222675412974
+- 네일아트 트렌드 기사
+https://cosinkorea.com/mobile/article.html?no=48944
+- 한국대한 신문
+https://news.unn.net/news/articleView.html?idxno=543278
 
 
 
 
 # 9. 개발환경
-
-![image](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/d8324953-0221-4733-8abc-cc3ae3a33da2)
+|                     분류 | 설명                                                              |
+|-------------------------:|-------------------------------------------------------------------|
+| 운영체제                 | Windows10                                                         |
+| 버전 관리 시스템         | Github                                                            |
+| 개발 도구                | Eclipse IDE (2023-06), Jupyter notebook, vs code                  |
+| 개발 언어 및 프레임 워크 | Java 1.8.0_202, Js, Python 3.11.4, conda 23.7.2                   |
+| 데이터 베이스            | ORACLE 11                                                         |
+| 하드웨어                 | NVIDIA GeForce RTX 2070,Intel(R) Core(TM) i7-10700 CPU,RAM 16.0GB |
 
 
 
