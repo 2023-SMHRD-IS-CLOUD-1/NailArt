@@ -55,8 +55,19 @@
 <details>
     <summary>화면구성 보기</summary>
 <!-- summary 아래 한칸 공백 두고 내용 삽입 -->
+   #### 메인
+   ![메인페이지](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/50ff4869-98ba-422d-8feb-9006d5d94031)
+
+   #### 디자인 페이지
    
-   ㅁㄴㅇ라ㅣㅓㅇㅁㄴ리
+   #### 샵 페이지
+   ![샵페이지](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/b67f7711-2f86-450e-a110-a7dc6d68aad7)
+   #### 예약 서비스
+   ![예약서비스](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/784b26a4-0947-40bd-9713-8e74692237df)
+   #### 리뷰 서비스
+   ![image](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/0a6acd4c-b60b-4e8e-aefb-5616db61f5f6)
+
+   
 </details>
 
 
