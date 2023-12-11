@@ -1,6 +1,7 @@
 # NailArt(네일아트) 팀명: 손톱뜯지마
 ![다운로드](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/142488051/89872779-53cf-4192-9b56-7aeef564b682)
 
+제작 기간 : 23.10.25 ~ 23.12.08
 
 ## 1. 서비스 소개
 
@@ -51,7 +52,12 @@
 
 # 7. 화면 구성
 
-
+<details>
+    <summary>화면구성 보기</summary>
+<!-- summary 아래 한칸 공백 두고 내용 삽입 -->
+   
+   ㅁㄴㅇ라ㅣㅓㅇㅁㄴ리
+</details>
 
 
 # 8. 참고문헌
