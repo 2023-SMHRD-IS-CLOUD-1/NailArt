@@ -104,7 +104,7 @@ https://news.unn.net/news/articleView.html?idxno=543278
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href=""><img src="width="100px;" alt=""/><br /><sub><b> 팀장 : </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/kkksssmmmm"><img src="width="100px;" alt=""/><br /><sub><b> 팀장 : </b></sub></a><br /></td>
       <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 부팀장 : </b></sub></a><br /></td>
       <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 팀원 : </b></sub></a><br /></td>
      <tr/>
