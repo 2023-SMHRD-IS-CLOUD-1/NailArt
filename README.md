@@ -22,43 +22,40 @@
 
 
 
-# 4. 유스케이스
-
-![화면 캡처 2023-12-07 094734](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/142488051/3dde3ab6-8c8a-49fd-a9e9-0695f6f083ed)
-
-
-
-# 5. 시스템 아키텍처
+# 4. 시스템 아키텍처
 
 ![화면 캡처 2023-12-07 094825](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/142488051/63bbd27a-1574-44ea-8d31-956bd8de377b)
 
 
 
-# 6. ER 다이어그램
+# 5. ER 다이어그램
 
 ![화면 캡처 2023-12-07 094920](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/142488051/691945d2-58c8-45dc-a5b9-4f2f03ed2a0e)
 
 
 
-# 7. 개발 내용
-
-![화면 캡처 2023-12-07 095752](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/142488051/5642e325-92f0-4176-b89b-6b06143bad94)
+# 6. 개발 내용
 
 
 
-# 8. 주요기능
 
-![화면 캡처 2023-12-07 095918](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/142488051/32a6dfd6-bf78-46b3-9f56-45a103da0690)
 
-# 9. 참고문헌
-
-![화면 캡처 2023-12-07 101459](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/142488051/e882afbc-42d6-436b-b51d-03cde118cb76)
+# 7. 주요기능
 
 
 
-# 10. 개발환경
-![image](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/123911778/f011ea93-6fe5-492e-b10a-9c01c58633d7)
+# 8. 참고문헌
 
+
+
+
+
+# 9. 개발환경
+
+
+
+
+# 10. 팀원소개
 
 
 # 11. API
