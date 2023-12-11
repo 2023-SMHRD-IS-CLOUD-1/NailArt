@@ -104,7 +104,8 @@ https://news.unn.net/news/articleView.html?idxno=543278
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/kkksssmmmm"><img src=""width="100px; alt=""/><br /><sub><b> 팀장 : 김성민</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/kkksssmmmm"><img src="![image](https://github.com/2023-SMHRD-IS-CLOUD-1/NailArt/assets/105231826/2e2b1f9b-67f7-4ff6-902b-b7ab6fdbdfe5)
+" width="100px;" height="100px;" alt=""/><br /><sub><b> 팀장 : 김성민</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/Jinkyun0328"><img src="" width="100px;" alt=""/><br /><sub><b> 부팀장 : 최진균</b></sub></a><br /></td>
       <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 팀원 : 이하연</b></sub></a><br /></td>
      <tr/>
