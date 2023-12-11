@@ -104,13 +104,13 @@ https://news.unn.net/news/articleView.html?idxno=543278
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/kkksssmmmm"><img src="width="100px;" alt=""/><br /><sub><b> 팀장 : </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 부팀장 : </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 팀원 : </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/kkksssmmmm"><img src="width="100px;" alt=""/><br /><sub><b> 팀장 : 김성민</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/Jinkyun0328"><img src="" width="100px;" alt=""/><br /><sub><b> 부팀장 : 최진균</b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 팀원 : 이하연</b></sub></a><br /></td>
      <tr/>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 팀원 : </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 팀원 : </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 팀원 : </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/phc1235"><img src="" width="100px;" alt=""/><br /><sub><b> 팀원 : 박형찬</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/wannabeMIR"><img src="" width="100px;" alt=""/><br /><sub><b> 팀원 : 김동균</b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 팀원 : 이승호</b></sub></a><br /></td>
     </tr>
   </tbody>
 </table>
